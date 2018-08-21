@@ -25,40 +25,49 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @OnClick({R.id.people,R.id.plants,R.id.animals,R.id.geography,R.id.sports,R.id.music,R.id.technology,R.id.entertainment})
     public void onClick(View view) {
+        Intent intent;
        switch (view.getId())
         {
             case R.id.people:
+                gotoActivity("bg_people",this,AnswerQuestion.class);
                 break;
 
             case R.id.plants:
-                //about
+                gotoActivity("bg_plants",this,AnswerQuestion.class);
                 break;
 
             case R.id.animals:
-                //about
+                gotoActivity("bg_animals",this,AnswerQuestion.class);
                 break;
 
             case R.id.geography:
-                //quit
+                gotoActivity("bg_geography",this,AnswerQuestion.class);
                 break;
 
             case R.id.sports:
-                //quit
+                gotoActivity("bg_sports",this,AnswerQuestion.class);
                 break;
 
             case R.id.music:
-                //quit
+                gotoActivity("bg_music",this,AnswerQuestion.class);
                 break;
 
             case R.id.technology:
-                //quit
+                gotoActivity("bg_technology",this,AnswerQuestion.class);
                 break;
 
             case R.id.entertainment:
-                //quit
+                gotoActivity("bg_entertainment",this,AnswerQuestion.class);
                 break;
 
 
         }
     }
+
+    private void gotoActivity(String category_name, CategoriesActivity categoriesActivity, Class<AnswerQuestion> categoriesActivityClass) {
+        Intent intent = new Intent(categoriesActivity,categoriesActivityClass);
+        intent.putExtra("category_name",category_name);
+        startActivity(intent);
+    }
+
 }
