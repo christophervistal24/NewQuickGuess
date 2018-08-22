@@ -9,7 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.example.forest.quickguessv2.Helpers.Detector;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +26,7 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class MenuFragment extends Fragment implements View.OnClickListener {
-
+    Detector Netdetector;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -28,12 +34,23 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
+    public void onResume() {
+        RelativeLayout welcomeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.welcomeLayout);
+        welcomeLayout.setVisibility(View.GONE);
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Netdetector = new Detector(getContext());
+        Netdetector.checkConnection();
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ButterKnife.bind(this,view);
         return view;
     }
+
+
 
     @Override
     @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks,R.id.btnQuit})

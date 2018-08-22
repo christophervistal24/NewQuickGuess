@@ -19,8 +19,6 @@
         android:src="@drawable/bg_people"
         />
 
-    <!--android:background="@drawable/icon_timer"-->
-
     <TextView
         android:id="@+id/timer"
         android:layout_width="wrap_content"
@@ -29,6 +27,8 @@
         android:layout_marginTop="8dp"
         android:textColor="#E8EDEF"
         android:text="0"
+        android:background="@drawable/icon_timer"
+        android:lineHeight="20dp"
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_centerHorizontal="true"

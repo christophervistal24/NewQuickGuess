@@ -2,10 +2,16 @@ package com.example.forest.quickguessv2.DBModule;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "questions")
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(tableName ="questions", foreignKeys = @ForeignKey(entity= QuestionCategory.class,
+                                parentColumns = "id",
+                                childColumns="category_id",
+                                onDelete = CASCADE))
 public class Questions
 {
     @PrimaryKey(autoGenerate = true)
@@ -14,10 +20,6 @@ public class Questions
     @ColumnInfo(name = "question")
     @NonNull
     private String question;
-
-    @ColumnInfo(name = "question_category_id")
-    @NonNull
-    private int question_category_id;
 
     @ColumnInfo(name = "choice_a")
     @NonNull
@@ -47,20 +49,16 @@ public class Questions
     @NonNull
     private String fun_facts_image;
 
+    @ColumnInfo(name = "category_id")
+    @NonNull
+    private int category_id;
+
     public String getQuestion() {
         return question;
     }
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public int getQuestion_category_id() {
-        return question_category_id;
-    }
-
-    public void setQuestion_category_id(int question_category_id) {
-        this.question_category_id = question_category_id;
     }
 
     public String getChoice_a() {
@@ -125,5 +123,14 @@ public class Questions
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @NonNull
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(@NonNull int category_id) {
+        this.category_id = category_id;
     }
 }

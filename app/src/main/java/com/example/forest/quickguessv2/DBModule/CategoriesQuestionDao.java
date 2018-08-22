@@ -8,9 +8,15 @@ import java.util.List;
 
 @Dao
 public interface CategoriesQuestionDao {
+
     @Insert
-    public void insertQuestionCategory(List<QuestionCategory> categoriesItems);
+    void insertAll(QuestionCategory... questionCategories);
 
     @Query("SELECT COUNT(*) from question_category")
     int countCategories();
+
+    @Query("SELECT * FROM question_category")
+    List<QuestionCategory> getAllCategories();
+
+
 }
