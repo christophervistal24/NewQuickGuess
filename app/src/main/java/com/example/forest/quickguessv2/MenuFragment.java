@@ -35,7 +35,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
-        RelativeLayout welcomeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.welcomeLayout);
+        RelativeLayout welcomeLayout = (getActivity()).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
         super.onResume();
     }
@@ -64,7 +64,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btnAbout:
-                //about
+                intent  = new Intent(getActivity(),AboutActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.btnRanks:

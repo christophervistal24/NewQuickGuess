@@ -1,11 +1,12 @@
-package com.example.forest.quickguessv2.Helpers;
+package com.example.forest.quickguessv2.Utilities;
 
 import com.example.forest.quickguessv2.DBModule.Questions;
 
 import java.util.List;
 import java.util.Random;
 
-public class RandomizeHelper {
+public class QuestionUtil {
+
     //randomize the questions
     public static List<Questions> questions(List<Questions> arr, int n)
     {
