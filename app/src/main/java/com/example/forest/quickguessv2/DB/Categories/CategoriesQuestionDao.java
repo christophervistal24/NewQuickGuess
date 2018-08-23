@@ -1,4 +1,4 @@
-package com.example.forest.quickguessv2.DBModule;
+package com.example.forest.quickguessv2.DB.Categories;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

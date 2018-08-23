@@ -1,10 +1,12 @@
-package com.example.forest.quickguessv2.DBModule;
+package com.example.forest.quickguessv2.DB.Questions;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import com.example.forest.quickguessv2.DB.Categories.QuestionCategory;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 

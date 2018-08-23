@@ -7,22 +7,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.forest.quickguessv2.DBModule.MyAppDB;
-import com.example.forest.quickguessv2.DBModule.QuestionCategory;
-import com.example.forest.quickguessv2.DBModule.User;
+import com.example.forest.quickguessv2.DB.MyAppDB;
+import com.example.forest.quickguessv2.DB.Categories.QuestionCategory;
+import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.InputHelpers;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.username) EditText username;
     @BindView(R.id.welcomeLayout) RelativeLayout welcomeLayout;
-    public static MyAppDB myAppDB;
     String sUsername;
 
     @Override
@@ -43,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Typeface fontHelper = new FontHelper().dimboFont(this);
         ButterKnife.bind(this);
         SharedPreferenceHelper.PREF_FILE = "user";
-
-        myAppDB = Room.databaseBuilder(getApplicationContext(),MyAppDB.class,"quickguess")
-                .allowMainThreadQueries()
-                .build();
         username.setTypeface(fontHelper);
         sUsername = SharedPreferenceHelper.getSharedPreferenceString(this,"username",null);
         isAlreadyRegistered(sUsername);
@@ -72,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //insert to database
         User user = new User();
         user.setUsername(player);
-        MainActivity.myAppDB.myDao().addUser(user);
+        MyAppDB.getInstance(this).myDao().addUser(user);
         SharedPreferenceHelper.setSharedPreferenceString(this,"username",player);
         username.setText("");
         isAlreadyRegistered(player);
@@ -90,12 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void isAlreadyRegistered(String username)
     {
-         if (MainActivity.myAppDB.myDao().isUserExists(username)){
+         if (MyAppDB.getInstance(this).myDao().isUserExists(username)){
              welcomeLayout.setVisibility(View.GONE);
              displayMenu();
          } else {
              welcomeLayout.setVisibility(View.VISIBLE);
          }
+         MyAppDB.destroyInstance();
     }
 
 
@@ -104,12 +96,13 @@ public class MainActivity extends AppCompatActivity {
             QuestionCategory questionCategory = new QuestionCategory();
             questionCategory.setCategory(category);
             questionCategory.setCategory_description(category_description);
-            MainActivity.myAppDB.categoriesQuestionDao().insertAll(questionCategory);
+            MyAppDB.getInstance(this).categoriesQuestionDao().insertAll(questionCategory);
     }
 
     private void insertCategories()
     {
-        int countCategories = MainActivity.myAppDB.categoriesQuestionDao().countCategories();
+
+        int countCategories = MyAppDB.getInstance(this).categoriesQuestionDao().countCategories();
         if  (countCategories == 0)
         {
             addCategory("people"," ");
@@ -123,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return;
         }
+        MyAppDB.destroyInstance();
     }
 
 }

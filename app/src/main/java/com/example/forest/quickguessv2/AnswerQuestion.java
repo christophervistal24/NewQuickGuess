@@ -1,33 +1,27 @@
 package com.example.forest.quickguessv2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.forest.quickguessv2.DBModule.Questions;
+import com.example.forest.quickguessv2.DB.MyAppDB;
+import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.QuestionUtil;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -76,7 +70,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     private void getAllQuestions()
     {
         startTimer(counter);
-        List<Questions>  questions = MainActivity.myAppDB.questionsDao().getQuestionsByCategory(1);
+        List<Questions>  questions = MyAppDB.getInstance(this).questionsDao().getQuestionsByCategory(1);
         List<Questions> question1 = QuestionUtil.questions(questions, questions.size());
         q = question1.get(0);
         String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_b(), q.getChoice_d()}, 3);

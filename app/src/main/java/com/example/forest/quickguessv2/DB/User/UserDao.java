@@ -1,11 +1,11 @@
-package com.example.forest.quickguessv2.DBModule;
+package com.example.forest.quickguessv2.DB.User;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 @Dao
-public interface MyDao
+public interface UserDao
 {
     @Insert
     public void addUser(User user);

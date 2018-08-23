@@ -1,6 +1,5 @@
-package com.example.forest.quickguessv2.DBModule;
+package com.example.forest.quickguessv2.DB.User;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 

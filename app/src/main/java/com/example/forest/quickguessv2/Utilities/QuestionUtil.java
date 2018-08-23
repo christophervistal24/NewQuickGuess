@@ -1,6 +1,6 @@
 package com.example.forest.quickguessv2.Utilities;
 
-import com.example.forest.quickguessv2.DBModule.Questions;
+import com.example.forest.quickguessv2.DB.Questions.Questions;
 
 import java.util.List;
 import java.util.Random;

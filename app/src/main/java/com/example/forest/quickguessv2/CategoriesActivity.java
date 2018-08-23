@@ -1,18 +1,15 @@
 package com.example.forest.quickguessv2;
 
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.example.forest.quickguessv2.DBModule.MyAppDB;
-import com.example.forest.quickguessv2.DBModule.QuestionCategory;
-import com.example.forest.quickguessv2.DBModule.Questions;
+import com.example.forest.quickguessv2.DB.Categories.QuestionCategory;
+import com.example.forest.quickguessv2.DB.MyAppDB;
+import com.example.forest.quickguessv2.DB.Questions.Questions;
 
 import java.util.List;
 
@@ -30,8 +27,8 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         ButterKnife.bind(this);
-        MainActivity.myAppDB.categoriesQuestionDao();
-        questionCategory = MainActivity.myAppDB.categoriesQuestionDao().getAllCategories();
+
+        questionCategory = MyAppDB.getInstance(this).categoriesQuestionDao().getAllCategories();
         insertQuestions();
         Log.d("number of questions" , String.valueOf(countQuestions));
     }
@@ -95,13 +92,13 @@ public class CategoriesActivity extends AppCompatActivity {
         questions.setFun_facts(fun_facts);
         questions.setFun_facts_image(fun_facts_image);
         questions.setCategory_id(category_id);
-        MainActivity.myAppDB.questionsDao().insert(questions);
+        MyAppDB.getInstance(this).questionsDao().insert(questions);
     }
 
 
     private void insertQuestions()
     {
-        countQuestions = MainActivity.myAppDB.questionsDao().countQuestion();
+        countQuestions = MyAppDB.getInstance(this).questionsDao().countQuestion();
         if  (countQuestions == 0){
             addQuestion("What is","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
             addQuestion("What is2","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
