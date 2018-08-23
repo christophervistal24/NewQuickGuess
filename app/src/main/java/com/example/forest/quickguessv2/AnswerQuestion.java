@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DBModule.Questions;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
+import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.QuestionUtil;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 
@@ -46,6 +47,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private static final long counter = 6000;
     CountDownTimer countDownTimer;
+
+
     boolean isCounterRunning = false;
     private Questions q;
     Bundle bundle;
@@ -69,6 +72,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         getAllQuestions();
     }
 
+
     private void getAllQuestions()
     {
         startTimer(counter);
@@ -89,17 +93,21 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             switch (button.getId()) {
                 case R.id.choice_a:
                      getAnswer((String) choice_a.getText(),q.getCorrect_answer());
+                     countDownTimer.cancel();
                     break;
                 case R.id.choice_b:
                     getAnswer((String) choice_b.getText(),q.getCorrect_answer());
+                    countDownTimer.cancel();
                     break;
 
                 case R.id.choice_c:
                     getAnswer((String) choice_c.getText(),q.getCorrect_answer());
+                    countDownTimer.cancel();
                     break;
 
                 case R.id.choice_d:
                     getAnswer((String) choice_d.getText(),q.getCorrect_answer());
+                    countDownTimer.cancel();
                     break;
             }
         }
@@ -119,9 +127,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
                 @Override
                 public void onFinish() {
-                    getAnswer("No answer",q.getCorrect_answer());
                     isCounterRunning = false;
-
+                    getAnswer("No answer",q.getCorrect_answer());
                 }
             };
             countDownTimer.start();
@@ -131,6 +138,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        countDownTimer.cancel();
+        super.onBackPressed();
+    }
 
     @Override
     public void correct() {
@@ -148,6 +160,9 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         isB(correct_answer);
         isC(correct_answer);
         isD(correct_answer);
+        SharedPreferenceHelper.PREF_FILE = "question";
+        SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
+        SharedPreferenceHelper.setSharedPreferenceString(this,"question_content",q.getFun_facts());
         if (answer.equalsIgnoreCase(correct_answer))
         {
             bundle.putString("result","check");
@@ -165,6 +180,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         QuestionResult questionResult = new QuestionResult();
         fragmentTransaction.add(R.id.questionResult,questionResult);
         questionResult.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -205,5 +221,4 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             choice_d.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
         }
     }
-
 }

@@ -4,17 +4,23 @@ package com.example.forest.quickguessv2;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -28,18 +34,31 @@ public class QuestionResult extends Fragment {
     }
 
 
-    //saved instance is null
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String result = this.getArguments() != null ? this.getArguments().getString("result") : null;
-        View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
-        ButterKnife.bind(this,view);
-        ImageView resultIcon = (ImageView) view.findViewById(R.id.resultIcon);
-        resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
-        TextView question = view.findViewById(R.id.question);
-        question.setVisibility(View.GONE);
+            View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
+            ButterKnife.bind(this,view);
+            String result = this.getArguments().getString("result");
+            ImageView resultIcon = (ImageView) view.findViewById(R.id.resultIcon);
+            resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
+            TextView question = getActivity().findViewById(R.id.question);
+            question.setVisibility(View.GONE);
+            onPreExecute(view);
         return view;
     }
 
+    protected void onPreExecute(final View view) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FunFacts funFacts = new FunFacts();
+                fragmentTransaction.add(R.id.fragment_fun_facts,funFacts);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        }, 1000);
+    };
 }

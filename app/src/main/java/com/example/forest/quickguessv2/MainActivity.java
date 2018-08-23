@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return;
         }
-        Toast.makeText(this, "No of categories" + String.valueOf(countCategories), Toast.LENGTH_SHORT).show();
     }
 
 }

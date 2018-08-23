@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CategoriesActivity" />
-        <activity android:name=".AnswerQuestion" />
+        <activity android:name=".AnswerQuestion"/>
         <activity android:name=".AboutActivity"></activity>
     </application>
 

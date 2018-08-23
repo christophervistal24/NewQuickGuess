@@ -35,6 +35,7 @@
         />
 
     <LinearLayout
+        android:id="@+id/questionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -134,7 +135,13 @@
                 android:textAllCaps="true"
 
                 />
-
         </RadioGroup>
     </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_fun_facts"
+        >
+    </FrameLayout>
+
 </RelativeLayout>
