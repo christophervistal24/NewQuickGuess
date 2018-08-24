@@ -8,19 +8,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.MyAppDB;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
+import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.QuestionUtil;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -39,10 +44,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.timer) TextView timer;
     @BindView(R.id.RGroup) RadioGroup RGroup;
 
-    private static final long counter = 6000;
-    CountDownTimer countDownTimer;
+    private static final long counter = 21000;
+    public static CountDownTimer countDownTimer;
 
 
+    public ArrayList<RadioButton> listOfRadioButtons;
+    int count = 0;
     boolean isCounterRunning = false;
     private Questions q;
     Bundle bundle;
@@ -55,6 +62,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         Typeface fontHelper = new FontHelper().dimboFont(this);
         Intent i = getIntent();
         bundle = new Bundle();
+        count = RGroup.getChildCount();
         String category = i.getStringExtra("category_name");
         background.setImageResource(getResources().getIdentifier(category,"drawable",getPackageName()));
         question.setTypeface(fontHelper);
@@ -67,13 +75,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     }
 
 
-    private void getAllQuestions()
+    public void getAllQuestions()
     {
         startTimer(counter);
         List<Questions>  questions = MyAppDB.getInstance(this).questionsDao().getQuestionsByCategory(1);
         List<Questions> question1 = QuestionUtil.questions(questions, questions.size());
         q = question1.get(0);
-        String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_b(), q.getChoice_d()}, 3);
+        String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d()}, 3);
         question.setText(q.getQuestion());
         choice_a.setText(randomizeChoices[0]);
         choice_b.setText(randomizeChoices[1]);
@@ -84,26 +92,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @OnCheckedChanged({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
-            switch (button.getId()) {
-                case R.id.choice_a:
-                     getAnswer((String) choice_a.getText(),q.getCorrect_answer());
-                     countDownTimer.cancel();
-                    break;
-                case R.id.choice_b:
-                    getAnswer((String) choice_b.getText(),q.getCorrect_answer());
-                    countDownTimer.cancel();
-                    break;
+            String userAnswer;
+            userAnswer = button.getText().toString();
+            getAnswer(userAnswer,q.getCorrect_answer());
+            countDownTimer.cancel();
+            RGroup.setEnabled(false);
 
-                case R.id.choice_c:
-                    getAnswer((String) choice_c.getText(),q.getCorrect_answer());
-                    countDownTimer.cancel();
-                    break;
-
-                case R.id.choice_d:
-                    getAnswer((String) choice_d.getText(),q.getCorrect_answer());
-                    countDownTimer.cancel();
-                    break;
-            }
         }
     }
 
@@ -135,11 +129,19 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        super.onBackPressed();
+        FragmentManager fm = getSupportFragmentManager();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+            super.onBackPressed();
     }
 
     @Override
     public void correct() {
+        UserStatus userStatus = new UserStatus();
+        userStatus.setQuestion_id(q.getId());
+        userStatus.setQuestion_result("correct");
+        MyAppDB.getInstance(this).userStatusDao().addUserStatus(userStatus);
         result();
     }
 
@@ -150,13 +152,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
-        isA(correct_answer);
-        isB(correct_answer);
-        isC(correct_answer);
-        isD(correct_answer);
+
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
         SharedPreferenceHelper.setSharedPreferenceString(this,"question_content",q.getFun_facts());
+
+        //apply some background changes
+        radioChangeBackground(correct_answer);
         if (answer.equalsIgnoreCase(correct_answer))
         {
             bundle.putString("result","check");
@@ -178,41 +180,26 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         fragmentTransaction.commit();
     }
 
-    private void isA(String correct_answer)
+
+
+    private void radioChangeBackground(String correct_answer)
     {
-        if (choice_a.getText().toString().equalsIgnoreCase(correct_answer))
+        listOfRadioButtons = new ArrayList<RadioButton>();
+        for(int i =0; i<count; i++)
         {
-            choice_a.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
+            View o = RGroup.getChildAt(i);
+            if (o instanceof RadioButton) {
+                listOfRadioButtons.add((RadioButton)o);
+                if (listOfRadioButtons.get(i).getText().equals(correct_answer))
+                {
+                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
+                } else {
+                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
+                }
         }
-        else {
-            choice_a.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
+
         }
     }
-    private void isB(String correct_answer)
-    {
-        if (choice_b.getText().toString().equalsIgnoreCase(correct_answer))
-        {
-            choice_b.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
-        } else {
-            choice_b.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
-        }
-    }
-    private void isC(String correct_answer)
-    {
-        if (choice_c.getText().toString().equalsIgnoreCase(correct_answer))
-        {
-            choice_c.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
-        } else {
-            choice_c.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
-        }
-    }
-    private void isD(String correct_answer)
-    {
-        if (choice_d.getText().toString().equalsIgnoreCase(correct_answer))
-        {
-            choice_d.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
-        } else {
-            choice_d.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
-        }
-    }
+
+
 }

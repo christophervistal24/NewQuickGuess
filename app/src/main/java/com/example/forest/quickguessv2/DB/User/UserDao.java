@@ -13,6 +13,4 @@ public interface UserDao
     @Query("SELECT COUNT(username) FROM users WHERE username=:username LIMIT 1")
     public boolean isUserExists(String username);
 
-
-
 }

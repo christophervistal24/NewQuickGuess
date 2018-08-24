@@ -102,8 +102,8 @@
                 android:textSize="25sp"
                 android:layout_marginBottom="5dp"
                 android:textAllCaps="true"
-                android:button="@null"
                 android:textColor="#E8EDEF"
+                android:button="@null"
                 android:id="@+id/choice_b"
 
                 />

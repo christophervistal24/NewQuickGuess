@@ -19,6 +19,7 @@ public interface QuestionsDao {
     @Query("SELECT COUNT(*) from questions")
     int countQuestion();
 
-    @Query("SELECT * FROM questions WHERE category_id = :category_id")
+    @Query("SELECT * FROM questions WHERE category_id = :category_id AND id NOT " +
+            "IN (SELECT question_id FROM user_status)")
     List<Questions> getQuestionsByCategory(int category_id);
 }

@@ -22,6 +22,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -29,6 +30,7 @@ import butterknife.OnClick;
  */
 public class MenuFragment extends Fragment implements View.OnClickListener {
     Detector Netdetector;
+    private Unbinder unbinder;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -48,7 +50,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         Netdetector = new Detector(getContext());
         Netdetector.checkConnection();
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this,view);
         return view;
     }
 
@@ -82,5 +84,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 fragmentTransaction.commit();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        unbinder.unbind();
+        super.onDestroyView();
     }
 }
