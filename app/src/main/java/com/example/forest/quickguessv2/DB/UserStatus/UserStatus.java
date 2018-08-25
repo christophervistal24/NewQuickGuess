@@ -7,9 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 public class UserStatus {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private int question_id;
-    private String question_result;
+    private int question_result;
 
 
 
@@ -29,11 +28,12 @@ public class UserStatus {
         this.question_id = question_id;
     }
 
-    public String getQuestion_result() {
+    public int getQuestion_result() {
         return question_result;
     }
 
-    public void setQuestion_result(String question_result) {
+    public void setQuestion_result(int question_result) {
         this.question_result = question_result;
     }
+
 }

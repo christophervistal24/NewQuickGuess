@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.Detector;
+import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
-        RelativeLayout welcomeLayout = (getActivity()).findViewById(R.id.welcomeLayout);
+        RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
         super.onResume();
     }
@@ -59,17 +60,15 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks,R.id.btnQuit})
     public void onClick(View view) {
-        Intent intent;
+        String classname = null;
         switch (view.getId())
         {
             case R.id.btnCategories:
-                intent  = new Intent(getActivity(),CategoriesActivity.class);
-                startActivity(intent);
+                classname = "CategoriesActivity";
                 break;
 
             case R.id.btnAbout:
-                intent  = new Intent(getActivity(),AboutActivity.class);
-                startActivity(intent);
+                classname = "AboutActivity";
                 break;
 
             case R.id.btnRanks:
@@ -84,6 +83,13 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 fragmentTransaction.commit();
                 break;
         }
+        try {
+            Class <?> Cref = Class .forName("com.example.forest.quickguessv2."+classname);
+            new RedirectHelper(getActivity(),Cref);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

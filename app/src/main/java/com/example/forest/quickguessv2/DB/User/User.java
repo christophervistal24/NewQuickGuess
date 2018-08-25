@@ -11,6 +11,10 @@ public class User
 
     private String username;
 
+    public User(String username) {
+        setUsername(username);
+    }
+
     public int getId() {
         return id;
     }
@@ -26,4 +30,6 @@ public class User
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }

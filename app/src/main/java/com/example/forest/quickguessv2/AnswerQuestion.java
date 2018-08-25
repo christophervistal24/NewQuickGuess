@@ -1,7 +1,7 @@
 package com.example.forest.quickguessv2;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,13 +17,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.forest.quickguessv2.DB.MyAppDB;
+import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
-import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguessv2.Utilities.PointsUtil;
 import com.example.forest.quickguessv2.Utilities.QuestionUtil;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
+import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private static final long counter = 21000;
     public static CountDownTimer countDownTimer;
+    private int userPoints = 0;
 
 
     public ArrayList<RadioButton> listOfRadioButtons;
@@ -58,19 +61,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
+        TypeFaceUtil.initFont(this);
         ButterKnife.bind(this);
-        Typeface fontHelper = new FontHelper().dimboFont(this);
         Intent i = getIntent();
         bundle = new Bundle();
         count = RGroup.getChildCount();
         String category = i.getStringExtra("category_name");
         background.setImageResource(getResources().getIdentifier(category,"drawable",getPackageName()));
-        question.setTypeface(fontHelper);
-        choice_a.setTypeface(fontHelper);
-        choice_b.setTypeface(fontHelper);
-        choice_c.setTypeface(fontHelper);
-        choice_d.setTypeface(fontHelper);
-        timer.setTypeface(fontHelper);
         getAllQuestions();
     }
 
@@ -78,15 +75,21 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void getAllQuestions()
     {
         startTimer(counter);
-        List<Questions>  questions = MyAppDB.getInstance(this).questionsDao().getQuestionsByCategory(1);
-        List<Questions> question1 = QuestionUtil.questions(questions, questions.size());
-        q = question1.get(0);
-        String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d()}, 3);
-        question.setText(q.getQuestion());
-        choice_a.setText(randomizeChoices[0]);
-        choice_b.setText(randomizeChoices[1]);
-        choice_c.setText(randomizeChoices[2]);
-        choice_d.setText(randomizeChoices[3]);
+        List<Questions>  questions = DB.getInstance(this).questionsDao().getQuestionsByCategory(1);
+        if  (questions.size() != 0)
+        {
+            List<Questions> question1 = QuestionUtil.questions(questions, questions.size());
+            q = question1.get(0);
+            String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d()}, 3);
+            question.setText(q.getQuestion());
+            choice_a.setText(randomizeChoices[0]);
+            choice_b.setText(randomizeChoices[1]);
+            choice_c.setText(randomizeChoices[2]);
+            choice_d.setText(randomizeChoices[3]);
+        } else {
+            Toast.makeText(this, "Congratualations!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @OnCheckedChanged({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
@@ -95,7 +98,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             String userAnswer;
             userAnswer = button.getText().toString();
             getAnswer(userAnswer,q.getCorrect_answer());
-            countDownTimer.cancel();
+            cancelTimer();
             RGroup.setEnabled(false);
 
         }
@@ -121,7 +124,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             };
             countDownTimer.start();
         } else {
-            countDownTimer.cancel();
+            cancelTimer();
             countDownTimer.start();
         }
     }
@@ -140,9 +143,25 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void correct() {
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
-        userStatus.setQuestion_result("correct");
-        MyAppDB.getInstance(this).userStatusDao().addUserStatus(userStatus);
+        // 1 - is eqaul to correct
+        userStatus.setQuestion_result(1);
+        //add user answered question
+        DB.getInstance(this).userStatusDao().addUserStatus(userStatus);
         result();
+        isUserHasPoints();
+    }
+
+    private void isUserHasPoints()
+    {
+        userPoints +=1;
+        Points points = new Points();
+        points.setId(1);
+        points.setPoints(PointsUtil.plusExtra(userPoints));
+        try {
+            DB.getInstance(this).pointsDao().insert(points);
+         } catch (SQLiteConstraintException exception) {
+            DB.getInstance(this).pointsDao().update(points);
+         }
     }
 
     @Override
@@ -184,7 +203,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private void radioChangeBackground(String correct_answer)
     {
-        listOfRadioButtons = new ArrayList<RadioButton>();
+        listOfRadioButtons = new ArrayList<>();
         for(int i =0; i<count; i++)
         {
             View o = RGroup.getChildAt(i);
@@ -201,5 +220,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
+    private void cancelTimer()
+    {
+        if  (countDownTimer != null)
+        {
+            countDownTimer.cancel();
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        cancelTimer();
+        DB.getInstance(this).destroyInstance();
+        super.onDestroy();
+    }
 }

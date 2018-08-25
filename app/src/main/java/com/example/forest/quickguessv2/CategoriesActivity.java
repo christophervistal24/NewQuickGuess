@@ -1,112 +1,98 @@
 package com.example.forest.quickguessv2;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.forest.quickguessv2.DB.Categories.QuestionCategory;
-import com.example.forest.quickguessv2.DB.MyAppDB;
-import com.example.forest.quickguessv2.DB.Questions.Questions;
+import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
+import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CategoriesActivity extends AppCompatActivity {
+public class CategoriesActivity extends AppCompatActivity{
 
     @BindView(R.id.categoriesLayout)LinearLayout categoriesLayout;
-    private List<QuestionCategory> questionCategory;
-    int countQuestions;
+    private QuestionRepositories questionRepositories;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         ButterKnife.bind(this);
-
-        questionCategory = MyAppDB.getInstance(this).categoriesQuestionDao().getAllCategories();
+        questionRepositories = new QuestionRepositories(this);
         insertQuestions();
-        Log.d("number of questions" , String.valueOf(countQuestions));
+
     }
+
+
+
 
     @OnClick({R.id.people,R.id.plants,R.id.animals,R.id.geography,R.id.sports,R.id.music,R.id.technology,R.id.entertainment})
     public void onClick(View view) {
-        Intent intent;
-       switch (view.getId())
+      String background;
+      switch (view.getId())
         {
             case R.id.people:
-                gotoActivity("bg_people",this,AnswerQuestion.class);
+                background = "bg_people";
                 break;
 
             case R.id.plants:
-                gotoActivity("bg_plants",this,AnswerQuestion.class);
+                background = "bg_plants";
                 break;
 
             case R.id.animals:
-                gotoActivity("bg_animals",this,AnswerQuestion.class);
+                background = "bg_animals";
                 break;
 
             case R.id.geography:
-                gotoActivity("bg_geography",this,AnswerQuestion.class);
+                background = "bg_geography";
                 break;
 
             case R.id.sports:
-                gotoActivity("bg_sports",this,AnswerQuestion.class);
+                background = "bg_sports";
                 break;
 
             case R.id.music:
-                gotoActivity("bg_music",this,AnswerQuestion.class);
+                background = "bg_music";
                 break;
 
             case R.id.technology:
-                gotoActivity("bg_technology",this,AnswerQuestion.class);
+                background = "bg_technology";
                 break;
 
             case R.id.entertainment:
-                gotoActivity("bg_entertainment",this,AnswerQuestion.class);
+                background = "bg_entertainment";
                 break;
 
-
+            default:
+                throw new RuntimeException("Unknow button ID");
         }
+        new RedirectHelper(background,this,AnswerQuestion.class);
     }
 
-    private void gotoActivity(String category_name, CategoriesActivity categoriesActivity, Class<AnswerQuestion> categoriesActivityClass) {
-        Intent intent = new Intent(categoriesActivity,categoriesActivityClass);
-        intent.putExtra("category_name",category_name);
-        startActivity(intent);
-    }
 
-    private void addQuestion(String question, String a, String b, String c , String d , String correct , String fun_facts , String fun_facts_image, int category_id)
-    {
-        Questions questions = new Questions();
-        questions.setQuestion(question);
-        questions.setChoice_a(a);
-        questions.setChoice_b(b);
-        questions.setChoice_c(c);
-        questions.setChoice_d(d);
-        questions.setCorrect_answer(a);
-        questions.setFun_facts(fun_facts);
-        questions.setFun_facts_image(fun_facts_image);
-        questions.setCategory_id(category_id);
-        MyAppDB.getInstance(this).questionsDao().insert(questions);
-    }
 
 
     private void insertQuestions()
     {
-        countQuestions = MyAppDB.getInstance(this).questionsDao().countQuestion();
-        if  (countQuestions == 0){
-            addQuestion("What is","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is2","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is3","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is4","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is5","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is6","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-            addQuestion("What is7","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-        }
+
+         questionRepositories.questionCreator("What is","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is2","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is3","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is4","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is5","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is6","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+         questionRepositories.questionCreator("What is7","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
     }
+
+    @Override
+    protected void onDestroy() {
+        DB.getInstance(this).destroyInstance();
+        super.onDestroy();
+    }
+
 }

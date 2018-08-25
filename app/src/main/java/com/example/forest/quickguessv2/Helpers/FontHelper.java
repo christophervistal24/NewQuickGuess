@@ -7,6 +7,6 @@ public class FontHelper {
 
     public Typeface dimboFont(Context context)
     {
-        return Typeface.createFromAsset(context.getAssets(),"fonts/Dimbo Regular.ttf");
+        return Typeface.createFromAsset(context.getAssets(), "fonts/Dimbo_Regular.ttf");
     }
 }
