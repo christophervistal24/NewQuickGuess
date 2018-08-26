@@ -1,5 +1,6 @@
 package com.example.forest.quickguessv2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -34,7 +35,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TypeFaceUtil.initFont(this);
         firstLaunchHelper = new FirstLaunchHelper(this);
         if(!firstLaunchHelper.isFirstTimeLaunch())
         {
@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_welcome);
-
+        TypeFaceUtil.initFont(this);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
@@ -68,7 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // making notification bar transparent
         changeStatusBarColor();
 
-        myViewPagerAdapter = new MyViewPagerAdapter();
+        myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
@@ -174,14 +174,15 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     public class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
-
-        public MyViewPagerAdapter() {
+        private Activity activity;
+        public MyViewPagerAdapter(Activity activity) {
+            this.activity = activity;
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
+            TypeFaceUtil.initFont(activity);
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
 

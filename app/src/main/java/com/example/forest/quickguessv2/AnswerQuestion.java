@@ -3,12 +3,12 @@ package com.example.forest.quickguessv2;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.GameOver.Gameover;
+import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
@@ -45,11 +47,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.choice_d) RadioButton choice_d;
     @BindView(R.id.timer) TextView timer;
     @BindView(R.id.RGroup) RadioGroup RGroup;
+    @BindView(R.id.life) TextView life;
 
     private static final long counter = 21000;
     public static CountDownTimer countDownTimer;
     private int userPoints = 0;
+    public LifeRepositories lifeRepositories;
 
+    Handler handler;
+    Runnable openFunFactsFragment;
 
     public ArrayList<RadioButton> listOfRadioButtons;
     int count = 0;
@@ -63,12 +69,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         setContentView(R.layout.activity_answer_question);
         TypeFaceUtil.initFont(this);
         ButterKnife.bind(this);
+        lifeRepositories = new LifeRepositories(this);
         Intent i = getIntent();
         bundle = new Bundle();
         count = RGroup.getChildCount();
         String category = i.getStringExtra("category_name");
         background.setImageResource(getResources().getIdentifier(category,"drawable",getPackageName()));
         getAllQuestions();
+        life.setText(String.valueOf(lifeRepositories.getUserLife()));
     }
 
 
@@ -166,6 +174,9 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void wrong() {
+        int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
+        lifeRepositories.setLifeToUser(decreaseCurrentLife);
+        Gameover.isGameOver(lifeRepositories);
         result();
     }
 
@@ -230,8 +241,41 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onDestroy() {
+       if (openFunFactsFragment != null)
+       {
+           handler.removeCallbacks(openFunFactsFragment);
+       }
         cancelTimer();
         DB.getInstance(this).destroyInstance();
         super.onDestroy();
+    }
+
+    protected void onPreExecute() {
+        handler = new Handler();
+        openFunFactsFragment = new Runnable() {
+            public void run() {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FunFacts funFacts = new FunFacts();
+                fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                life.setText(String.valueOf(lifeRepositories.getUserLife()));
+            }
+        };
+        handler.postDelayed(openFunFactsFragment,800);
+
+        //old
+        /*view.postDelayed(new Runnable() {
+                @Override
+                public void run () {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FunFacts funFacts = new FunFacts();
+                fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+         }
+        }, 1000);*/
     }
 }

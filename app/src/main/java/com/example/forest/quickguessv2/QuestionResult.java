@@ -2,6 +2,7 @@ package com.example.forest.quickguessv2;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,27 +44,16 @@ public class QuestionResult extends Fragment {
             ButterKnife.bind(this,view);
             String result = this.getArguments().getString("result");
             ImageView resultIcon = (ImageView) view.findViewById(R.id.resultIcon);
+            TextView life = (TextView) view.findViewById(R.id.life);
             resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
             TextView question = getActivity().findViewById(R.id.question);
-
             //hide the question layout
             question.setVisibility(View.GONE);
-            onPreExecute(view);
-
+          ((AnswerQuestion)getActivity()).onPreExecute();
         return view;
     }
 
-    protected void onPreExecute(final View view) {
-        view.postDelayed(new Runnable() {
-                @Override
-                public void run () {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FunFacts funFacts = new FunFacts();
-                fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-         }
-        }, 1000);
-    };
+
+
+
 }

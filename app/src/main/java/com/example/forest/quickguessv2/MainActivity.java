@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.example.forest.quickguessv2.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.InputHelpers;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.username) EditText username;
     @BindView(R.id.welcomeLayout) RelativeLayout welcomeLayout;
     QuestionCategoryRepositories questionCategoryRepositories;
+    public  LifeRepositories lifeRepositories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         WindowHelper.hideNavigationBar(this);
         ButterKnife.bind(this);
         questionCategoryRepositories = new QuestionCategoryRepositories(this);
+        lifeRepositories = new LifeRepositories(this);
         isAlreadyRegistered();
         categories();
 
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             username.setError("Please provide a proper username");
         } else {
             UserRepositories.createUser(this,new User(player));
+            lifeRepositories.setLifeToUser(5);
             username.setText(null);
         }
         isAlreadyRegistered();
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MenuFragment menuFragment = new MenuFragment();
         fragmentTransaction.add(R.id.fragment_one,menuFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
