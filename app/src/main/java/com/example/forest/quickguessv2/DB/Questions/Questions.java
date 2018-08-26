@@ -3,6 +3,7 @@ package com.example.forest.quickguessv2.DB.Questions;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -13,7 +14,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity(tableName ="questions", foreignKeys = @ForeignKey(entity= QuestionCategory.class,
                                 parentColumns = "id",
                                 childColumns="category_id",
-                                onDelete = CASCADE))
+                                onDelete = CASCADE),   indices = {@Index(value = "question", unique = true)})
 public class Questions
 {
     @PrimaryKey(autoGenerate = true)

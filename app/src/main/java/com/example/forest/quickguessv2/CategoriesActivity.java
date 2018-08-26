@@ -79,14 +79,13 @@ public class CategoriesActivity extends AppCompatActivity{
 
     private void insertQuestions()
     {
-
          questionRepositories.questionCreator("What is","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
          questionRepositories.questionCreator("What is2","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
          questionRepositories.questionCreator("What is3","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
          questionRepositories.questionCreator("What is4","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
          questionRepositories.questionCreator("What is5","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
          questionRepositories.questionCreator("What is6","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is7","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
+
     }
 
     @Override

@@ -1,35 +1,21 @@
 package com.example.forest.quickguessv2.DB.Categories;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.example.forest.quickguessv2.DB.DB;
 
 public final class QuestionCategoryRepositories {
-    private String[][] categories = {
-            {"people","a"},
-            {"animals","b"},
-            {"geography","c"},
-            {"sports","d"},
-            {"music","e"},
-            {"technology","f"},
-            {"entertainment","g"},
-    };
+    public Context context;
 
-    public void addCategory(Context context)
-    {
-        if (isAlreadyInsert(context) == 0)
-        for (String[] innerArray: categories) {
-            QuestionCategory questionCategory = new QuestionCategory();
-            questionCategory.setCategory(innerArray[0]);
-            questionCategory.setCategory_description(innerArray[1]);
-            DB.getInstance(context).categoriesQuestionDao().insertAll(questionCategory);
-        }
+    public QuestionCategoryRepositories(Context context) {
+        this.context = context;
     }
 
-    private int isAlreadyInsert(Context context)
+    public void addCategory(String category_name , String category_description)
     {
-         return DB.getInstance(context).categoriesQuestionDao().countCategories();
+        QuestionCategory questionCategory = new QuestionCategory();
+        questionCategory.setCategory(category_name);
+        questionCategory.setCategory_description(category_description);
+        DB.getInstance(context).categoriesQuestionDao().insertAll(questionCategory);
     }
 
 }

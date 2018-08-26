@@ -58,7 +58,7 @@ public class QuestionResult extends Fragment {
                 @Override
                 public void run () {
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 FunFacts funFacts = new FunFacts();
                 fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
                 fragmentTransaction.addToBackStack(null);

@@ -2,18 +2,22 @@ package com.example.forest.quickguessv2.DB.Categories;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-@Entity(tableName = "question_category")
+@Entity(tableName = "question_category" , indices={@Index(value="category", unique=true)})
 public class QuestionCategory
 {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+
+    @NonNull
     @ColumnInfo(name = "category")
     private String category;
 
-
+    @NonNull
     @ColumnInfo(name = "category_description")
     private String category_description;
 

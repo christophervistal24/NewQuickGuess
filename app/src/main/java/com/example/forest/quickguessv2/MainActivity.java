@@ -11,23 +11,21 @@ import android.widget.RelativeLayout;
 
 import com.example.forest.quickguessv2.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguessv2.DB.DB;
-import com.example.forest.quickguessv2.DB.Categories.QuestionCategory;
 import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.InputHelpers;
-import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.username) EditText username;
     @BindView(R.id.welcomeLayout) RelativeLayout welcomeLayout;
+    QuestionCategoryRepositories questionCategoryRepositories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
         TypeFaceUtil.initFont(this);
         WindowHelper.hideNavigationBar(this);
         ButterKnife.bind(this);
+        questionCategoryRepositories = new QuestionCategoryRepositories(this);
         isAlreadyRegistered();
-        (new QuestionCategoryRepositories()).addCategory(this);
+        categories();
+
     }
 
 
@@ -90,4 +90,17 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    private void categories()
+    {
+        questionCategoryRepositories.addCategory("people","All about");
+        questionCategoryRepositories.addCategory("plants","All about");
+        questionCategoryRepositories.addCategory("animals","All about");
+        questionCategoryRepositories.addCategory("geography","All about");
+        questionCategoryRepositories.addCategory("sports","All about");
+        questionCategoryRepositories.addCategory("music","All about");
+        questionCategoryRepositories.addCategory("technology","All about");
+        questionCategoryRepositories.addCategory("entertainment","All about");
+        questionCategoryRepositories.addCategory("entertainment","All about");
+        questionCategoryRepositories.addCategory("entertainment","All about");
+    }
 }
