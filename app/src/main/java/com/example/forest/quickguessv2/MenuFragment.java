@@ -37,7 +37,7 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class MenuFragment extends Fragment implements View.OnClickListener {
-    Detector Netdetector;
+
     private Unbinder unbinder;
     @BindView(R.id.userLife) TextView userLife;
     int user_life;
@@ -59,8 +59,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Netdetector = new Detector(getContext());
-        Netdetector.checkConnection();
+
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         unbinder = ButterKnife.bind(this,view);
         userLife.setText("");

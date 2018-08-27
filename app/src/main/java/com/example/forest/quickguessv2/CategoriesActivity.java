@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
@@ -18,6 +19,7 @@ public class CategoriesActivity extends AppCompatActivity{
 
     @BindView(R.id.categoriesLayout)LinearLayout categoriesLayout;
     private QuestionRepositories questionRepositories;
+    ApplicationClass applicationClass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,6 @@ public class CategoriesActivity extends AppCompatActivity{
         ButterKnife.bind(this);
         questionRepositories = new QuestionRepositories(this);
         insertQuestions();
-
     }
 
 

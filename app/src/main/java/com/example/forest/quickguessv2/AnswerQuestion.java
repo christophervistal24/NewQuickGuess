@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
-import com.example.forest.quickguessv2.DB.GameOver.Gameover;
+import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
@@ -161,13 +161,17 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private void isUserHasPoints()
     {
-        userPoints +=1;
+        int currect_points = DB.getInstance(this).pointsDao().getUserPoints();
+        userPoints++;
         Points points = new Points();
         points.setId(1);
-        points.setPoints(PointsUtil.plusExtra(userPoints));
         try {
+            points.setPoints(PointsUtil.plusExtra(userPoints));
             DB.getInstance(this).pointsDao().insert(points);
          } catch (SQLiteConstraintException exception) {
+            userPoints = (PointsUtil.plusExtra(userPoints)) + currect_points;
+            points.setPoints(0);
+            points.setPoints(userPoints);
             DB.getInstance(this).pointsDao().update(points);
          }
     }
@@ -176,7 +180,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void wrong() {
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
-        Gameover.isGameOver(lifeRepositories);
+        GameoverRepositories.isGameOver(lifeRepositories);
         result();
     }
 
@@ -261,6 +265,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
+                userPoints = 0;
             }
         };
         handler.postDelayed(openFunFactsFragment,800);

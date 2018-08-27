@@ -2,7 +2,7 @@ package com.example.forest.quickguessv2.DB.GameOver;
 
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 
-public class Gameover {
+public class GameoverRepositories {
 
     public static void isGameOver(LifeRepositories lifeRepositories)
     {

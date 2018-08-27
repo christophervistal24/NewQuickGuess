@@ -13,4 +13,7 @@ public interface UserDao
     @Query("SELECT COUNT(username) FROM users")
     int isUserExists();
 
+    @Query("SELECT username FROM users LIMIT 1")
+    String getUsername();
+
 }

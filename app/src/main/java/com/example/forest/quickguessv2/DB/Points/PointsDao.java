@@ -17,4 +17,7 @@ public interface PointsDao {
     @Update(onConflict = OnConflictStrategy.FAIL)
     void update(Points points);
 
+    @Query("SELECT points FROM user_points LIMIT 1")
+    int getUserPoints();
+
 }

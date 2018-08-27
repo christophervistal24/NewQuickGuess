@@ -19,4 +19,10 @@ public class UserRepositories {
     {
         return DB.getInstance(context).myDao().isUserExists();
     }
+
+    public static String username(Context context)
+    {
+        return DB.getInstance(context).myDao().getUsername();
+    }
+
 }
