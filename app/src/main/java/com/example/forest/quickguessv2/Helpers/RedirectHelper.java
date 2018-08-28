@@ -23,11 +23,4 @@ public class RedirectHelper {
         intent.putExtra("category_name",category_name);
         packageContext.startActivity(intent);
     }
-
-  /*  private void gotoActivity(String category_name, CategoriesActivity categoriesActivity, Class<AnswerQuestion> categoriesActivityClass) {
-        Intent intent = new Intent(categoriesActivity,categoriesActivityClass);
-        intent.putExtra("category_name",category_name);
-        Intent myIntent = new Intent(this, NewActivityClassName.class);
-        startActivity(intent);
-    }*/
 }

@@ -4,10 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
-import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 
 
@@ -18,19 +16,13 @@ import butterknife.OnClick;
 public class CategoriesActivity extends AppCompatActivity{
 
     @BindView(R.id.categoriesLayout)LinearLayout categoriesLayout;
-    private QuestionRepositories questionRepositories;
-    ApplicationClass applicationClass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         ButterKnife.bind(this);
-        questionRepositories = new QuestionRepositories(this);
-        insertQuestions();
     }
-
-
-
 
     @OnClick({R.id.people,R.id.plants,R.id.animals,R.id.geography,R.id.sports,R.id.music,R.id.technology,R.id.entertainment})
     public void onClick(View view) {
@@ -75,19 +67,6 @@ public class CategoriesActivity extends AppCompatActivity{
         new RedirectHelper(background,this,AnswerQuestion.class);
     }
 
-
-
-
-    private void insertQuestions()
-    {
-         questionRepositories.questionCreator("What is","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is2","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is3","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is4","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is5","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-         questionRepositories.questionCreator("What is6","sample","sample2","sample3","sample4","sample","This is a sample","default",1);
-
-    }
 
     @Override
     protected void onDestroy() {

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8EDEF"
+    android:id="@+id/mainLayout"
     tools:context=".MainActivity">
 
 <RelativeLayout
@@ -58,15 +59,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_one"
-        >
-    </FrameLayout>
+        android:id="@+id/fragment_one" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_quit"
-        >
-    </FrameLayout>
+        android:id="@+id/fragment_quit" />
 
 </RelativeLayout>
+
+
+
+

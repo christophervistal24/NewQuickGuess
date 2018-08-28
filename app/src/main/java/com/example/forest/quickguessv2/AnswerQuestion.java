@@ -264,23 +264,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
                 userPoints = 0;
             }
         };
         handler.postDelayed(openFunFactsFragment,800);
 
-        //old
-        /*view.postDelayed(new Runnable() {
-                @Override
-                public void run () {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FunFacts funFacts = new FunFacts();
-                fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-         }
-        }, 1000);*/
     }
 }

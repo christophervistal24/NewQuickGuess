@@ -181,9 +181,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            TypeFaceUtil.initFont(activity);
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
+            TypeFaceUtil.initFont(activity);
             container.addView(view);
 
             return view;

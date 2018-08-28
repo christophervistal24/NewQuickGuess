@@ -2,7 +2,7 @@
     <string name="app_name">QuickGuessV2</string>
 
     <string name="your_username">Your Username</string>
-    <string name="baseUrl">http://192.168.1.2:80/</string>
+    <string name="baseUrl">http://192.168.1.6:80/</string>
 
     <!--String resource for slides -->
     <string name="title_activity_welcome">Home Screen</string>

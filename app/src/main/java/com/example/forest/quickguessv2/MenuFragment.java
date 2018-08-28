@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
+import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.Detector;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
@@ -51,10 +52,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
-        userLife.setText("");
+        userLife.setText(null);
         userLife.setText(String.valueOf(user_life));
         super.onResume();
     }
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -62,8 +65,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         unbinder = ButterKnife.bind(this,view);
-        userLife.setText("");
-        user_life =  ((MainActivity)getActivity()).lifeRepositories.getUserLife();
+        userLife.setText(null);
+        user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
         userLife.setText(String.valueOf(user_life));
         return view;
     }
@@ -119,5 +122,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             fm.popBackStack();
         }
     }
+
+
 
 }

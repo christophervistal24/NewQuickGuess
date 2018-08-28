@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.example.forest.quickguessv2.APIsInterface.IPointsInterface;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Points.Points;
+import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Services.Points.PointsRequest;
 import com.example.forest.quickguessv2.Services.Points.PointsResponse;
@@ -49,32 +51,9 @@ public class Detector {
         if(this.isConnected())
         {
             //check if the user points in database
-            int user_points = DB.getInstance(context).pointsDao().getUserPoints();
-            if (user_points != 0)
-            {
-                Toast.makeText(context, String.valueOf(user_points), Toast.LENGTH_SHORT).show();
-              /*  //send request
-                Retrofit refrofit = PointsService.RetrofitInstance(context);
-                IPointsInterface services = refrofit.create(IPointsInterface.class);
-                PointsRequest pointsRequest = new PointsRequest();
-                pointsRequest.setPoints(user_points);
-                pointsRequest.setUsername(UserRepositories.username(context));
-                Call<PointsResponse> pointsResponseCall = services.updatePoints(pointsRequest);
-                pointsResponseCall.enqueue(new Callback<PointsResponse>() {
-                    @Override
-                    public void onResponse(Call<PointsResponse> call, Response<PointsResponse> response) {
-                        if  (response.isSuccessful())
-                        {
-                            Toast.makeText(context, "Hello World", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PointsResponse> call, Throwable t) {
-
-                    }
-                });*/
-            }
+            final Points points = new Points();
+            PointsRepositories pointsRepositories = new PointsRepositories(context);
+            pointsRepositories.sendPoints(points);
         } else
         {
             //return
