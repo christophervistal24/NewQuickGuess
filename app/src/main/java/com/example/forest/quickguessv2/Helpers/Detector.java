@@ -50,7 +50,6 @@ public class Detector {
     {
         if(this.isConnected())
         {
-            //check if the user points in database
             final Points points = new Points();
             PointsRepositories pointsRepositories = new PointsRepositories(context);
             pointsRepositories.sendPoints(points);

@@ -21,6 +21,7 @@ import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.Points;
+import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
@@ -53,6 +54,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public static CountDownTimer countDownTimer;
     private int userPoints = 0;
     public LifeRepositories lifeRepositories;
+    PointsRepositories pointsRepositories;
 
     Handler handler;
     Runnable openFunFactsFragment;
@@ -70,6 +72,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         TypeFaceUtil.initFont(this);
         ButterKnife.bind(this);
         lifeRepositories = new LifeRepositories(this);
+        pointsRepositories = new PointsRepositories(this);
         Intent i = getIntent();
         bundle = new Bundle();
         count = RGroup.getChildCount();
@@ -174,6 +177,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             points.setPoints(userPoints);
             DB.getInstance(this).pointsDao().update(points);
          }
+         pointsRepositories.sendPoints(points);
     }
 
     @Override
