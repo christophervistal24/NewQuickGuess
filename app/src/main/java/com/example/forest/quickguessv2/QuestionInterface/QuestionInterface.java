@@ -1,8 +1,8 @@
 package com.example.forest.quickguessv2.QuestionInterface;
 
 public interface QuestionInterface {
-    public void correct();
-    public void wrong();
-    public void getAnswer(String answer , String correct_answer);
-    public void result();
+    void correct();
+    void wrong();
+    void getAnswer(String answer, String correct_answer);
+    void result();
 }

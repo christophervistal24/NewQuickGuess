@@ -1,8 +1,15 @@
 package com.example.forest.quickguessv2;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
@@ -15,6 +22,13 @@ import com.example.forest.quickguessv2.Helpers.LayoutHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.mainLayout)  RelativeLayout mainLayout;
 
 
+
     public LifeRepositories lifeRepositories;
     FragmentUtil fragmentUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main);
         TypeFaceUtil.initFont(this);
         WindowHelper.hideNavigationBar(this);
@@ -40,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
         checkUser();
+//        printKeyHash();
+    }
+
+    private void printKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.forest.quickguessv2",
+                    PackageManager.GET_SIGNATURES);
+            for(Signature signature : info.signatures)
+            {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(),Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
 

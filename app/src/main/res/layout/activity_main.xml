@@ -54,6 +54,7 @@
             android:background="@drawable/btn_play" />
 
     </LinearLayout>
+
 </RelativeLayout>
 
     <FrameLayout

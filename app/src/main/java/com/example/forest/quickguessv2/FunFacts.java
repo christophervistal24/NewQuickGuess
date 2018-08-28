@@ -3,6 +3,7 @@ package com.example.forest.quickguessv2;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.facebook.CallbackManager;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,6 +51,8 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     @BindView(R.id.btnNext)
     Button btnNext;
 
+    @BindView(R.id.facebookShare) Button facebookShare;
+
 
     LinearLayout questionLayout;
     TextView question;
@@ -57,6 +63,8 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     private Unbinder unbinder;
     public ArrayList<RadioButton> listOfRadioButtons;
     int count = 0;
+    CallbackManager callbackManager;
+    ShareDialog shareDialog;
 
 
     public FunFacts() {
@@ -67,6 +75,8 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_fun_facts, container, false);
         unbinder = ButterKnife.bind(this,view);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
         context = getContext();
         questionLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.questionLayout);
         question = getActivity().findViewById(R.id.question);
@@ -77,9 +87,21 @@ public class FunFacts extends Fragment implements View.OnClickListener {
         imageBackground.setImageDrawable(null);
         questionLayout.setVisibility(View.GONE);
         radioBackBackground();
+        facebookShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                        .setQuote("This is a sample")
+                        .setContentUrl(Uri.parse("https://youtube.com"))
+                        .build();
+                if (ShareDialog.canShow(ShareLinkContent.class))
+                {
+                    shareDialog.show(linkContent, ShareDialog.Mode.WEB);
+                }
+            }
+        });
         return view;
     }
-
 
 
 

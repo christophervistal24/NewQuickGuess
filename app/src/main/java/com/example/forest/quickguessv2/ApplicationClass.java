@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.forest.quickguessv2.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguessv2.Helpers.Detector;
+import com.squareup.leakcanary.LeakCanary;
 
 public class ApplicationClass extends Application{
     QuestionCategoryRepositories questionCategoryRepositories;
@@ -12,6 +13,7 @@ public class ApplicationClass extends Application{
 
     @Override
     public void onCreate() {
+        super.onCreate();
         questionCategoryRepositories = new QuestionCategoryRepositories(this);
         questionRepositories = new QuestionRepositories(this);
         insertCategories();
