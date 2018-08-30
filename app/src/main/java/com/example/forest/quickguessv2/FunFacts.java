@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
@@ -66,6 +64,7 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
+//TODO onbackpressed
 
     public FunFacts() {
         // Required empty public constructor
@@ -128,13 +127,13 @@ public class FunFacts extends Fragment implements View.OnClickListener {
         questionLayout.setVisibility(View.VISIBLE);
         question.setVisibility(View.VISIBLE);
         imageBackground.setImageResource(getResources().getIdentifier("bg_people","drawable", Objects.requireNonNull(getActivity()).getPackageName()));
-        AnswerQuestion.countDownTimer.start();
-        ((AnswerQuestion)getActivity()).getAllQuestions();
+        ((AnswerQuestion)getActivity()).countDownTimer.start();
+        ((AnswerQuestion)getActivity()).getQuestion();
     }
 
     private void radioBackBackground()
     {
-        listOfRadioButtons = new ArrayList<RadioButton>();
+        listOfRadioButtons = new ArrayList<>();
         for(int i=0; i<count; i++)
         {
             View o = RGroup.getChildAt(i);

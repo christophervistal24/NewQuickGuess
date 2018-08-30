@@ -1,7 +1,6 @@
 package com.example.forest.quickguessv2.DB.Points;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.APIsInterface.IPointsInterface;
 import com.example.forest.quickguessv2.DB.DB;
@@ -25,7 +24,7 @@ public class PointsRepositories {
       this.context = context;
     }
 
-    public int getUserPoints()
+    private int getUserPoints()
     {
         return DB.getInstance(context).pointsDao().getUserPoints();
     }

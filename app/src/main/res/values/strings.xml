@@ -2,7 +2,7 @@
     <string name="app_name">QuickGuessV2</string>
 
     <string name="your_username">Your Username</string>
-    <string name="baseUrl">http://192.168.1.6:80/</string>
+    <string name="baseUrl">http://192.168.1.12:80/</string>
     <string name="facebook_app_id">240267453345824</string>
     <string name="facebook_login_protocol_scheme">fb240267453345824</string>
 

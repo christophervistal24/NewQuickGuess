@@ -17,17 +17,18 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".CategoriesActivity" />
-        <activity android:name=".AnswerQuestion" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CategoriesActivity" android:screenOrientation="portrait" />
+        <activity android:name=".AnswerQuestion" android:screenOrientation="portrait" />
+        <activity android:name=".AboutActivity" android:screenOrientation="portrait" />
         <provider
             android:authorities="com.facebook.app.FacebookContentProvider240267453345824"
             android:name="com.facebook.FacebookContentProvider"

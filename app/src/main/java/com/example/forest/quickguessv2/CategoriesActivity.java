@@ -1,21 +1,21 @@
 package com.example.forest.quickguessv2;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CategoriesActivity extends AppCompatActivity{
+public class CategoriesActivity extends AppCompatActivity {
 
-    @BindView(R.id.categoriesLayout)LinearLayout categoriesLayout;
+    @BindView(R.id.categoriesLayout)
+    LinearLayout categoriesLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,10 @@ public class CategoriesActivity extends AppCompatActivity{
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.people,R.id.plants,R.id.animals,R.id.geography,R.id.sports,R.id.music,R.id.technology,R.id.entertainment})
+    @OnClick({R.id.people, R.id.plants, R.id.animals, R.id.geography, R.id.sports, R.id.music, R.id.technology, R.id.entertainment})
     public void onClick(View view) {
-      String background;
-      switch (view.getId())
-        {
+        String background;
+        switch (view.getId()) {
             case R.id.people:
                 background = "bg_people";
                 break;
@@ -64,7 +63,7 @@ public class CategoriesActivity extends AppCompatActivity{
             default:
                 throw new RuntimeException("Unknow button ID");
         }
-        new RedirectHelper(background,this,AnswerQuestion.class);
+        new RedirectHelper(background, this, AnswerQuestion.class);
     }
 
 

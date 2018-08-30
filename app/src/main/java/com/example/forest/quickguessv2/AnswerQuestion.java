@@ -1,15 +1,10 @@
 package com.example.forest.quickguessv2;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteConstraintException;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -20,17 +15,19 @@ import android.widget.Toast;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
-import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
+import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
+import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
-import com.example.forest.quickguessv2.Utilities.PointsUtil;
-import com.example.forest.quickguessv2.Utilities.QuestionUtil;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
+import com.example.forest.quickguessv2.Utilities.BackgroundUtil;
+import com.example.forest.quickguessv2.Utilities.FragmentUtil;
+import com.example.forest.quickguessv2.Utilities.GameBundleUitl;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +48,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.life) TextView life;
 
     private static final long counter = 21000;
-    public static CountDownTimer countDownTimer;
+    public CountDownTimer countDownTimer;
     private int userPoints = 0;
     public LifeRepositories lifeRepositories;
     PointsRepositories pointsRepositories;
@@ -59,48 +56,62 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     Handler handler;
     Runnable openFunFactsFragment;
 
-    public ArrayList<RadioButton> listOfRadioButtons;
-    int count = 0;
+
     boolean isCounterRunning = false;
     private Questions q;
     Bundle bundle;
+    FragmentUtil fragmentUtil;
+    QuestionRepositories questionRepositories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
-        TypeFaceUtil.initFont(this);
         ButterKnife.bind(this);
-        lifeRepositories = new LifeRepositories(this);
-        pointsRepositories = new PointsRepositories(this);
-        Intent i = getIntent();
-        bundle = new Bundle();
-        count = RGroup.getChildCount();
-        String category = i.getStringExtra("category_name");
-        background.setImageResource(getResources().getIdentifier(category,"drawable",getPackageName()));
-        getAllQuestions();
+        TypeFaceUtil.initFont(this);
+        classInstantiate();
+        categoryBackground();
+        getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
     }
 
+    private void categoryBackground() {
+        Intent i = getIntent();
+        background.setImageResource(BackgroundUtil.setBackground(getApplicationContext(),i));
+    }
 
-    public void getAllQuestions()
+    private void classInstantiate() {
+        lifeRepositories = new LifeRepositories(this);
+        pointsRepositories = new PointsRepositories(this);
+        questionRepositories = new QuestionRepositories(this);
+        fragmentUtil = new FragmentUtil();
+        bundle = new Bundle();
+    }
+
+
+    public void getQuestion()
     {
-        startTimer(counter);
-        List<Questions>  questions = DB.getInstance(this).questionsDao().getQuestionsByCategory(1);
-        if  (questions.size() != 0)
-        {
-            List<Questions> question1 = QuestionUtil.questions(questions, questions.size());
-            q = question1.get(0);
-            String[] randomizeChoices = QuestionUtil.choices(new String[]{q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d()}, 3);
+
+        try {
+            startTimer(counter);
+            //get one questions
+            q = questionRepositories.selectQuestion();
+            List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
+            List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
+
+            //set
             question.setText(q.getQuestion());
-            choice_a.setText(randomizeChoices[0]);
-            choice_b.setText(randomizeChoices[1]);
-            choice_c.setText(randomizeChoices[2]);
-            choice_d.setText(randomizeChoices[3]);
-        } else {
-            Toast.makeText(this, "Congratualations!", Toast.LENGTH_SHORT).show();
+            choice_a.setText(randomizeChoices.get(0));
+            choice_b.setText(randomizeChoices.get(1));
+            choice_c.setText(randomizeChoices.get(2));
+            choice_d.setText(randomizeChoices.get(3));
+
+        } catch (NullPointerException e)
+        {
+            Toast.makeText(this, "Congrats", Toast.LENGTH_SHORT).show();
             finish();
         }
+
     }
 
     @OnCheckedChanged({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
@@ -108,12 +119,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         if(checked) {
             String userAnswer;
             userAnswer = button.getText().toString();
-            getAnswer(userAnswer,q.getCorrect_answer());
+            getAnswer(userAnswer, q.getCorrect_answer());
             cancelTimer();
             RGroup.setEnabled(false);
-
         }
     }
+
 
     private  void startTimer(final long counter) {
         if (!isCounterRunning) {
@@ -130,7 +141,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 @Override
                 public void onFinish() {
                     isCounterRunning = false;
-                    getAnswer("No answer",q.getCorrect_answer());
+                    getAnswer("No answer", q.getCorrect_answer());
                 }
             };
             countDownTimer.start();
@@ -142,12 +153,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void onBackPressed() {
-        countDownTimer.cancel();
-        FragmentManager fm = getSupportFragmentManager();
-        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-            fm.popBackStack();
+        super.onBackPressed();
+        cancelTimer();
+        if  (getSupportFragmentManager().getBackStackEntryCount() != 0)
+        {
+           fragmentUtil.disposeAllBackStack();
         }
-            super.onBackPressed();
     }
 
     @Override
@@ -158,27 +169,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         userStatus.setQuestion_result(1);
         //add user answered question
         DB.getInstance(this).userStatusDao().addUserStatus(userStatus);
+        UserRepositories.isUserHasPoints(getApplicationContext(),userPoints++,pointsRepositories);
         result();
-        isUserHasPoints();
     }
 
-    private void isUserHasPoints()
-    {
-        int currect_points = DB.getInstance(this).pointsDao().getUserPoints();
-        userPoints++;
-        Points points = new Points();
-        points.setId(1);
-        try {
-            points.setPoints(PointsUtil.plusExtra(userPoints));
-            DB.getInstance(this).pointsDao().insert(points);
-         } catch (SQLiteConstraintException exception) {
-            userPoints = (PointsUtil.plusExtra(userPoints)) + currect_points;
-            points.setPoints(0);
-            points.setPoints(userPoints);
-            DB.getInstance(this).pointsDao().update(points);
-         }
-         pointsRepositories.sendPoints(points);
-    }
 
     @Override
     public void wrong() {
@@ -193,50 +187,30 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
-        SharedPreferenceHelper.setSharedPreferenceString(this,"question_content",q.getFun_facts());
+        SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
 
         //apply some background changes
         radioChangeBackground(correct_answer);
         if (answer.equalsIgnoreCase(correct_answer))
         {
-            bundle.putString("result","check");
+            GameBundleUitl.setQuestionResult(bundle,"result","check");
             correct();
         } else {
-            bundle.putString("result","wrong");
+            GameBundleUitl.setQuestionResult(bundle,"result","wrong");
             wrong();
         }
     }
 
     @Override
     public void result() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        QuestionResult questionResult = new QuestionResult();
-        fragmentTransaction.add(R.id.questionResult,questionResult);
-        questionResult.setArguments(bundle);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentUtil.startResultFragment(this,bundle);
     }
 
 
 
     private void radioChangeBackground(String correct_answer)
     {
-        listOfRadioButtons = new ArrayList<>();
-        for(int i =0; i<count; i++)
-        {
-            View o = RGroup.getChildAt(i);
-            if (o instanceof RadioButton) {
-                listOfRadioButtons.add((RadioButton)o);
-                if (listOfRadioButtons.get(i).getText().equals(correct_answer))
-                {
-                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(this, R.drawable.btn_correct));
-                } else {
-                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(this, R.drawable.btn_incorrect));
-                }
-        }
-
-        }
+        BackgroundUtil.radioBackgrounds(getApplicationContext(),RGroup,correct_answer);
     }
 
     private void cancelTimer()
@@ -258,22 +232,21 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         super.onDestroy();
     }
 
+    private void gotoFunFactsFragment()
+    {
+        fragmentUtil.startFunFactsFragment(this);
+    }
+
     protected void onPreExecute() {
         handler = new Handler();
         openFunFactsFragment = new Runnable() {
             public void run() {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FunFacts funFacts = new FunFacts();
-                fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                gotoFunFactsFragment();
                 //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
                 userPoints = 0;
             }
         };
         handler.postDelayed(openFunFactsFragment,800);
-
     }
 }

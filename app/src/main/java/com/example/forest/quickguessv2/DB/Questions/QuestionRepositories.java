@@ -2,7 +2,11 @@ package com.example.forest.quickguessv2.DB.Questions;
 
 import android.content.Context;
 
+import com.example.forest.quickguessv2.AnswerQuestion;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.Utilities.RandomizeUtil;
+
+import java.util.List;
 
 public class QuestionRepositories {
 
@@ -26,5 +30,34 @@ public class QuestionRepositories {
            questions.setCategory_id(category_id);
            DB.getInstance(context).questionsDao().insert(questions);
     }
+
+    private List<Questions> getQuestions()
+    {
+
+        return DB.getInstance(context).questionsDao().getQuestionsByCategory(1);
+    }
+
+  /*  public static int countQuestions(Context context)
+    {
+        return DB.getInstance(context).questionsDao().countQuestion();
+    }
+*/
+
+  public Questions selectQuestion()
+  {
+     List<Questions> questionsList = RandomizeUtil.questions(getQuestions(),getQuestions().size());
+      if (questionsList.size() != 0)
+      {
+           return questionsList.get(0);
+      } else {
+          ((AnswerQuestion) context).finish();
+      }
+      return null;
+  }
+
+  public List<String> randomizeChoices(List<String> choices)
+  {
+      return RandomizeUtil.choices(choices);
+  }
 
 }
