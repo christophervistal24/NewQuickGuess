@@ -1,7 +1,7 @@
 package com.example.forest.quickguessv2.Helpers;
 
 import android.app.Activity;
-import android.content.Context;
+
 import android.view.View;
 
 public class WindowHelper {

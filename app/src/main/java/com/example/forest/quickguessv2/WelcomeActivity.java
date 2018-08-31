@@ -25,9 +25,7 @@ import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
-    private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
     private FirstLaunchHelper firstLaunchHelper;
@@ -68,7 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // making notification bar transparent
         changeStatusBarColor();
 
-        myViewPagerAdapter = new MyViewPagerAdapter(this);
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
@@ -96,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
+        TextView[] dots = new TextView[layouts.length];
 
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
@@ -183,9 +181,8 @@ public class WelcomeActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
-            TypeFaceUtil.initFont(activity);
             container.addView(view);
-
+            TypeFaceUtil.initFont(activity);
             return view;
         }
 

@@ -1,6 +1,5 @@
 package com.example.forest.quickguessv2.Helpers;
 import android.view.View;
-import android.view.ViewGroup;
 
 
 public class LayoutHelper {

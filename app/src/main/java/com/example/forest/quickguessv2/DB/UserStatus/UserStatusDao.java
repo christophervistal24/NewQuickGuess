@@ -7,6 +7,6 @@ import android.arch.persistence.room.Insert;
 public interface UserStatusDao {
 
     @Insert
-    public void addUserStatus(UserStatus userStatus);
+    void addUserStatus(UserStatus userStatus);
 
 }

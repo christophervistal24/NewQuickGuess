@@ -17,6 +17,7 @@
         android:maxHeight="0dp"
         android:scaleType="fitXY"
         android:src="@drawable/bg_people"
+        android:contentDescription="@string/background_by_category"
         />
 
     <!--android:background="@drawable/icon_timer"-->
@@ -26,24 +27,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:textColor="#E8EDEF"
-        android:text="0"
+        android:text="@string/defaultTimerValue"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/heart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="13dp"
+       />
     <TextView
         android:id="@+id/life"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/timer"
+        android:layout_marginEnd="15dp"
+        android:gravity="right"
+        android:text=""
         android:textAlignment="center"
-        android:layout_marginTop="8dp"
         android:textColor="#E8EDEF"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        />
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/timer"
+        android:layout_marginStart="12dp"
+        android:textColor="#E8EDEF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
 
     <LinearLayout
         android:id="@+id/questionLayout"
@@ -58,6 +82,7 @@
             android:textSize="30sp"
             android:gravity="center"
             />
+
 
         <TextView
             android:id="@+id/userLife"
@@ -80,7 +105,6 @@
             android:textSize="25sp"
             android:textAlignment="center"
             android:layout_marginBottom="20dp"
-            android:text="Hello World"
             android:textColor="#7EBAAB"
             android:textStyle="bold"
             android:id="@+id/question"/>
@@ -148,11 +172,12 @@
                 />
         </RadioGroup>
     </LinearLayout>
+
     <FrameLayout
+        android:id="@+id/fragment_fun_facts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_fun_facts"
-        >
-    </FrameLayout>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"></FrameLayout>
 
 </RelativeLayout>

@@ -10,7 +10,7 @@ public final class QuestionCategoryRepositories {
         this.context = context;
     }
 
-    public void addCategory(String category_name , String category_description)
+    public void categoryCreator(String category_name , String category_description)
     {
         QuestionCategory questionCategory = new QuestionCategory();
         questionCategory.setCategory(category_name);

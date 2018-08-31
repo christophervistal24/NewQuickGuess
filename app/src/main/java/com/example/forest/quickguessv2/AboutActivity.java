@@ -3,10 +3,9 @@ package com.example.forest.quickguessv2;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 
@@ -30,7 +29,7 @@ public class AboutActivity extends AppCompatActivity {
     public void contactUs()
     {
         try{
-            Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "testing@gmail"));
+            Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "testing@gmail.com"));
             intent.putExtra(Intent.EXTRA_SUBJECT, "your_subject");
             intent.putExtra(Intent.EXTRA_TEXT, "your_text");
             startActivity(intent);

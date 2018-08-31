@@ -23,6 +23,19 @@
 
     <string name="slide_4_title">Step four</string>
     <string name="slide_4_desc">all about instructions</string>
+    <string name="Share">Share</string>
+    <string name="defaultTimerValue">0</string>
+    <string name="loginbackground">Login Background</string>
+    <string name="menu_background">Menu Background</string>
+    <string name="categories_background">Background for categories</string>
+    <string name="background_by_category">Background By Category</string>
+    <string name="icon_result">Icon for answer result</string>
+    <string name="about_backgrounds">Abouts background</string>
+    <string name="quit_bg">Quit blur background</string>
+    <string name="instruction_4">Instruction 4</string>
+    <string name="instruction_3">Instruction 3</string>
+    <string name="instruction_2">Instruction 2</string>
+    <string name="instruction_1">Instruction 1</string>
     <!--End-->
 
 </resources>

@@ -11,6 +11,7 @@ import com.example.forest.quickguessv2.AnswerQuestion;
 import com.example.forest.quickguessv2.FunFacts;
 import com.example.forest.quickguessv2.MenuFragment;
 import com.example.forest.quickguessv2.QuestionResult;
+import com.example.forest.quickguessv2.QuitFragment;
 import com.example.forest.quickguessv2.R;
 
 
@@ -35,6 +36,14 @@ public class FragmentUtil extends Fragment{
         fragmentTransaction.commit();
     }
 
+    public void startQuitFragment()
+    {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        QuitFragment QuitFragment = new QuitFragment();
+        fragmentTransaction.add(R.id.fragment_quit,QuitFragment);
+        fragmentTransaction.commit();
+    }
     public void startFunFactsFragment(Context context)
     {
       if (context instanceof AnswerQuestion)
@@ -76,15 +85,6 @@ public class FragmentUtil extends Fragment{
             return true;
         }
         return false;
-    }
-
-
-    public void disposeAllBackStack()
-    {
-        int count = activity.getSupportFragmentManager().getBackStackEntryCount();
-        for (int i = 0; i < count; ++i) {
-            activity.getSupportFragmentManager().popBackStack();
-        }
     }
 
 }

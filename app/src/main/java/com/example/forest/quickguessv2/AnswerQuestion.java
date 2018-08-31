@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -46,12 +49,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.timer) TextView timer;
     @BindView(R.id.RGroup) RadioGroup RGroup;
     @BindView(R.id.life) TextView life;
+    @BindView(R.id.userPoints) TextView points;
 
-    private static final long counter = 21000;
+    private static final long counter = 5000;
     public CountDownTimer countDownTimer;
     private int userPoints = 0;
     public LifeRepositories lifeRepositories;
-    PointsRepositories pointsRepositories;
+    private PointsRepositories pointsRepositories;
 
     Handler handler;
     Runnable openFunFactsFragment;
@@ -73,6 +77,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         categoryBackground();
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
+        points.setText(String.valueOf(UserRepositories.getUserPoints(pointsRepositories)));
+//        ApplicationClass.getRefWatcher(this);
     }
 
     private void categoryBackground() {
@@ -117,9 +123,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @OnCheckedChanged({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
-            String userAnswer;
-            userAnswer = button.getText().toString();
-            getAnswer(userAnswer, q.getCorrect_answer());
+            getAnswer(button.getText().toString(), q.getCorrect_answer());
             cancelTimer();
             RGroup.setEnabled(false);
         }
@@ -153,12 +157,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        isCounterRunning = false;
         cancelTimer();
-        if  (getSupportFragmentManager().getBackStackEntryCount() != 0)
-        {
-           fragmentUtil.disposeAllBackStack();
-        }
+        tellFragments();
+        super.onBackPressed();
     }
 
     @Override
@@ -168,7 +170,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         // 1 - is eqaul to correct
         userStatus.setQuestion_result(1);
         //add user answered question
-        DB.getInstance(this).userStatusDao().addUserStatus(userStatus);
+        DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
         UserRepositories.isUserHasPoints(getApplicationContext(),userPoints++,pointsRepositories);
         result();
     }
@@ -203,7 +205,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void result() {
-        fragmentUtil.startResultFragment(this,bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        QuestionResult questionResult = new QuestionResult();
+        fragmentTransaction.add(R.id.questionResult,questionResult);
+        questionResult.setArguments(bundle);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 
@@ -213,7 +221,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         BackgroundUtil.radioBackgrounds(getApplicationContext(),RGroup,correct_answer);
     }
 
-    private void cancelTimer()
+    public void cancelTimer()
     {
         if  (countDownTimer != null)
         {
@@ -228,7 +236,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
            handler.removeCallbacks(openFunFactsFragment);
        }
         cancelTimer();
-        DB.getInstance(this).destroyInstance();
+        DB.getInstance(getApplicationContext()).destroyInstance();
         super.onDestroy();
     }
 
@@ -244,9 +252,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 gotoFunFactsFragment();
                 //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
+                points.setText(String.valueOf(UserRepositories.getUserPoints(pointsRepositories)));
                 userPoints = 0;
             }
         };
         handler.postDelayed(openFunFactsFragment,800);
+    }
+
+    private void tellFragments() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for(Fragment f : fragments){
+            if(f != null && f instanceof FunFacts)
+                ((FunFacts)f).onBackPressed();
+        }
     }
 }

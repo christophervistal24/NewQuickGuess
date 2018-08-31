@@ -24,7 +24,7 @@ public class PointsRepositories {
       this.context = context;
     }
 
-    private int getUserPoints()
+    public int getUserPoints()
     {
         return DB.getInstance(context).pointsDao().getUserPoints();
     }

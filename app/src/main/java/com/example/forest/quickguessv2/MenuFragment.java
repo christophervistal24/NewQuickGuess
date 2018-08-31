@@ -1,30 +1,20 @@
 package com.example.forest.quickguessv2;
 
 
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
-import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
-import com.example.forest.quickguessv2.Helpers.Detector;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
-import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -41,7 +31,9 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     private Unbinder unbinder;
     @BindView(R.id.userLife) TextView userLife;
-    int user_life;
+    @BindView(R.id.userPoints) TextView userPoints;
+    private int user_life;
+    private int user_points;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -53,23 +45,29 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
         userLife.setText(null);
+        userPoints.setText(null);
         userLife.setText(String.valueOf(user_life));
+        userPoints.setText(String.valueOf(user_points));
         super.onResume();
     }
-
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         unbinder = ButterKnife.bind(this,view);
         userLife.setText(null);
+        userPoints.setText(null);
+        userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
+        user_points = UserRepositories.getUserPoints(((MainActivity)getActivity()).pointsRepositories);
         userLife.setText(String.valueOf(user_life));
+        userPoints.setText(String.valueOf(user_points));
         return view;
     }
+
 
     @Override
     @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks,R.id.btnQuit})
@@ -92,11 +90,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btnQuit:
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = Objects.requireNonNull(fragmentManager).beginTransaction();
-                QuitFragment QuitFragment = new QuitFragment();
-                fragmentTransaction.add(R.id.fragment_quit,QuitFragment);
-                fragmentTransaction.commit();
+                ((MainActivity)getActivity()).fragmentUtil.startQuitFragment();
                 break;
         }
         try {
@@ -110,7 +104,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        DB.getInstance(getActivity()).destroyInstance();
+        DB.getInstance(getActivity().getApplicationContext()).destroyInstance();
         unbinder.unbind();
         super.onDestroyView();
     }

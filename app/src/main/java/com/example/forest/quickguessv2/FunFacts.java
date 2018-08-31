@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -38,19 +39,11 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FunFacts extends Fragment implements View.OnClickListener {
+public class FunFacts extends Fragment implements View.OnClickListener , IOnBackPressed {
 
-    @BindView(R.id.title)
-    TextView title;
-
-    @BindView(R.id.content)
-    TextView content;
-
-    @BindView(R.id.btnNext)
-    Button btnNext;
-
-    @BindView(R.id.facebookShare) Button facebookShare;
-
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.content) TextView content;
+    @BindView(R.id.btnNext) Button btnNext;
 
     LinearLayout questionLayout;
     TextView question;
@@ -64,12 +57,11 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
-//TODO onbackpressed
-
     public FunFacts() {
         // Required empty public constructor
     }
 
+    //TODO REFACTOR
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_fun_facts, container, false);
@@ -86,24 +78,27 @@ public class FunFacts extends Fragment implements View.OnClickListener {
         imageBackground.setImageDrawable(null);
         questionLayout.setVisibility(View.GONE);
         radioBackBackground();
-        facebookShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                        .setQuote("This is a sample")
-                        .setContentUrl(Uri.parse("https://youtube.com"))
-                        .build();
-                if (ShareDialog.canShow(ShareLinkContent.class))
-                {
-                    shareDialog.show(linkContent, ShareDialog.Mode.WEB);
-                }
-            }
-        });
+        ((AnswerQuestion)getActivity()).cancelTimer();
         return view;
     }
 
 
+    @OnClick(R.id.facebookShare)
+    public void shareLink()
+    {
+        ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                .setQuote("Always seek KNOWLEDGE")
+                .setContentUrl(Uri.parse("https://youtube.com"))
+                .build();
+        if (ShareDialog.canShow(ShareLinkContent.class))
+        {
+            shareDialog.show(linkContent);
+        }
+    }
 
+
+
+    //TODO REFACTOR
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Typeface fontHelper = new FontHelper().dimboFont(context);
@@ -117,6 +112,7 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     }
 
 
+    //TODO REFACTOR
     @Override
     @OnClick(R.id.btnNext)
     public void onClick(View view) {
@@ -151,5 +147,15 @@ public class FunFacts extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();
+    }
+
+    //TODO REFACTOR
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getFragmentManager();
+        int count = fm.getBackStackEntryCount();
+        for (int i = 0; i < count; ++i) {
+            fm.popBackStack();
+        }
     }
 }

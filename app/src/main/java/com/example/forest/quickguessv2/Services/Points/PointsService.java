@@ -11,10 +11,9 @@ public class PointsService {
 
     public static Retrofit RetrofitInstance(Context context)
     {
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.baseUrl))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        return retrofit;
     }
 }

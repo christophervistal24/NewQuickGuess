@@ -61,5 +61,10 @@ public class UserRepositories {
         pointsRepositories.sendPoints(points);
     }
 
+    public static int getUserPoints(PointsRepositories pointsRepositories)
+    {
+        return pointsRepositories.getUserPoints();
+    }
+
 
 }

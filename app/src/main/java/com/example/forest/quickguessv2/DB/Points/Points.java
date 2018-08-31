@@ -1,9 +1,7 @@
 package com.example.forest.quickguessv2.DB.Points;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.database.sqlite.SQLiteConstraintException;
 
 @Entity(tableName = "user_points")
 public class Points {

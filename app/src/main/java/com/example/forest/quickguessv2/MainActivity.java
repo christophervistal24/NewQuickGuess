@@ -1,13 +1,16 @@
 package com.example.forest.quickguessv2;
 
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
+import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.InputHelpers;
@@ -15,7 +18,6 @@ import com.example.forest.quickguessv2.Helpers.LayoutHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
-import com.facebook.FacebookSdk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,20 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
     public LifeRepositories lifeRepositories;
     FragmentUtil fragmentUtil;
+    public PointsRepositories pointsRepositories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main);
-        ApplicationClass.getRefWatcher(this);
+        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+        MediaPlayer bgSong = MediaPlayer.create(MainActivity.this, R.raw.bg2);
+        bgSong.start();
+        init();
+        checkUser();
+     //        printKeyHash();
+    }
+
+    private void init() {
+//        ApplicationClass.getRefWatcher(this);
         TypeFaceUtil.initFont(this);
         WindowHelper.hideNavigationBar(this);
         ButterKnife.bind(this);
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
-        checkUser();
-//        printKeyHash();
+        pointsRepositories = new PointsRepositories(getApplicationContext());
     }
 
     /*private void printKeyHash() {
@@ -65,15 +77,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (fragmentUtil.disposeBackStack())
-        {
-            System.exit(0);
-        }
+       if (fragmentUtil.disposeBackStack())
+       {
+           System.exit(0);
+       }
         super.onBackPressed();
     }
 
     @Override
     protected void onResume() {
+        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
         WindowHelper.hideNavigationBar(this);
         checkUser();
         super.onResume();
@@ -87,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         {
             username.setError("Please provide a proper username");
         } else {
-            UserRepositories.createUser(this,new User(player));
+            UserRepositories.createUser(getApplicationContext(),new User(player));
             UserRepositories.defaultLifetoUser(lifeRepositories);
             username.setText(null);
         }
@@ -107,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        DB.getInstance(this).destroyInstance();
+        DB.getInstance(getApplicationContext()).destroyInstance();
         super.onDestroy();
     }
 

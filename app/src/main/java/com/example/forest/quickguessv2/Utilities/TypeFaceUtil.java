@@ -1,7 +1,6 @@
 package com.example.forest.quickguessv2.Utilities;
 
 import android.app.Activity;
-import android.content.Context;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
 
