@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
+
 import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 
@@ -25,7 +25,10 @@ public class Detector {
             NetworkInfo info = connectivityManager.getActiveNetworkInfo();
             if(info != null)
             {
-                return info.getState() == NetworkInfo.State.CONNECTED;
+                if (info.getState() == NetworkInfo.State.CONNECTED)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -40,8 +43,7 @@ public class Detector {
             pointsRepositories.sendPoints(points);
         } else
         {
-            //return
-            Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
+           //no internet connection
         }
     }
 }

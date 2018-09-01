@@ -77,7 +77,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         categoryBackground();
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
-        points.setText(String.valueOf(UserRepositories.getUserPoints(pointsRepositories)));
+        initUserPoints();
 //        ApplicationClass.getRefWatcher(this);
     }
 
@@ -97,7 +97,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     public void getQuestion()
     {
-
         try {
             startTimer(counter);
             //get one questions
@@ -124,7 +123,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
             getAnswer(button.getText().toString(), q.getCorrect_answer());
-            cancelTimer();
+            countDownTimer.cancel();
             RGroup.setEnabled(false);
         }
     }
@@ -150,15 +149,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             };
             countDownTimer.start();
         } else {
-            cancelTimer();
+            countDownTimer.cancel();
             countDownTimer.start();
         }
     }
 
     @Override
     public void onBackPressed() {
-        isCounterRunning = false;
-        cancelTimer();
+        countDownTimer.cancel();
         tellFragments();
         super.onBackPressed();
     }
@@ -171,7 +169,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         userStatus.setQuestion_result(1);
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
-        UserRepositories.isUserHasPoints(getApplicationContext(),userPoints++,pointsRepositories);
+        UserRepositories.isUserHasPoints(getApplicationContext(),userPoints+1,pointsRepositories);
         result();
     }
 
@@ -180,13 +178,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void wrong() {
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
+        UserRepositories.isUserHasPoints(getApplicationContext(),0,pointsRepositories);
         GameoverRepositories.isGameOver(lifeRepositories);
         result();
     }
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
-
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
         SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
@@ -205,6 +203,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void result() {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         QuestionResult questionResult = new QuestionResult();
@@ -221,21 +220,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         BackgroundUtil.radioBackgrounds(getApplicationContext(),RGroup,correct_answer);
     }
 
-    public void cancelTimer()
+
+
+    public void removeCallback()
     {
-        if  (countDownTimer != null)
+        if (openFunFactsFragment != null)
         {
-            countDownTimer.cancel();
+            handler.removeCallbacks(openFunFactsFragment);
         }
     }
-
     @Override
     protected void onDestroy() {
-       if (openFunFactsFragment != null)
-       {
-           handler.removeCallbacks(openFunFactsFragment);
-       }
-        cancelTimer();
+        countDownTimer.cancel();
         DB.getInstance(getApplicationContext()).destroyInstance();
         super.onDestroy();
     }
@@ -249,16 +245,30 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         handler = new Handler();
         openFunFactsFragment = new Runnable() {
             public void run() {
+
                 gotoFunFactsFragment();
                 //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
-                points.setText(String.valueOf(UserRepositories.getUserPoints(pointsRepositories)));
+                initUserPoints();
                 userPoints = 0;
+                countDownTimer.cancel();
+                isCounterRunning = true;
             }
         };
-        handler.postDelayed(openFunFactsFragment,800);
+        handler.postDelayed(openFunFactsFragment,400);
     }
-
+    private void initUserPoints()
+    {
+        if  (pointsRepositories.getUserPoints() != 0)
+        {
+            SharedPreferenceHelper.PREF_FILE = "points";
+            int u_points = UserRepositories.getUserPoints(pointsRepositories) + SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_points",0);
+            points.setText(String.valueOf(u_points));
+        } else {
+            int s_points = SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_points",0);
+            points.setText(String.valueOf(s_points));
+        }
+    }
     private void tellFragments() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for(Fragment f : fragments){

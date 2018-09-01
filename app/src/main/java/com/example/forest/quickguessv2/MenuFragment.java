@@ -4,6 +4,7 @@ package com.example.forest.quickguessv2;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
+import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 
 import java.util.Objects;
 
@@ -46,6 +48,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         welcomeLayout.setVisibility(View.GONE);
         userLife.setText(null);
         userPoints.setText(null);
+        initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
         super.onResume();
@@ -55,6 +58,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        SharedPreferenceHelper.PREF_FILE = "points";
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         unbinder = ButterKnife.bind(this,view);
         userLife.setText(null);
@@ -62,10 +66,25 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
-        user_points = UserRepositories.getUserPoints(((MainActivity)getActivity()).pointsRepositories);
+        initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initUserPoints();
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void initUserPoints() {
+        if (((MainActivity)getActivity()).pointsRepositories.getUserPoints() != 0)
+        {
+            user_points = UserRepositories.getUserPoints(((MainActivity)getActivity()).pointsRepositories) + SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0);
+        } else {
+            user_points = SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0);
+        }
     }
 
 

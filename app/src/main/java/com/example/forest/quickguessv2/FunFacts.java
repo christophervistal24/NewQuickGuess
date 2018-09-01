@@ -78,7 +78,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         imageBackground.setImageDrawable(null);
         questionLayout.setVisibility(View.GONE);
         radioBackBackground();
-        ((AnswerQuestion)getActivity()).cancelTimer();
+        ((AnswerQuestion)getActivity()).removeCallback();
         return view;
     }
 

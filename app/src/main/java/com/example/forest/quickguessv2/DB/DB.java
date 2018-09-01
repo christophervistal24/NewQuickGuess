@@ -25,7 +25,7 @@ public abstract class DB extends RoomDatabase
     private Context context;
 
 
-    public abstract UserDao myDao();
+    public abstract UserDao userDao();
     public abstract CategoriesQuestionDao categoriesQuestionDao();
     public abstract QuestionsDao questionsDao();
     public abstract UserStatusDao userStatusDao();

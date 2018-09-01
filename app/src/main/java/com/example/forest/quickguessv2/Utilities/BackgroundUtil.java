@@ -33,6 +33,7 @@ public class BackgroundUtil {
                 } else {
                     listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(context, R.drawable.btn_incorrect));
                 }
+                listOfRadioButtons.get(i).setClickable(false);
             }
 
         }

@@ -8,63 +8,76 @@ import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
+import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.PointsUtil;
 
 
 public class UserRepositories {
 
 
+    //create new user
     public static void createUser(Context context, User user) {
-        DB.getInstance(context).myDao().addUser(user);
+        DB.getInstance(context).userDao().addUser(user);
     }
 
+    /*//check if user already exists
     private static int checkUser(Context context)
     {
-        return DB.getInstance(context).myDao().isUserExists();
-    }
+        return DB.getInstance(context).userDao().isUserExists();
+    }*/
 
+    //get player username
     public static String username(Context context)
     {
-        return DB.getInstance(context).myDao().getUsername();
+        return DB.getInstance(context).userDao().getUsername();
     }
 
+    //check if already exists
     public static boolean isUserAlreadyRegister(Activity activity)
     {
-        return (checkUser(activity.getApplicationContext())) >= 1;
+        return (DB.getInstance(activity.getApplicationContext()).userDao().isUserExists()) >= 1;
     }
 
+    //default life to user
     public static void defaultLifetoUser(LifeRepositories lifeRepo)
     {
         lifeRepo.setLifeToUser(5);
     }
 
+    //get the current life of the user
     public static int getLifeOfUser(LifeRepositories lifeRepo)
     {
        return lifeRepo.getUserLife();
     }
-
-    public static void isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
-    {
-        int currect_points = DB.getInstance(context).pointsDao().getUserPoints();
-        userPoints++;
-        Points points = new Points();
-        points.setId(1);
-        try {
-            points.setPoints(PointsUtil.plusExtra(userPoints));
-            DB.getInstance(context).pointsDao().insert(points);
-        } catch (SQLiteConstraintException exception) {
-            userPoints = (PointsUtil.plusExtra(userPoints)) + currect_points;
-            points.setPoints(0);
-            points.setPoints(userPoints);
-            DB.getInstance(context).pointsDao().update(points);
-        }
-        pointsRepositories.sendPoints(points);
-    }
-
+    //get the points of the user
     public static int getUserPoints(PointsRepositories pointsRepositories)
     {
         return pointsRepositories.getUserPoints();
     }
+
+    //check if user has points
+    public static void isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
+    {
+        SharedPreferenceHelper.PREF_FILE="points";
+        //get the user points
+        int current_points = DB.getInstance(context).pointsDao().getUserPoints();
+        Points points = new Points();
+        //set the points id to 1 to easily replace the existing point
+        points.setId(1);
+        try { // if user no points
+            points.setPoints(PointsUtil.plusExtra(userPoints));
+            DB.getInstance(context).pointsDao().insert(points);
+        } catch (SQLiteConstraintException exception) { //update the existing points
+            userPoints = (PointsUtil.plusExtra(userPoints)) + current_points;
+            points.setPoints(0);
+            points.setPoints(userPoints);
+            DB.getInstance(context).pointsDao().update(points);
+        }
+        //sending to rest api the points
+        pointsRepositories.sendPoints(points);
+    }
+
+
 
 
 }
