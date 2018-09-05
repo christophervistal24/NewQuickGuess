@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -57,6 +58,11 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     public FunFacts() {
         // Required empty public constructor
     }
@@ -92,7 +98,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
                 .build();
         if (ShareDialog.canShow(ShareLinkContent.class))
         {
-            shareDialog.show(linkContent);
+            shareDialog.show(linkContent, ShareDialog.Mode.WEB);
         }
     }
 
@@ -125,6 +131,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         imageBackground.setImageResource(getResources().getIdentifier("bg_people","drawable", Objects.requireNonNull(getActivity()).getPackageName()));
         ((AnswerQuestion)getActivity()).countDownTimer.start();
         ((AnswerQuestion)getActivity()).getQuestion();
+        ((AnswerQuestion)getActivity()).userPoints = 0;
     }
 
     private void radioBackBackground()

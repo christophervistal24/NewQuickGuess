@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -53,9 +54,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private static final long counter = 5000;
     public CountDownTimer countDownTimer;
-    private int userPoints = 0;
+    protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
     private PointsRepositories pointsRepositories;
+    private int updatedUserPoints = 0;
 
     Handler handler;
     Runnable openFunFactsFragment;
@@ -77,8 +79,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         categoryBackground();
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
-        initUserPoints();
-//        ApplicationClass.getRefWatcher(this);
+        points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
     }
 
     private void categoryBackground() {
@@ -169,7 +170,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         userStatus.setQuestion_result(1);
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
-        UserRepositories.isUserHasPoints(getApplicationContext(),userPoints+1,pointsRepositories);
+        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints+1,pointsRepositories);
+        points.setText(String.valueOf(updatedUserPoints));
         result();
     }
 
@@ -178,9 +180,23 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void wrong() {
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
-        UserRepositories.isUserHasPoints(getApplicationContext(),0,pointsRepositories);
+        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories);
+        points.setText(String.valueOf(updatedUserPoints));
         GameoverRepositories.isGameOver(lifeRepositories);
         result();
+    }
+
+    @Override
+    protected void onResume() {
+        getQuestion();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        countDownTimer.cancel();
+        isCounterRunning = true;
+        super.onStop();
     }
 
     @Override
@@ -236,10 +252,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         super.onDestroy();
     }
 
-    private void gotoFunFactsFragment()
-    {
-        fragmentUtil.startFunFactsFragment(this);
-    }
+    private void gotoFunFactsFragment(){ fragmentUtil.startFunFactsFragment(this); }
 
     protected void onPreExecute() {
         handler = new Handler();
@@ -249,26 +262,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 gotoFunFactsFragment();
                 //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
-                initUserPoints();
+//                initUserPoints()
                 userPoints = 0;
                 countDownTimer.cancel();
                 isCounterRunning = true;
             }
         };
-        handler.postDelayed(openFunFactsFragment,400);
+        handler.postDelayed(openFunFactsFragment,200);
     }
-    private void initUserPoints()
-    {
-        if  (pointsRepositories.getUserPoints() != 0)
-        {
-            SharedPreferenceHelper.PREF_FILE = "points";
-            int u_points = UserRepositories.getUserPoints(pointsRepositories) + SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_points",0);
-            points.setText(String.valueOf(u_points));
-        } else {
-            int s_points = SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_points",0);
-            points.setText(String.valueOf(s_points));
-        }
-    }
+
     private void tellFragments() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for(Fragment f : fragments){

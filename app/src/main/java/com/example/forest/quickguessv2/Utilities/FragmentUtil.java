@@ -32,7 +32,7 @@ public class FragmentUtil extends Fragment{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MenuFragment menuFragment = new MenuFragment();
         fragmentTransaction.add(R.id.fragment_one,menuFragment);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -76,15 +76,13 @@ public class FragmentUtil extends Fragment{
         }
     }
 
-    public boolean disposeBackStack()
+    public void disposeBackStack()
     {
         int count = activity.getSupportFragmentManager().getBackStackEntryCount();
         if (count != 0)
         {
             activity.getSupportFragmentManager().popBackStack();
-            return true;
         }
-        return false;
     }
 
 }

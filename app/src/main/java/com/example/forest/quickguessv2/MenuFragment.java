@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
@@ -36,6 +37,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.userPoints) TextView userPoints;
     private int user_life;
     private int user_points;
+    private boolean sampleFirst = false;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -45,9 +47,9 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
-        welcomeLayout.setVisibility(View.GONE);
         userLife.setText(null);
         userPoints.setText(null);
+        welcomeLayout.setVisibility(View.GONE);
         initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
@@ -79,12 +81,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserPoints() {
-        if (((MainActivity)getActivity()).pointsRepositories.getUserPoints() != 0)
-        {
-            user_points = UserRepositories.getUserPoints(((MainActivity)getActivity()).pointsRepositories) + SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0);
-        } else {
-            user_points = SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0);
-        }
+        PointsRepositories pointsRepositories = ((MainActivity)getActivity()).pointsRepositories;
+        user_points = SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0) + UserRepositories.getUserPoints(pointsRepositories);
     }
 
 

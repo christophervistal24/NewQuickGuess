@@ -56,7 +56,7 @@ public class UserRepositories {
     }
 
     //check if user has points
-    public static void isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
+    public static int isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
     {
         SharedPreferenceHelper.PREF_FILE="points";
         //get the user points
@@ -74,7 +74,8 @@ public class UserRepositories {
             DB.getInstance(context).pointsDao().update(points);
         }
         //sending to rest api the points
-        pointsRepositories.sendPoints(points);
+       return pointsRepositories.sendPoints(points);
+
     }
 
 

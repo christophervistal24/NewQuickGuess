@@ -4,12 +4,15 @@ package com.example.forest.quickguessv2;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
+import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
@@ -18,6 +21,8 @@ import com.example.forest.quickguessv2.Helpers.LayoutHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment:getSupportFragmentManager().getFragments()) {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
-        MediaPlayer bgSong = MediaPlayer.create(MainActivity.this, R.raw.bg2);
+        MediaPlayer bgSong = MediaPlayer.create(MainActivity.this, R.raw.bgmusic);
         bgSong.start();
         init();
         checkUser();
      //        printKeyHash();
     }
 
-    private void init() {
+        private void init() {
 //        ApplicationClass.getRefWatcher(this);
         TypeFaceUtil.initFont(this);
         WindowHelper.hideNavigationBar(this);
@@ -79,10 +84,14 @@ public class MainActivity extends AppCompatActivity {
     //TODO fix error
     @Override
     public void onBackPressed() {
-       if (fragmentUtil.disposeBackStack())
-       {
-           System.exit(0);
-       }
+
+        Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fragment_one);
+        if  (fragmentManager != null)
+        {
+            fragmentUtil.disposeBackStack();
+        } else  {
+            System.exit(0);
+        }
         super.onBackPressed();
     }
 

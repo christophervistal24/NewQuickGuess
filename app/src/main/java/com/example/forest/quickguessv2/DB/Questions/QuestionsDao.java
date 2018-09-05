@@ -19,6 +19,6 @@ public interface QuestionsDao {
     int countQuestion();
 
     @Query("SELECT * FROM questions WHERE category_id = :category_id AND id NOT " +
-            "IN (SELECT question_id FROM user_status)")
+            "IN (SELECT question_id FROM user_status) LIMIT 5")
     List<Questions> getQuestionsByCategory(int category_id);
 }
