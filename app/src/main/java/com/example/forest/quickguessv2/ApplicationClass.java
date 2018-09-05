@@ -77,7 +77,7 @@ public class ApplicationClass extends Application{
             questionRepositories.questionCreator("What is3","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is4","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is5","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is6","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
+           /* questionRepositories.questionCreator("What is6","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is7","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is8","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is9","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
@@ -1070,8 +1070,7 @@ public class ApplicationClass extends Application{
             questionRepositories.questionCreator("What is996","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is997","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is998","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is999","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-
+            questionRepositories.questionCreator("What is999","halo","halo2","halo3","halo4","halo","This is a sample","default",1);*/
         }
 
 

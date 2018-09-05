@@ -42,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
+        disposeAllBackstack();
         MediaPlayer bgSong = MediaPlayer.create(MainActivity.this, R.raw.bgmusic);
         bgSong.start();
         init();
@@ -81,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
 */
 
 
-    //TODO fix error
     @Override
     public void onBackPressed() {
-
         Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fragment_one);
         if  (fragmentManager != null)
         {
@@ -97,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
+        disposeAllBackstack();
         WindowHelper.hideNavigationBar(this);
         checkUser();
         super.onResume();
@@ -109,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.createUser)
     public void create() {
         String player = username.getText().toString();
-        if  (player.isEmpty()  || InputHelpers.isProperUsername(player))
+        if  (player.isEmpty()  || InputHelpers.isProperUsername(player) )
         {
             username.setError("Please provide a proper username");
         } else {
@@ -130,10 +124,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void disposeAllBackstack()
+    {
+        for (Fragment fragment:getSupportFragmentManager().getFragments()) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+    }
 
     @Override
     protected void onDestroy() {
         DB.getInstance(getApplicationContext()).destroyInstance();
+
         super.onDestroy();
     }
 
