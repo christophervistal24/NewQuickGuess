@@ -24,6 +24,7 @@ import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
+import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 import com.example.forest.quickguessv2.Utilities.BackgroundUtil;
@@ -114,7 +115,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
         } catch (NullPointerException e)
         {
-            Toast.makeText(this, "Congrats", Toast.LENGTH_SHORT).show();
             finish();
         }
 

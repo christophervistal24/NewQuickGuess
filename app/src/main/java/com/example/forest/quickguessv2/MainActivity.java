@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
         pointsRepositories = new PointsRepositories(getApplicationContext());
-            YoYo.with(Techniques.DropOut)
+        YoYo.with(Techniques.DropOut)
                     .duration(2000)
                     .delay(1000)
                     .repeat(-1)

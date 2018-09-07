@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.forest.quickguessv2.AnswerQuestion;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.FinishCategoryActivity;
+import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Utilities.RandomizeUtil;
 
 import java.util.List;
@@ -45,12 +47,13 @@ public class QuestionRepositories {
 
   public Questions selectQuestion()
   {
-     List<Questions> questionsList = RandomizeUtil.questions(getQuestions(),getQuestions().size());
+      List<Questions> questionsList = RandomizeUtil.questions(getQuestions(),getQuestions().size());
       if (questionsList.size() != 0)
       {
-           return questionsList.get(0);
+          return questionsList.get(0);
       } else {
           ((AnswerQuestion) context).finish();
+          new RedirectHelper(context, FinishCategoryActivity.class);
       }
       return null;
   }

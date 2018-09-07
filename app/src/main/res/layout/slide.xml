@@ -9,9 +9,11 @@
 
 
     <ImageView
+        android:id="@+id/slideimg"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/slideimg"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/ppl" />
 
     <TextView
         android:padding="16dp"
@@ -19,7 +21,6 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:text="Title Here"
-        android:textColor="#fff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -28,7 +29,6 @@
         android:textAlignment="center"
         android:textSize="17sp"
         android:text="Description is Here"
-        android:textColor="#fff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
