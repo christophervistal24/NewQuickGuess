@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".CategoriesActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/back"
+        android:contentDescription="@string/menu_background"/>
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:maxHeight="0dp"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:src="@drawable/choose"-->
+        <!--android:contentDescription="@string/menu_background"/>-->
+
+    <LinearLayout
+        android:id="@+id/categoriesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/people" />
+
+        <ImageButton
+            android:id="@+id/plants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/plants" />
+
+
+        <ImageButton
+            android:id="@+id/animals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/animals" />
+
+        <ImageButton
+            android:id="@+id/geography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/geography" />
+
+        <ImageButton
+            android:id="@+id/sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sports" />
+
+        <ImageButton
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/music" />
+
+        <ImageButton
+            android:id="@+id/technology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/technology" />
+
+        <ImageButton
+            android:id="@+id/entertainment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/entertainment" />
+    </LinearLayout>
+
+
+
+
+
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+
+        <!--android:orientation="vertical">-->
+<!--
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/people"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_people"
+         />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/plants"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_plants"
+        />
+
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/animals"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_animals"
+         />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/geography"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_geography"
+         />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/sports"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_sports"
+         />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/music"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_music"
+        />
+
+        <Button
+            android:visibility="gone"
+        android:id="@+id/technology"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/categories_btn_technology"
+       />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/entertainment"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_btn_entertainment"
+        />
+-->
+
+
+    <!--</LinearLayout>-->
+
+</RelativeLayout>

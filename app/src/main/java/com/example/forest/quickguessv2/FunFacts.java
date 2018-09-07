@@ -94,7 +94,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     {
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
                 .setQuote("Always seek KNOWLEDGE")
-                .setContentUrl(Uri.parse("https://youtube.com"))
+                .setContentUrl(Uri.parse("https://playquickguess.herokuapp.com/"))
                 .build();
         if (ShareDialog.canShow(ShareLinkContent.class))
         {

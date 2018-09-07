@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.Points;
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.username) EditText username;
     @BindView(R.id.welcomeLayout) RelativeLayout welcomeLayout;
     @BindView(R.id.mainLayout)  RelativeLayout mainLayout;
+    @BindView(R.id.title) ImageView title;
 
     public LifeRepositories lifeRepositories;
     FragmentUtil fragmentUtil;
@@ -58,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
         pointsRepositories = new PointsRepositories(getApplicationContext());
+            YoYo.with(Techniques.DropOut)
+                    .duration(2000)
+                    .delay(1000)
+                    .repeat(-1)
+                    .playOn(title);
     }
 
     /*private void printKeyHash() {
@@ -105,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
         String player = username.getText().toString();
         if  (player.isEmpty()  || InputHelpers.isProperUsername(player) )
         {
-            username.setError("Please provide a proper username");
+            YoYo.with(Techniques.Shake)
+                    .duration(700)
+                    .playOn(username);
+            username.setError("Please provide a proper name");
         } else {
             UserRepositories.createUser(getApplicationContext(),new User(player));
             UserRepositories.defaultLifetoUser(lifeRepositories);

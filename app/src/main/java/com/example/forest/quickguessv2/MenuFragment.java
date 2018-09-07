@@ -10,9 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
@@ -35,9 +39,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Unbinder unbinder;
     @BindView(R.id.userLife) TextView userLife;
     @BindView(R.id.userPoints) TextView userPoints;
+    @BindView(R.id.btnCategories) ImageButton btnCategories;
+
     private int user_life;
     private int user_points;
-    private boolean sampleFirst = false;
+
 
     public MenuFragment() {
         // Required empty public constructor
@@ -71,12 +77,17 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUserPoints();
+        YoYo.with(Techniques.Shake)
+                .duration(2000)
+                .repeat(-1)
+                .playOn(btnCategories);
         super.onViewCreated(view, savedInstanceState);
     }
 

@@ -1,10 +1,12 @@
 package com.example.forest.quickguessv2;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.forest.quickguessv2.Adapters.SlideAdapter;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 
@@ -14,6 +16,9 @@ import butterknife.OnClick;
 
 public class CategoriesActivity extends AppCompatActivity {
 
+    private ViewPager viewPager;
+    private SlideAdapter myadapter;
+
     @BindView(R.id.categoriesLayout)
     LinearLayout categoriesLayout;
 
@@ -21,7 +26,9 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        ButterKnife.bind(this);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        myadapter = new SlideAdapter(this);
+        viewPager.setAdapter(myadapter);
     }
 
     @OnClick({R.id.people, R.id.plants, R.id.animals, R.id.geography, R.id.sports, R.id.music, R.id.technology, R.id.entertainment})

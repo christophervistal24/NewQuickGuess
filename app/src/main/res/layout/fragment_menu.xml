@@ -3,88 +3,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_bg"
     android:clickable="true"
+    android:layout_weight="1"
     tools:context=".MenuFragment"
     android:focusable="true">
 
 
 
 
+
     <RelativeLayout
+        android:id="@+id/LifeAndPoints"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/userLife"
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/life"
             android:layout_alignParentStart="true"
-            android:gravity="start|center_vertical"
-            android:textSize="25sp"
+            />
+
+      <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/userLife"
+            android:textSize="30sp"
+            android:layout_marginStart="60dp"
+            android:layout_alignParentStart="true"
+            android:text="5"
+            android:gravity="center"
             android:textStyle="bold"
             />
 
-        <TextView
-            android:textSize="25sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/userPoints"
-            android:textStyle="bold"
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/star"
             android:layout_alignParentEnd="true"
-            android:gravity="end|center_vertical"
-            tools:ignore="RelativeOverlap" />
+            />
+
+       <TextView
+           android:id="@+id/userPoints"
+           android:layout_width="wrap_content"
+           android:layout_height="40dp"
+           android:textSize="30sp"
+           android:textStyle="bold"
+           android:layout_alignParentEnd="true"
+           android:gravity="center"
+           android:layout_marginEnd="60dp"
+           android:text="0"
+            />
 
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:maxHeight="0dp"
+        android:layout_below="@+id/LifeAndPoints"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/title"
         android:scaleType="fitXY"
-        android:src="@drawable/bg_menu"
-        android:contentDescription="@string/menu_background"/>
+        android:layout_height="230dp" />
+
 
     <LinearLayout
+        android:id="@+id/categories"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/title"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnAbout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/info"
+            android:scaleType="centerInside" />
+
+        <ImageButton
+            android:id="@+id/btnCategories"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/play_btn2"
+            android:scaleType="centerInside"
+           />
+
+
+
+        <ImageButton
+            android:id="@+id/btnOptions"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/settings"
+            android:scaleType="centerInside" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_below="@id/categories"
+        android:id="@+id/ranks"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btnRanks"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/leaderboard_btn" />
+    </LinearLayout>
+
+
+
+
+
+
+ <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/quit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_centerHorizontal="true"
+        >
 
-
-        <Button
-            android:id="@+id/btnCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="9dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/menu_btn_category" />
-
-        <Button
-            android:id="@+id/btnRanks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="9dp"
-            android:background="@drawable/menu_btn_ranks" />
-
-        <Button
-            android:id="@+id/btnAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="9dp"
-            android:background="@drawable/menu_btn_about" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btnQuit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/menu_btn_quit" />
+            android:scaleType="centerInside"
+            android:background="@drawable/quit" />
     </LinearLayout>
+
+
+
 
 </RelativeLayout>
