@@ -14,6 +14,9 @@ public interface CategoriesQuestionDao {
     @Query("SELECT COUNT(*) from question_category")
     int countCategories();
 
+    @Query("SELECT id FROM question_category WHERE category = :category")
+    int getCategoryIdByName(String category);
+
   /*  @Query("SELECT * FROM question_category")
     List<QuestionCategory> getAllCategories();*/
 

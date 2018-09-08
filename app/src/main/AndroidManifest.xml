@@ -41,13 +41,16 @@
         <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".FinishCategoryActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider240267453345824"
             android:exported="true" />
 
-        <activity android:name=".FinishCategoryActivity"></activity>
+        <activity android:name=".DisplayAllFunFacts"></activity>
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguessv2.Helpers.WindowHelper;
 
 import java.util.Objects;
 
@@ -68,6 +69,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         SharedPreferenceHelper.PREF_FILE = "points";
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        WindowHelper.hideNavigationBar(getActivity());
         unbinder = ButterKnife.bind(this,view);
         userLife.setText(null);
         userPoints.setText(null);
@@ -92,8 +94,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserPoints() {
-        PointsRepositories pointsRepositories = ((MainActivity)getActivity()).pointsRepositories;
-        user_points = SharedPreferenceHelper.getSharedPreferenceInt(getContext(),"user_points",0) + UserRepositories.getUserPoints(pointsRepositories);
+        PointsRepositories pointsRepositories = ((MainActivity)getActivity())
+                                                .pointsRepositories;
+        user_points = SharedPreferenceHelper.
+                                getSharedPreferenceInt(getContext(),"user_points",0) + UserRepositories.getUserPoints(pointsRepositories);
     }
 
 
@@ -132,7 +136,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        DB.getInstance(getActivity().getApplicationContext()).destroyInstance();
+        DB.getInstance(getActivity().getApplicationContext())
+                        .destroyInstance();
         unbinder.unbind();
         super.onDestroyView();
     }

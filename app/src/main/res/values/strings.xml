@@ -37,6 +37,7 @@
     <string name="instruction_1">Instruction 1</string>
 
     <string name="points">points</string>
+    <string name="viewAllText">View all Fun facts</string>
     <!--End-->
 
 </resources>

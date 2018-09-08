@@ -9,7 +9,7 @@ public class RedirectHelper {
     public RedirectHelper(Context packageContext, Class<?> cls)
     {
         Intent intent = new Intent(packageContext,cls);
-        intent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         packageContext.startActivity(intent);
     }
 

@@ -61,49 +61,6 @@ public class CategoriesActivity extends AppCompatActivity {
         viewPager.setAdapter(myadapter);
     }
 
-   /* @OnClick({R.id.people, R.id.plants, R.id.animals, R.id.geography, R.id.sports, R.id.music, R.id.technology, R.id.entertainment})
-    public void onClick(View view) {
-        String background;
-        switch (view.getId()) {
-            case R.id.people:
-                background = "bg_people";
-                break;
-
-            case R.id.plants:
-                background = "bg_plants";
-                break;
-
-            case R.id.animals:
-                background = "bg_animals";
-                break;
-
-            case R.id.geography:
-                background = "bg_geography";
-                break;
-
-            case R.id.sports:
-                background = "bg_sports";
-                break;
-
-            case R.id.music:
-                background = "bg_music";
-                break;
-
-            case R.id.technology:
-                background = "bg_technology";
-                break;
-
-            case R.id.entertainment:
-                background = "bg_entertainment";
-                break;
-
-            default:
-                throw new RuntimeException("Unknow button ID");
-        }
-        new RedirectHelper(background, this, AnswerQuestion.class);
-    }*/
-
-
     @Override
     protected void onDestroy() {
         DB.getInstance(this).destroyInstance();

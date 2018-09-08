@@ -71,19 +71,19 @@ public class ApplicationClass extends Application{
         //insert questions
         if (DB.getInstance(this).questionsDao().countQuestion() == 0)
         {
-            questionRepositories.questionCreator("What is0","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is1","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is2","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is3","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is4","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is5","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-           /* questionRepositories.questionCreator("What is6","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
+            questionRepositories.questionCreator("What is0","halo","halo2","halo3","halo4","halo","This is a sample0","default",1);
+            questionRepositories.questionCreator("What is1","halo","halo2","halo3","halo4","halo","This is a sample1","default",1);
+            questionRepositories.questionCreator("What is2","halo","halo2","halo3","halo4","halo","This is a sample2","default",1);
+            questionRepositories.questionCreator("What is3","halo","halo2","halo3","halo4","halo","This is a sample3","default",1);
+            questionRepositories.questionCreator("What is4","halo","halo2","halo3","halo4","halo","This is a sample4","default",1);
+            questionRepositories.questionCreator("What is5","halo","halo2","halo3","halo4","halo","This is a sample5","default",1);
+            questionRepositories.questionCreator("What is6","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is7","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is8","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is9","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is10","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is11","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
-            questionRepositories.questionCreator("What is12","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
+          /*  questionRepositories.questionCreator("What is12","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is13","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is14","halo","halo2","halo3","halo4","halo","This is a sample","default",1);
             questionRepositories.questionCreator("What is15","halo","halo2","halo3","halo4","halo","This is a sample","default",1);

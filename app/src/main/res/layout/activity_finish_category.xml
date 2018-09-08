@@ -7,8 +7,21 @@
     android:orientation="vertical"
     tools:context=".FinishCategoryActivity">
 
+    <!--<View android:id="@+id/emiter_top_left"-->
+        <!--android:layout_gravity="top|left"-->
+        <!--android:layout_marginTop="-20dp"-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="1dp" />-->
+
+    <!--<View android:id="@+id/emiter_top_right"-->
+        <!--android:layout_gravity="top|right"-->
+        <!--android:layout_marginTop="-20dp"-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="1dp" />-->
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/trophyLayout"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
@@ -18,7 +31,8 @@
                 android:id="@+id/trophy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/trophy" />
+                android:src="@drawable/trophy"
+                android:contentDescription="@null" />
 
             <TextView
                 android:id="@+id/message"
@@ -34,7 +48,10 @@
                 android:id="@+id/viewAllFunFacts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View all Fun facts"/>
+                android:text="@string/viewAllText"/>
+
         </LinearLayout>
+
+
 
 </LinearLayout>
