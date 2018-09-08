@@ -71,7 +71,6 @@ public class FinishCategoryActivity extends AppCompatActivity {
     @OnClick(R.id.viewAllFunFacts)
     public void onClick()
     {
-        //get the id of category
 
         new RedirectHelper(getApplicationContext(),DisplayAllFunFacts.class);
     }

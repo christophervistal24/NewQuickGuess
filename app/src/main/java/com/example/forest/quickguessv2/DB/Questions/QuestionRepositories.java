@@ -13,6 +13,7 @@ import java.util.List;
 public class QuestionRepositories {
 
     public Context context;
+    private int question_id;
     public QuestionRepositories(Context context)
     {
         this.context = context;
@@ -33,10 +34,9 @@ public class QuestionRepositories {
            DB.getInstance(context).questionsDao().insert(questions);
     }
 
-    private List<Questions> getQuestions()
+    private List<Questions> getQuestions(int id)
     {
-
-        return DB.getInstance(context).questionsDao().getQuestionsByCategory(1);
+        return DB.getInstance(context).questionsDao().getQuestionsByCategory(id);
     }
 
   /*  public static int countQuestions(Context context)
@@ -45,9 +45,9 @@ public class QuestionRepositories {
     }
 */
 
-  public Questions selectQuestion()
+  public Questions selectQuestion(int category_id)
   {
-      List<Questions> questionsList = RandomizeUtil.questions(getQuestions(),getQuestions().size());
+      List<Questions> questionsList = RandomizeUtil.questions(getQuestions(category_id),getQuestions(category_id).size());
       if (questionsList.size() != 0)
       {
           return questionsList.get(0);

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Adapters.FunFactsAdapter;
 import com.example.forest.quickguessv2.DB.DB;
@@ -32,11 +33,24 @@ public class DisplayAllFunFacts extends AppCompatActivity {
         questionRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         questionRecyclerView.setHasFixedSize(true);
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getCredentials();
+        getAllFunfacts();
+        Toast.makeText(this, category, Toast.LENGTH_SHORT).show();
+    }
+
+    private void getCredentials() {
         SharedPreferenceHelper.PREF_FILE="user_played";
         category = SharedPreferenceHelper.
                 getSharedPreferenceString(getApplicationContext(),"category",null)
                 .toLowerCase();
         getAllFunfacts();
+    }
+
+    @Override
+    protected void onResume() {
+        getCredentials();
+        getAllFunfacts();
+        super.onResume();
     }
 
     public DisplayAllFunFacts get()
@@ -48,7 +62,7 @@ public class DisplayAllFunFacts extends AppCompatActivity {
     {
         questionsItems = new ArrayList<>();
         int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category);
-        //getAllFunfacts the all questions by category id
+        //getall questions by category id
           List<Questions> questionsList = DB.getInstance(getApplicationContext())
                   .questionsDao().getQuestionByCategoryId(category_id);
           for(Questions q : questionsList)

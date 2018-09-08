@@ -101,8 +101,13 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     {
         try {
             startTimer(counter);
+            SharedPreferenceHelper.PREF_FILE = "user_played";
+            String selected_category = SharedPreferenceHelper
+                    .getSharedPreferenceString(getApplicationContext(),"category",null)
+                    .toLowerCase();
+            int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(selected_category);
             //get one questions
-            q = questionRepositories.selectQuestion();
+            q = questionRepositories.selectQuestion(category_id);
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
             List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
 
