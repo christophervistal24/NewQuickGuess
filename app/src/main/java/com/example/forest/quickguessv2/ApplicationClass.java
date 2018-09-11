@@ -62,6 +62,7 @@ public class ApplicationClass extends Application{
         questionCategoryRepositories.categoryCreator("music","All about");
         questionCategoryRepositories.categoryCreator("technology","All about");
         questionCategoryRepositories.categoryCreator("entertainment","All about");
+
     }
 
     private void insertQuestions()
@@ -69,7 +70,7 @@ public class ApplicationClass extends Application{
         //insert questions
         if (DB.getInstance(this).questionsDao().countQuestion() == 0)
         {
-            questionRepositories.questionCreator("What is people0","halo","halo2","halo3","halo4","halo","This is a sample0","default",1);
+          /*  questionRepositories.questionCreator("What is people0","halo","halo2","halo3","halo4","halo","This is a sample0","default",1);
             questionRepositories.questionCreator("What is people1","halo","halo2","halo3","halo4","halo","This is a sample1","default",1);
             questionRepositories.questionCreator("What is plants2","halo","halo2","halo3","halo4","halo","This is a sample2","default",2);
             questionRepositories.questionCreator("What is plants3","halo","halo2","halo3","halo4","halo","This is a sample3","default",2);
@@ -84,7 +85,7 @@ public class ApplicationClass extends Application{
             questionRepositories.questionCreator("What is technology12","halo","halo2","halo3","halo4","halo","This is a sample2","default",7);
             questionRepositories.questionCreator("What is technology13","halo","halo2","halo3","halo4","halo","This is a sample2","default",7);
             questionRepositories.questionCreator("What is entertainment14","halo","halo2","halo3","halo4","halo","This is a sample2","default",8);
-            questionRepositories.questionCreator("What is entertainment15","halo","halo2","halo3","halo4","halo","This is a sample2","default",8);
+            questionRepositories.questionCreator("What is entertainment15","halo","halo2","halo3","halo4","halo","This is a sample2","default",8);*/
         }
 
 

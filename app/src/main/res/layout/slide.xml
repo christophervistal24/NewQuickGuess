@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:id="@+id/slidelinearlayout">
 
 
-    <ImageView
-        android:id="@+id/slideimg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ppl" />
 
-    <TextView
-        android:padding="16dp"
-        android:id="@+id/txttitle"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:text="Title Here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:padding="16dp"
-        android:id="@+id/txtdescription"
-        android:textAlignment="center"
-        android:textSize="17sp"
-        android:text="Description is Here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/pageBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:maxHeight="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cat_enter" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sample"
-        android:id="@+id/btnProceed"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtdescription"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/tap_to_start"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="45sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</RelativeLayout>

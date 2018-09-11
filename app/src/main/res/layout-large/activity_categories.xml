@@ -8,6 +8,7 @@
     tools:context=".CategoriesActivity">
 
     <ImageView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -24,6 +25,7 @@
         <!--android:scaleType="centerInside"-->
         <!--android:src="@drawable/choose"-->
         <!--android:contentDescription="@string/menu_background"/>-->
+<!--
 
     <LinearLayout
         android:id="@+id/categoriesLayout"
@@ -86,6 +88,7 @@
 
 
 
+-->
 
 
 

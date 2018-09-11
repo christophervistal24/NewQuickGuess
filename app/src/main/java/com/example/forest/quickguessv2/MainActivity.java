@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,9 @@ import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.InputHelpers;
 import com.example.forest.quickguessv2.Helpers.LayoutHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
+import com.example.forest.quickguessv2.Service.MyService;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
+import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import java.util.List;
@@ -42,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
     public LifeRepositories lifeRepositories;
     FragmentUtil fragmentUtil;
     public PointsRepositories pointsRepositories;
+    private boolean isStop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         disposeAllBackstack();
-        MediaPlayer bgSong = MediaPlayer.create(MainActivity.this, R.raw.bgmusic);
-        bgSong.start();
+        startService(new Intent(this,MyService.class));
         init();
         checkUser();
      //        printKeyHash();
@@ -97,12 +100,17 @@ public class MainActivity extends AppCompatActivity {
             fragmentUtil.disposeBackStack();
         } else  {
             System.exit(0);
+            stopService(new Intent(this,MyService.class));
         }
         super.onBackPressed();
     }
 
     @Override
     protected void onResume() {
+        if  (isStop)
+        {
+            startService(new Intent(this,MyService.class));
+        }
         disposeAllBackstack();
         WindowHelper.hideNavigationBar(this);
         checkUser();
@@ -118,13 +126,24 @@ public class MainActivity extends AppCompatActivity {
             YoYo.with(Techniques.Shake)
                     .duration(700)
                     .playOn(username);
+            SoundUtil.songLoad(getApplicationContext(),R.raw.error)
+                     .start();
             username.setError("Please provide a proper name");
         } else {
+            SoundUtil.songLoad(getApplicationContext(),R.raw.click)
+                      .start();
             UserRepositories.createUser(getApplicationContext(),new User(player));
             UserRepositories.defaultLifetoUser(lifeRepositories);
             username.setText(null);
         }
         checkUser();
+    }
+
+    @Override
+    protected void onStop() {
+        stopService(new Intent(this,MyService.class));
+        isStop = true;
+        super.onStop();
     }
 
     private void checkUser()
@@ -147,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         DB.getInstance(getApplicationContext()).destroyInstance();
-
+        stopService(new Intent(this,MyService.class));
         super.onDestroy();
     }
 

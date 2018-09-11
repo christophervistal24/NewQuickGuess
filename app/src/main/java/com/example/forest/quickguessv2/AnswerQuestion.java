@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -27,9 +28,11 @@ import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
+import com.example.forest.quickguessv2.Service.MyService;
 import com.example.forest.quickguessv2.Utilities.BackgroundUtil;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.GameBundleUitl;
+import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import java.util.Arrays;
@@ -62,7 +65,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     Handler handler;
     Runnable openFunFactsFragment;
-
+    MediaPlayer clockTick;
 
     boolean isCounterRunning = false;
     private Questions q;
@@ -93,7 +96,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         pointsRepositories = new PointsRepositories(this);
         questionRepositories = new QuestionRepositories(this);
         fragmentUtil = new FragmentUtil();
+        clockTick = SoundUtil.songLoad(getApplicationContext(),R.raw.clock_tick);
+        clockTick.start();
         bundle = new Bundle();
+        stopService(new Intent(this, MyService.class));
     }
 
 
@@ -101,6 +107,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     {
         try {
             startTimer(counter);
+            SoundUtil.songLoad(getApplicationContext(),R.raw.clock_tick)
+                    .start();
             SharedPreferenceHelper.PREF_FILE = "user_played";
             String selected_category = SharedPreferenceHelper
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
@@ -129,6 +137,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
             getAnswer(button.getText().toString(), q.getCorrect_answer());
+            clockTick.stop();
             countDownTimer.cancel();
             RGroup.setEnabled(false);
         }
@@ -149,6 +158,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
                 @Override
                 public void onFinish() {
+                    clockTick.stop();
                     isCounterRunning = false;
                     getAnswer("No answer", q.getCorrect_answer());
                 }
@@ -193,6 +203,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onResume() {
+        clockTick.stop();
+        clockTick.start();
         getQuestion();
         super.onResume();
     }
@@ -234,7 +246,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         fragmentTransaction.commit();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if  (this.isFinishing())
+        {
+            clockTick.stop();
+        }
 
+    }
 
     private void radioChangeBackground(String correct_answer)
     {

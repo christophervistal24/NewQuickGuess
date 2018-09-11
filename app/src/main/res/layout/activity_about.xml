@@ -1,34 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:scrollbars="vertical"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_sky"
+    android:id="@+id/scrollView"
     tools:context=".AboutActivity">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:maxHeight="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_about"
-            android:contentDescription="@string/about_backgrounds"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="54dp"
-        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/contactUs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/about_btn_contact"/>
-    </LinearLayout>
+ <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
-</RelativeLayout>
+     <ImageView
+         android:id="@+id/gwyn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/sample1"
+         android:scaleType="centerCrop"
+         android:layout_marginStart="-250dp"
+         android:contentDescription="@null" />
+
+     <ImageView
+         android:id="@+id/rod"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/rod"
+         android:layout_gravity="right"
+         android:layout_marginEnd="-250dp"
+         android:contentDescription="@null"
+         tools:ignore="RtlHardcoded" />
+
+     <ImageView
+         android:id="@+id/chris"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/chris"
+         android:layout_marginStart="-250dp"
+         android:contentDescription="@null" />
+
+     <ImageView
+         android:id="@+id/neth"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/neth"
+         android:layout_gravity="right"
+         android:layout_marginEnd="-250dp"
+         android:contentDescription="@null"
+         tools:ignore="RtlHardcoded" />
+
+     <ImageView
+         android:id="@+id/mitch"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/mitch"
+         android:layout_marginStart="-250dp"
+         android:contentDescription="@null" />
+
+
+     <Button
+              android:id="@+id/contactUs"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/contact_us"
+              android:layout_gravity="center"/>
+
+      </LinearLayout>
+
+</ScrollView>

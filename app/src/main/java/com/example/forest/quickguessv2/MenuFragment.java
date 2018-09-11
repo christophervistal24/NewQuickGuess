@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -23,6 +25,8 @@ import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
+import com.example.forest.quickguessv2.Service.MyService;
+import com.example.forest.quickguessv2.Utilities.SoundUtil;
 
 import java.util.Objects;
 
@@ -101,6 +105,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
 
+
     @Override
     @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks,R.id.btnQuit})
     public void onClick(View view) {
@@ -109,16 +114,21 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         {
             case R.id.btnCategories:
                 classname = "CategoriesActivity";
+                SoundUtil.songLoad(getContext(),R.raw.click)
+                         .start();
                 disposeFragments();
                 break;
 
             case R.id.btnAbout:
                 classname = "AboutActivity";
+                SoundUtil.songLoad(getContext(),R.raw.click)
+                    .start();
                 disposeFragments();
                 break;
 
             case R.id.btnRanks:
-                //about
+                SoundUtil.songLoad(getContext(),R.raw.click)
+                        .start();
                 break;
 
             case R.id.btnQuit:
@@ -136,8 +146,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        DB.getInstance(getActivity().getApplicationContext())
-                        .destroyInstance();
+        DB.getInstance(getActivity().getApplicationContext()).destroyInstance();
         unbinder.unbind();
         super.onDestroyView();
     }

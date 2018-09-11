@@ -45,12 +45,16 @@
             android:name=".FinishCategoryActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".DisplayAllFunFacts"
+            android:screenOrientation="portrait"/>
+    
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider240267453345824"
             android:exported="true" />
-
-        <activity android:name=".DisplayAllFunFacts"></activity>
+    
+        <service android:name=".Service.MyService"/>
     </application>
 
 </manifest>
