@@ -4,25 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:id="@+id/slidelinearlayout">
 
 
-
-        <ImageView
-            android:id="@+id/pageBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:maxHeight="0dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/cat_enter" />
+         <ImageView
+             android:id="@+id/pageBackground"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:adjustViewBounds="true"
+             android:maxHeight="0dp"
+             android:scaleType="centerInside"
+             android:src="@drawable/cat_people"
+             />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/txtdescription"
@@ -31,8 +31,8 @@
             android:layout_height="wrap_content"
             android:text="@string/tap_to_start"
             android:textAlignment="center"
-            android:textColor="#fff"
             android:textSize="45sp"
+            android:textColor="#fff"
             android:textStyle="bold" />
     </LinearLayout>
 

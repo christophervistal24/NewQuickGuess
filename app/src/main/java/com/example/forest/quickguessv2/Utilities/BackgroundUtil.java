@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.R;
 
 import java.util.ArrayList;
@@ -29,9 +31,15 @@ public class BackgroundUtil {
                 listOfRadioButtons.add((RadioButton)o);
                 if (listOfRadioButtons.get(i).getText().equals(correct_answer))
                 {
-                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(context, R.drawable.btn_correct));
+//                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(context, R.drawable.btn_correct));
+                    YoYo.with(Techniques.RubberBand)
+                            .duration(1500)
+                            .repeat(-1)
+                            .playOn(listOfRadioButtons.get(i));
                 } else {
-                    listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(context, R.drawable.btn_incorrect));
+                    YoYo.with(Techniques.FlipOutX)
+                            .duration(1500)
+                            .playOn(listOfRadioButtons.get(i));
                 }
                 listOfRadioButtons.get(i).setClickable(false);
             }

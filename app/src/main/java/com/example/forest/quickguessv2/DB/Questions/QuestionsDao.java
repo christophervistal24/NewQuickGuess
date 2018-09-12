@@ -20,7 +20,7 @@ public interface QuestionsDao {
 
     //get the unanswered question of the user
     @Query("SELECT * FROM questions WHERE category_id = :category_id AND id NOT " +
-            "IN (SELECT question_id FROM user_status) LIMIT 5")
+            "IN (SELECT question_id FROM user_status) LIMIT 50")
     List<Questions> getQuestionsByCategory(int category_id);
 
     //get all the questions by category_id

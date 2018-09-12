@@ -27,15 +27,17 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
 
     // list of background colors
     private String[]  list_background = {
-            "cat_people",
-            "cat_plants",
-            "cat_animals",
-            "cat_geo",
-            "cat_sports",
-            "cat_music",
-            "cat_tech",
-            "cat_enter"
+            "cat_people_2",
+            "cat_plants_2",
+            "cat_animals_2",
+            "cat_geo_2",
+            "cat_sports_2",
+            "cat_music_2",
+            "cat_tech_2",
+            "cat_enter_2"
     };
+
+
 
 
     public SlideAdapter(Context context) {
@@ -83,7 +85,8 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
           String background = (String) view.getTag();
           SharedPreferenceHelper.PREF_FILE="user_played";
           SharedPreferenceHelper.setSharedPreferenceString(context,"category",background);
-          new RedirectHelper("bg_".concat(background).toLowerCase(), view.getContext(), AnswerQuestion.class);
+//          new RedirectHelper("bg_".concat(background).toLowerCase(), view.getContext(), AnswerQuestion.class);
+          new RedirectHelper(view.getContext(), AnswerQuestion.class);
     }
 
 

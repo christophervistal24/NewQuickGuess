@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
+import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -45,11 +46,13 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @BindView(R.id.title) TextView title;
     @BindView(R.id.content) TextView content;
     @BindView(R.id.btnNext) Button btnNext;
+    @BindView(R.id.facebookShare) Button facebookShare;
 
     LinearLayout questionLayout;
     TextView question;
     ImageView imageBackground;
     RadioGroup RGroup;
+    LinearLayout timerLayout;
 
     private Context context;
     private Unbinder unbinder;
@@ -79,10 +82,10 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         question = getActivity().findViewById(R.id.question);
         RGroup = getActivity().findViewById(R.id.RGroup);
         count = RGroup.getChildCount();
+        timerLayout = getActivity().findViewById(R.id.timerLayout);
         RGroup.clearCheck();
         imageBackground = getActivity().findViewById(R.id.background);
-        imageBackground.setImageDrawable(null);
-        questionLayout.setVisibility(View.GONE);
+        questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE );
         radioBackBackground();
         ((AnswerQuestion)getActivity()).removeCallback();
         return view;
@@ -110,6 +113,8 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         Typeface fontHelper = new FontHelper().dimboFont(context);
         title.setTypeface(fontHelper);
         content.setTypeface(fontHelper);
+        btnNext.setTypeface(fontHelper);
+        facebookShare.setTypeface(fontHelper);
         SharedPreferenceHelper.PREF_FILE="question";
         title.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"title",null));
         content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
@@ -128,7 +133,8 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         }
         questionLayout.setVisibility(View.VISIBLE);
         question.setVisibility(View.VISIBLE);
-        imageBackground.setImageResource(getResources().getIdentifier("bg_people","drawable", Objects.requireNonNull(getActivity()).getPackageName()));
+        ((AnswerQuestion)getActivity()).timerLayoutDisplayOrHide();
+        ((AnswerQuestion)getActivity()).radioGroupdisplayOrHide();
         ((AnswerQuestion)getActivity()).countDownTimer.start();
         ((AnswerQuestion)getActivity()).getQuestion();
         ((AnswerQuestion)getActivity()).userPoints = 0;
@@ -142,7 +148,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
             View o = RGroup.getChildAt(i);
             if (o instanceof RadioButton) {
                 listOfRadioButtons.add((RadioButton)o);
-                listOfRadioButtons.get(i).setBackground(ContextCompat.getDrawable(context, R.drawable.btn_correct));
             }
             listOfRadioButtons.get(i).setClickable(true);
       }
@@ -159,6 +164,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     //TODO REFACTOR
     @Override
     public void onBackPressed() {
+        timerLayout.removeAllViews();
         FragmentManager fm = getFragmentManager();
         int count = fm.getBackStackEntryCount();
         for (int i = 0; i < count; ++i) {

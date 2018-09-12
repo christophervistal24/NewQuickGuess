@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,13 +11,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
@@ -55,8 +60,9 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.RGroup) RadioGroup RGroup;
     @BindView(R.id.life) TextView life;
     @BindView(R.id.userPoints) TextView points;
+    @BindView(R.id.timerLayout) LinearLayout timerLayout;
 
-    private static final long counter = 5000;
+    private static final long counter = 7000;
     public CountDownTimer countDownTimer;
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
@@ -80,16 +86,16 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         ButterKnife.bind(this);
         TypeFaceUtil.initFont(this);
         classInstantiate();
-        categoryBackground();
+//        categoryBackground();
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
     }
 
-    private void categoryBackground() {
-        Intent i = getIntent();
-        background.setImageResource(BackgroundUtil.setBackground(getApplicationContext(),i));
-    }
+//    private void categoryBackground() {
+//        Intent i = getIntent();
+//        background.setImageResource(BackgroundUtil.setBackground(getApplicationContext(),i));
+//    }
 
     private void classInstantiate() {
         lifeRepositories = new LifeRepositories(this);
@@ -137,7 +143,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
             getAnswer(button.getText().toString(), q.getCorrect_answer());
-            clockTick.stop();
             countDownTimer.cancel();
             RGroup.setEnabled(false);
         }
@@ -150,15 +155,26 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             countDownTimer = new CountDownTimer(counter, 1000) {
                 @Override
                 public void onTick(long timeRemaining) {
-                    timer.setText(
-                            String.valueOf(TimeUnit.MILLISECONDS.toSeconds(timeRemaining) -
-                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeRemaining)))
-                    );
+                    int remainingTime = (int) (TimeUnit.MILLISECONDS.toSeconds(timeRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeRemaining)));
+                    timer.setText(String.valueOf(remainingTime));
+                    if  (remainingTime <= 5)
+                    {
+                        timer.setTextColor(Color.parseColor("#d1395c"));
+                        YoYo.with(Techniques.Pulse)
+                                .duration(500)
+                                .repeat(-1)
+                                .playOn(timer);
+                    } else {
+                        timer.setTextColor(Color.parseColor("#ffffff"));
+                    }
+
+
                 }
 
                 @Override
                 public void onFinish() {
                     clockTick.stop();
+                    timer.setText("0");
                     isCounterRunning = false;
                     getAnswer("No answer", q.getCorrect_answer());
                 }
@@ -179,6 +195,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void correct() {
+
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
         // 1 - is eqaul to correct
@@ -215,16 +232,29 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         isCounterRunning = true;
         super.onStop();
     }
+    public void radioGroupdisplayOrHide()
+    {
+         RGroup.setVisibility(RGroup.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
+
+    public void timerLayoutDisplayOrHide()
+    {
+        timerLayout.setVisibility(timerLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+    }
+
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
+        clockTick.stop();
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
         SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
-
+        radioGroupdisplayOrHide();
+        timerLayoutDisplayOrHide();
+        question.setVisibility(View.GONE);
         //apply some background changes
-        radioChangeBackground(correct_answer);
-        if (answer.equalsIgnoreCase(correct_answer))
+//        radioChangeBackground(correct_answer);
+        if (answer.trim().equalsIgnoreCase(correct_answer.trim()))
         {
             GameBundleUitl.setQuestionResult(bundle,"result","check");
             correct();

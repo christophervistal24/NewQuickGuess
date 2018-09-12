@@ -58,7 +58,7 @@ public class FinishCategoryActivity extends AppCompatActivity {
         category = SharedPreferenceHelper
                         .getSharedPreferenceString(getApplicationContext(),"category",null)
                         .toLowerCase();
-        message.setText(String.format("Congratulations you finish the %s category now you can see all the FUN FACTS", category.toUpperCase()));
+        message.setText(String.format("Congratulations you finish the %s category now you can see all fun facts", category.toUpperCase()));
     }
 
 

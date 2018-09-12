@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AnswerQuestion">
+
+
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_sky"
+        android:contentDescription="@null"
+        />
+
+    <!--android:background="@drawable/icon_timer"-->
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:textColor="#E8EDEF"
+        android:text="@string/defaultTimerValue"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/heart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="13dp"
+        android:contentDescription="@null" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/life"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/timer"
+        android:layout_marginEnd="15dp"
+        android:gravity="right"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#E8EDEF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/userPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/timer"
+        android:layout_marginStart="12dp"
+        android:textColor="#E8EDEF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+
+        android:id="@+id/questionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/userLife"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+        <FrameLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/questionResult"
+            >
+        </FrameLayout>
+
+        <!--question-->
+       <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:textColor="#7EBAAB"
+            android:textStyle="bold"
+            android:lineHeight="5dp"
+            android:background="@drawable/container"
+            android:text="Sample"
+            android:id="@+id/question"/>
+
+        <RadioGroup
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/RGroup">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/choice_a"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                android:background="@drawable/btn_correct"
+                android:layout_marginBottom="5dp"
+                android:textColor="#E8EDEF"
+                android:button="@null"
+                android:textAllCaps="true"
+
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="@drawable/btn_correct"
+                android:textSize="25sp"
+                android:layout_marginBottom="5dp"
+                android:textAllCaps="true"
+                android:textColor="#E8EDEF"
+                android:button="@null"
+                android:id="@+id/choice_b"
+
+                />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:layout_marginBottom="5dp"
+                android:textColor="#E8EDEF"
+                android:background="@drawable/btn_correct"
+                android:textSize="25sp"
+                android:button="@null"
+                android:id="@+id/choice_c"
+
+                />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#E8EDEF"
+                android:textAlignment="center"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_correct"
+                android:id="@+id/choice_d"
+                android:button="@null"
+                android:textAllCaps="true"
+
+                />
+        </RadioGroup>
+    </LinearLayout>
+
+    <!-- fragment for fun facts -->
+    <FrameLayout
+        android:id="@+id/fragment_fun_facts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
+</RelativeLayout>

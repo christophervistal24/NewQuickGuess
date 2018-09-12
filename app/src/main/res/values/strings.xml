@@ -23,7 +23,7 @@
     <string name="slide_4_title">Step four</string>
     <string name="slide_4_desc">all about instructions</string>
     <string name="Share">Share</string>
-    <string name="defaultTimerValue">0</string>
+    <string name="defaultTimerValue">20</string>
     <string name="loginbackground">Login Background</string>
     <string name="menu_background">Menu Background</string>
     <string name="categories_background">Background for categories</string>
@@ -40,6 +40,9 @@
     <string name="viewAllText">View all Fun facts</string>
     <string name="tap_to_start">TAP TO START</string>
     <string name="contact_us">Contact us</string>
+    <string name="dummy_question">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Sit tempore cum id saepe?</string>
+    <string name="share">Share on Facebook</string>
+    <string name="_continue">CONTINUE</string>
     <!--End-->
 
 </resources>
