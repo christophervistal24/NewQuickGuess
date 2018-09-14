@@ -52,6 +52,7 @@ public class QuestionRepositories {
       {
           return questionsList.get(0);
       } else {
+          ((AnswerQuestion) context).sample.release();
           ((AnswerQuestion) context).finish();
           new RedirectHelper(context, FinishCategoryActivity.class);
       }

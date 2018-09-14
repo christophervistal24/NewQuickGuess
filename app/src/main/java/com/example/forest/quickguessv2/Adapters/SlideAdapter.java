@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.AnswerQuestion;
+import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.R;
@@ -86,6 +88,9 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
           SharedPreferenceHelper.PREF_FILE="user_played";
           SharedPreferenceHelper.setSharedPreferenceString(context,"category",background);
 //          new RedirectHelper("bg_".concat(background).toLowerCase(), view.getContext(), AnswerQuestion.class);
+            int category_id = DB.getInstance(context).categoriesQuestionDao().getCategoryIdByName(background.toLowerCase());
+            int no_of_question = DB.getInstance(context).questionsDao().countQuestionByCategory(category_id);
+            Toast.makeText(context, ""+String.valueOf(no_of_question), Toast.LENGTH_LONG).show();
           new RedirectHelper(view.getContext(), AnswerQuestion.class);
     }
 

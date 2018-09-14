@@ -4,6 +4,7 @@ package com.example.forest.quickguessv2;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,6 +48,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @BindView(R.id.content) TextView content;
     @BindView(R.id.btnNext) Button btnNext;
     @BindView(R.id.facebookShare) Button facebookShare;
+    @BindView(R.id.imageFunfacts) ImageView imageFunfacts;
 
     LinearLayout questionLayout;
     TextView question;
@@ -61,8 +63,12 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     CallbackManager callbackManager;
     ShareDialog shareDialog;
 
+
     @Override
-    public void onResume() {
+    public void onResume()
+    {
+        ((AnswerQuestion)getActivity()).sample.release();
+        ((AnswerQuestion)getActivity()).countDownTimer.cancel();
         super.onResume();
     }
 
@@ -85,6 +91,8 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         timerLayout = getActivity().findViewById(R.id.timerLayout);
         RGroup.clearCheck();
         imageBackground = getActivity().findViewById(R.id.background);
+        String getImage = "aardvark_26";
+        imageFunfacts.setImageResource(context.getResources().getIdentifier(getImage,"drawable",context.getPackageName()));
         questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE );
         radioBackBackground();
         ((AnswerQuestion)getActivity()).removeCallback();
@@ -138,6 +146,10 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         ((AnswerQuestion)getActivity()).countDownTimer.start();
         ((AnswerQuestion)getActivity()).getQuestion();
         ((AnswerQuestion)getActivity()).userPoints = 0;
+        ((AnswerQuestion)getActivity()).sample =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
+        ((AnswerQuestion)getActivity()).sample.start();
+
+
     }
 
     private void radioBackBackground()
