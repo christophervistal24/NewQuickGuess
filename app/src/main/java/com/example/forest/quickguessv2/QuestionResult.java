@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -24,7 +26,6 @@ public class QuestionResult extends Fragment {
 
     TextView life;
     TextView question;
-
     @BindView(R.id.resultIcon) ImageView resultIcon;
     private Unbinder unbinder;
 
@@ -42,10 +43,14 @@ public class QuestionResult extends Fragment {
             question = getActivity().findViewById(R.id.question);
             resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
             question.setVisibility(View.GONE);
-            ((AnswerQuestion)getActivity()).onPreExecute();
         return view;
     }
 
+    @OnClick(R.id.questionResult)
+    public void tapScreen()
+    {
+        ((AnswerQuestion)getActivity()).onPreExecute();
+    }
 
     @Override
     public void onDestroy() {

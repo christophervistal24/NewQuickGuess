@@ -11,43 +11,8 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:maxHeight="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/tun_categories"
+        android:scaleType="centerCrop"
+        android:src="@drawable/step_1"
         android:contentDescription="@string/menu_background"/>
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/img_width_height"-->
-            <!--android:layout_height="@dimen/img_width_height"-->
-            <!--android:src="@drawable/about_btn_contact"-->
-            <!--android:contentDescription="@string/instruction_2" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/slide_2_title"-->
-            <!--android:textColor="@android:color/white"-->
-            <!--android:textSize="@dimen/slide_title"-->
-            <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:paddingLeft="@dimen/desc_padding"-->
-            <!--android:paddingRight="@dimen/desc_padding"-->
-            <!--android:text="@string/slide_2_desc"-->
-            <!--android:textAlignment="center"-->
-            <!--android:textColor="@android:color/white"-->
-            <!--android:textSize="@dimen/slide_desc" />-->
-
-    <!--</LinearLayout>-->
-
 
 </RelativeLayout>

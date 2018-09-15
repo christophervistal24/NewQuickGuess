@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.forest.quickguessv2.Adapters.SlideAdapter;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
@@ -33,6 +34,7 @@ import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 import com.example.forest.quickguessv2.Utilities.BackgroundUtil;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.GameBundleUitl;
+import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import java.util.Arrays;
@@ -73,6 +75,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     FragmentUtil fragmentUtil;
     QuestionRepositories questionRepositories;
     public MediaPlayer sample;
+    protected  SlideAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         questionRepositories = new QuestionRepositories(this);
         fragmentUtil = new FragmentUtil();
         bundle = new Bundle();
-       sample = soundTick(R.raw.clock_tick);
+        sample = soundTick(R.raw.clock_tick);
+        adapter = new SlideAdapter(getApplicationContext());
     }
 
     public MediaPlayer soundTick(int uri)
@@ -199,7 +203,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
-
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
         SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
@@ -210,10 +213,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 //        radioChangeBackground(correct_answer);
         if (answer.trim().equalsIgnoreCase(correct_answer.trim()))
         {
-            GameBundleUitl.setQuestionResult(bundle,"result","check");
+            GameBundleUitl.setQuestionResult(bundle,"result","correct_icon");
             correct();
         } else {
-            GameBundleUitl.setQuestionResult(bundle,"result","wrong");
+            GameBundleUitl.setQuestionResult(bundle,"result","wrong_icon");
             wrong();
         }
     }
@@ -222,10 +225,12 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     public void correct() {
 
+        SoundUtil.songLoad(getApplicationContext(),R.raw.check).start();
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
         // 1 - is eqaul to correct
         userStatus.setQuestion_result(1);
+        userStatus.setCategory_id(q.getCategory_id());
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
         updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints+1,pointsRepositories);
@@ -236,6 +241,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void wrong() {
+        SoundUtil.songLoad(getApplicationContext(),R.raw.wrong).start();
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
         updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories);
@@ -331,7 +337,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 isCounterRunning = true;
             }
         };
-        handler.postDelayed(openFunFactsFragment,200);
+        handler.postDelayed(openFunFactsFragment,10);
     }
 
     private void tellFragments() {

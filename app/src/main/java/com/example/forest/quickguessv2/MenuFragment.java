@@ -114,8 +114,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         {
             case R.id.btnCategories:
                 classname = "CategoriesActivity";
-                SoundUtil.songLoad(getContext(),R.raw.click)
-                         .start();
                 disposeFragments();
                 break;
 

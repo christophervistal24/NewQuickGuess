@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.Adapters.SlideAdapter;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
+import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Service.MyService;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 
@@ -27,6 +29,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @BindView(R.id.viewpager) ViewPager viewPager;
     SlideAdapter myadapter;
+    MediaPlayer Sfx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,32 @@ public class CategoriesActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-             SoundUtil.songLoad(getApplicationContext(),R.raw.click)
-                        .start();
+                Sfx = MediaPlayer.create(getApplicationContext(),R.raw.click);
+                Sfx.start();
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {}
+            public void onPageScrollStateChanged(int i) {
+            }
         });
         viewPager.setAdapter(myadapter);
+    }
+
+    @Override
+    protected void onResume() {
+        viewPager.setAdapter(myadapter);
+        SharedPreferenceHelper.PREF_FILE = "user_played";
+        String category = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(),"category",null);
+        if (category != null)
+        {
+            int position = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
+            viewPager.setCurrentItem(position-1);
+        }
+        if (Sfx != null)
+        {
+            Sfx.release();
+        }
+        super.onResume();
     }
 
     @Override

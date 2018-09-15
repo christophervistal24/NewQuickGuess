@@ -20,14 +20,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.forest.quickguessv2.Helpers.FirstLaunchHelper;
+import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
+
+import butterknife.BindView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private LinearLayout dotsLayout;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button  btnSkip , btnNext;
     private FirstLaunchHelper firstLaunchHelper;
 
     @Override
@@ -134,7 +137,8 @@ public class WelcomeActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
-
+            SoundUtil.songLoad(getApplicationContext(),R.raw.click)
+                               .start();
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
@@ -149,7 +153,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-
         }
 
         @Override
@@ -176,7 +179,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
         private Activity activity;
-        public MyViewPagerAdapter(Activity activity) {
+        MyViewPagerAdapter(Activity activity) {
             this.activity = activity;
         }
 

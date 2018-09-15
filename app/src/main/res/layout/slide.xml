@@ -7,15 +7,17 @@
     android:id="@+id/slidelinearlayout">
 
 
-         <ImageView
-             android:id="@+id/pageBackground"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:adjustViewBounds="true"
-             android:maxHeight="0dp"
-             android:scaleType="centerInside"
-             android:src="@drawable/cat_people"
-             />
+    <ImageView
+        android:id="@+id/pageBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:maxHeight="0dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/cat_people" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +25,16 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/txtNoOfAnswered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/answered"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtdescription"
@@ -34,6 +46,7 @@
             android:textSize="45sp"
             android:textColor="#fff"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 

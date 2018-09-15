@@ -9,6 +9,7 @@ public class UserStatus {
     private int id;
     private int question_id;
     private int question_result;
+    private int category_id;
 
 
 
@@ -36,4 +37,7 @@ public class UserStatus {
         this.question_result = question_result;
     }
 
+    public int getCategory_id() {return category_id;}
+
+    public void setCategory_id(int category_id) {this.category_id = category_id;}
 }

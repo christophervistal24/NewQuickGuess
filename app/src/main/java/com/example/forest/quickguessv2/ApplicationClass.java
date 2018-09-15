@@ -54,14 +54,14 @@ public class ApplicationClass extends Application{
 
     private void insertCategories()
     {
-        questionCategoryRepositories.categoryCreator("people","All about");
-        questionCategoryRepositories.categoryCreator("plants","All about");
-        questionCategoryRepositories.categoryCreator("animals","All about");
-        questionCategoryRepositories.categoryCreator("geography","All abontrolout");
-        questionCategoryRepositories.categoryCreator("sports","All about");
-        questionCategoryRepositories.categoryCreator("music","All about");
-        questionCategoryRepositories.categoryCreator("technology","All about");
-        questionCategoryRepositories.categoryCreator("entertainment","All about");
+        questionCategoryRepositories.categoryCreator("people","All about peoples"); //1
+        questionCategoryRepositories.categoryCreator("plants","All about plants"); //2
+        questionCategoryRepositories.categoryCreator("animals","All about animals"); //3
+        questionCategoryRepositories.categoryCreator("geography","All about places"); //4
+        questionCategoryRepositories.categoryCreator("sports","All about sports"); //5
+        questionCategoryRepositories.categoryCreator("music","All about music"); //6
+        questionCategoryRepositories.categoryCreator("technology","All about technologies"); //7
+        questionCategoryRepositories.categoryCreator("entertainment","All about entertainment"); //8
 
     }
 

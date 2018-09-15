@@ -43,6 +43,7 @@
     <string name="dummy_question">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Sit tempore cum id saepe?</string>
     <string name="share">Share on Facebook</string>
     <string name="_continue">CONTINUE</string>
+    <string name="answered">Answered</string>
     <!--End-->
 
 </resources>
