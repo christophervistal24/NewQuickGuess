@@ -4,34 +4,45 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dragankrstic.autotypetextview.AutoTypeTextView;
 import com.example.forest.quickguessv2.Helpers.FirstLaunchHelper;
+import com.example.forest.quickguessv2.Utilities.LaunchUtil;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
-
-import butterknife.BindView;
+import com.huanhailiuxin.coolviewpager.CoolViewPager;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private ViewPager viewPager;
+    private CoolViewPager viewPager;
     private LinearLayout dotsLayout;
     private int[] layouts;
     private Button  btnSkip , btnNext;
     private FirstLaunchHelper firstLaunchHelper;
+    Handler handler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +60,12 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_welcome);
-        TypeFaceUtil.initFont(this);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
-
+        TypeFaceUtil.initDimboFont(this);
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnNext = findViewById(R.id.btn_next);
+        handler = new Handler();
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
@@ -73,7 +84,14 @@ public class WelcomeActivity extends AppCompatActivity {
         changeStatusBarColor();
 
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
+        viewPager.setScrollMode(CoolViewPager.ScrollMode.VERTICAL);
+//        viewPager.setAutoScroll(true,6000);
+//        viewPager.setAutoScrollDirection(CoolViewPager.AutoScrollDirection.FORWARD);
+//        viewPager.setInfiniteLoop(true);
+        viewPager.setScrollDuration(true,1000);
+        viewPager.setDrawEdgeEffect(true);
         viewPager.setAdapter(myViewPagerAdapter);
+
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +118,13 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void addBottomDots(int currentPage) {
+/*        if (currentPage >= 6 || currentPage <= 0)
+        {
+            currentPage = 0;
+        }*/
         TextView[] dots = new TextView[layouts.length];
-
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
@@ -123,22 +143,28 @@ public class WelcomeActivity extends AppCompatActivity {
         return viewPager.getCurrentItem() + i;
     }
 
+
     private void launchHomeScreen()
     {
         firstLaunchHelper.setFirstTimeLaunch(false);
         startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
         finish();
-
     }
 
     //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+    CoolViewPager.OnPageChangeListener viewPagerPageChangeListener = new CoolViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i1) {
+
+        }
+
 
         @Override
         public void onPageSelected(int position) {
+            Log.d("position",String.valueOf(position));
             addBottomDots(position);
             SoundUtil.songLoad(getApplicationContext(),R.raw.click)
-                               .start();
+                    .start();
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
@@ -149,14 +175,46 @@ public class WelcomeActivity extends AppCompatActivity {
                 btnNext.setText(getString(R.string.next));
                 btnSkip.setVisibility(View.VISIBLE);
             }
+
+            switch (position)
+            {
+                case 1:
+                    ImageView wolfy2 = findViewById(R.id.wolfy2);
+                    final AutoTypeTextView message2 = findViewById(R.id.message2);
+                    LaunchUtil.animateWolfy(wolfy2,50,800);
+                    message2.setVisibility(View.VISIBLE);
+                    message2.setTypingSpeed(40);
+                    message2.setTextAutoTyping("Last night I celebrate my Birthday in my house, lots of my friends had been there," +
+                            " one of my friend give me a bottle of wine.");
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            message2.setTypingSpeed(40);
+                            message2.setTextAutoTyping("");
+                        }
+                    }, 3000);
+
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                    public void run() {
+                    message2.setTypingSpeed(40);
+                    message2.setTextAutoTyping("we decided to drink it, then suddenly I felt dizzy, when I" +
+                            " woked up all of my friends was gone, and there's a letter beside me");
+                }
+            }, 10000);
+                    break;
+
+                case 2:
+                    AutoTypeTextView message3 = findViewById(R.id.message3);
+                    message3.setTypingSpeed(80);
+                    message3.setTextAutoTyping("Life of your friends is on my hands, if you want to save them, come and play with me Bwahahaha..");
+                    break;
+            }
         }
 
         @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
+        public void onPageScrollStateChanged(int i) {
 
         }
     };
@@ -187,8 +245,17 @@ public class WelcomeActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
+            ImageView wolfy = view.findViewById(R.id.wolfy);
+            AutoTypeTextView message =  view.findViewById(R.id.message);
+            if (position == 0)
+            {
+                LaunchUtil.animateWolfy(wolfy,50,800);
+                message.setVisibility(View.VISIBLE);
+                message.setTypingSpeed(80);
+                message.setTextAutoTyping("Hello! my name is Wolfy can you help me?");
+            }
             container.addView(view);
-            TypeFaceUtil.initFont(activity);
+            TypeFaceUtil.initDimboFont(activity);
             return view;
         }
 
@@ -208,6 +275,8 @@ public class WelcomeActivity extends AppCompatActivity {
             View view = (View) object;
             container.removeView(view);
         }
+
+
     }
 }
 

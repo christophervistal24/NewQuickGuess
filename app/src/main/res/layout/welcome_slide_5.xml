@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#E8EDEF">
+    android:background="@drawable/ui_bg">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:maxHeight="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/tut_about"
-        android:contentDescription="@string/menu_background"/>
+
 </RelativeLayout>

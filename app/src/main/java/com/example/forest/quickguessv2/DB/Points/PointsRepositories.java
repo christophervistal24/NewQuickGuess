@@ -60,7 +60,6 @@ public class PointsRepositories {
                         DB.getInstance(context).pointsDao().delete(points);
                     } else {
                         //for detecting bugs purpose
-                        Toast.makeText(context, "response failed", Toast.LENGTH_SHORT).show();
                         SharedPreferenceHelper.PREF_FILE = "points";
                         SharedPreferenceHelper.setSharedPreferenceInt(context,"user_points",getUserPoints());
                     }

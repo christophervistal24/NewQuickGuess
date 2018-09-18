@@ -6,10 +6,17 @@ import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class TypeFaceUtil {
 
-   public static void initFont(Activity activity)
+   public static void initDimboFont(Activity activity)
    {
        Calligrapher calligrapher = new Calligrapher(activity.getApplicationContext());
        calligrapher.setFont(activity, "fonts/Dimbo_Regular.ttf", true);
    }
+
+    public static void iniDokboFont(Activity activity)
+    {
+        Calligrapher calligrapher = new Calligrapher(activity.getApplicationContext());
+        calligrapher.setFont(activity, "fonts/Dokdo_Regular.ttf", true);
+    }
+
 
 }

@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -59,7 +58,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.userPoints) TextView points;
     @BindView(R.id.timerLayout) LinearLayout timerLayout;
 
-    private static final long counter = 7000;
+    private static final long counter = 21000;
     public CountDownTimer countDownTimer;
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
@@ -82,7 +81,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_question);
         ButterKnife.bind(this);
-        TypeFaceUtil.initFont(this);
+        TypeFaceUtil.initDimboFont(this);
         classInstantiate();
 //        categoryBackground();
         getQuestion();

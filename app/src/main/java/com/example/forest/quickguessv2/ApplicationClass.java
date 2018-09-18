@@ -1684,6 +1684,611 @@ public class ApplicationClass extends Application{
 //Found
             questionRepositories.questionCreator("Which artist recorded the song \"The Remedy?\"","Jason Mars","Jason Mraz","Jason Maz","Jesson Mraz","Jason Mraz","\"The Remedy\" was from Jason\'s first album, \"Waiting for my Rocket to Come.\" This was the first single released from this album.","jason_mraz_103.png",6);
             //TODO END OF MUSIC
+
+
+
+            //TODO SPORTS
+            //0 Six
+            questionRepositories.questionCreator("﻿How many players are there in an ice hockey team?","Six","Ten","Twenty","Five","Six","Hockey is played with six (6) players on the ice for each team; five (5) skaters, one (1) goaltender. The typical roster size of a hockey team is twenty (20) players; twelve (12) forwards, 6 defensemen, and two (2) goaltenders","six_1.png",5);
+
+//1 5'8
+            questionRepositories.questionCreator("In darts, how high off the floor must the bulls eye measure?","5'8","6'1","4'3","10'1","5'8","Standard height from the floor to the bull seye on the dartboard is 5 feet 8 inches, while the oche (distance between the front of the board and the toe line) should measure 7 feet 9.25inches.","5_8_2.png",5);
+
+//2 Six
+            questionRepositories.questionCreator("How many players are there in volleyball team?","Six","Seven","Eight","Ten","Six","Volleyball is a team sport in which two teams of six players are separated by a net. Each team tries to score points by grounding a ball on the other team\'s court under organized rules. It has been a part of the official program of the Summer Olympic Games since 1964.","six_3.png",5);
+
+//3 Five
+            questionRepositories.questionCreator("How many players are there in basketball team?","Five","Four","Nine","Six","Five","Basketball is played with two teams, with 5 players from each team on the court at one time. The maximum number of players on the bench differs by league. In international play, a maximum of 7 players are allowed on the bench, resulting in a roster of 12 players.","five_4.png",5);
+
+//4 Eleven
+            questionRepositories.questionCreator("How many players are there in football team?","Eleven","Twelve","Eighteen","Nine","Eleven","“A match is played by two teams, each with a maximum of eleven players; one must be the goalkeeper. A match may not start or continue if either team has fewer than seven players”","eleven_5.png",5);
+
+//5 Fifteen
+            questionRepositories.questionCreator("How many red balls are used in a game of snooker?","Fifteen","Twenty","Ten","Five","Fifteen","“It is played using a cue and snooker balls: one white cue ball, fifteen red balls worth one point each (sometimes played with fewer red balls, commonly6 or 10), and six balls of different colors: yellow (2 points), green (3), brown (4), blue (5), pink (6), black (7)","fifteen_6.png",5);
+
+//6 One hundred eighty
+            questionRepositories.questionCreator("What is the highest possible score with three darts?","One hundred eighty","Two hundred","Twenty","Thirty","One hundred eighty","“The highest score possible with three darts is one hundred eighty, commonly known as a “ton eighty” (one hundred is called a ton), obtained when all three darts land in the triple 20. In televised game, the referee frequently announces a score of one hundred eighty exuberant style”","one_hundred_eighty_7.png",5);
+
+//7 Thirteen
+            questionRepositories.questionCreator("In rugby league team, how many players are there?","Thirteen","Fifteen","Twenty","Ten","Thirteen","“Thirteen players. Rugby league football is a full-contact sport played by two teams of thirteen players on a rectangular field. One of the two codes of rugby, it originated in Northern England in 1895 as a split from the Rugby Football Union over the issue of payments to players”","thirteen_8.png",5);
+
+//8 Golf
+            questionRepositories.questionCreator("Which sport is associated with Constantino Rocca?","Golf","Dart","Hockey","Cheese","Golf","“Constantino Rocca is a former player. He was long known as the most successful male golfer that Italy has produced, until the 2018 success of Francesco Molinari, who credited Rocca as an inspiration to him following his open victory”","golf_9.png",5);
+
+//9 Thirty six
+            questionRepositories.questionCreator("What is highest number on a roulette wheel?","Thirty six","Ten","Forty","Twenty","Thirty six","“The pockets of the roulette wheel are numbered from zero to thirty six. In number ranges from one to ten and nineteen to twenty-eight, odd numbers are red and even are black. In ranges from eleven to eighteen and twenty nine to thirty six, odd numbers are black and even are red. There is a green pocket numbered zero”","thirty_six_10.png",5);
+
+//10 Three feet
+            questionRepositories.questionCreator("What height is the center of tennis net in feet?","Three feet","One feet","Two feet","Four feet","Three feet","“If a double net is used, then the net shall be supported, at a height of three and half feet (1.07 m), by two singles sticks, the centers of which shall be three feet outside the singles court on each side. The net posts shall not be more than six inches square or six inches diameter.","three_feet_11.png",5);
+
+//11 USA
+            questionRepositories.questionCreator("Which country invented volleyball?","USA","China","Africa","Japan","USA","“Volleyball has come a long way from the dusty-old YMCA gymnasium of Holyoke, Massachusetts, USA, where visionary William G. Morgan invented the sport back in 1895.”","usa_12.png",5);
+
+//12 Frisbee
+            questionRepositories.questionCreator("What is Pluto platter now known as?","Frisbee","Shot put","Javelin throw","Discus throw","Frisbee","“In 1955, Walter F. Morrison’s company PIPCO manufactured and sold the PLUTO PLATTER flying disc. In 1957, Walter F. Morrison signs all rights to the PLUTO PLATTER over to Wham-O. Later in 1957, Wham-O changes the name to FRISBEE.”","frisbee_13.png",5);
+
+//13 Gold
+            questionRepositories.questionCreator("Which color is an archery target center?","Gold","Red","Black","Silver","Gold","“The target faces are arranged with 5 colors Gold, Red, Blue, Black and white. But gold is best for target. Yellow, referred to as “gold”, is the world Archery standard.”","gold_14.png",5);
+
+//14 Mexico
+            questionRepositories.questionCreator("Where was the FIFA world cup held in 1986?","Mexico","Canada","Africa","America","Mexico","“The 1986 FIFA world cup, the 13th FIFA World Cup, was held in Mexico from 31 May to 29 June 1986","mexico_15.png",5);
+
+//15 Queen
+            questionRepositories.questionCreator("Which is the most powerful piece in chess?","Queen","King","Horse","Bishop","Queen","“The queen is the most powerful piece in the game of chess, able to move any number of squares vertically, horizontally or diagonally. Each player starts the game with one queen, placed in the middle of the first rank next to the king.”","queen_16.png",5);
+
+//16 Six
+            questionRepositories.questionCreator("How many pockets does a snooker table have?","Six","Seven","Ten","Four","Six","“The playing surface, eleven feet 8.5 inches by five feet ten inches for a standard full-size table, with six pocket holes, one at each corner and one at the center of each of the longer side cushion. For further information see Billiard table, specially the section Snooker and English billiards tables.”","six_17.png",5);
+
+//17 Red, blue, black, yellow and green
+            questionRepositories.questionCreator("What color are in the five Olympics ring are?","Red, blue, black, yellow and green","Brown, blue, orange, peach and yellow","Pink, white, green, violet and red","Maroon, navy blue, yellow green, purple and red","Red, blue, black, yellow and green","“The Olympic flag has a white background, with five interlaced rings in the center: Blue, Yellow, Black, Green and Red. This design is symbolic; it represent the five continents of the world, united by Olympics, while the six colors are those that appear on all the national flags of the world at the present time.”","red_blue_black_yellow_and_green_18.png",5);
+
+//18 Yellow
+            questionRepositories.questionCreator("Which color belt comes after white in karate?","Yellow","Blue","Red","Black","Yellow","“Originally, the white belt was simply dyed to a new color. This repeated dying process dictated the type of belt color and the order of the colors. The standard belt color system is white, yellow, gold, orange, green, blue, purple, brown, red, and black.”","yellow_19.png",5);
+
+//19 Fifty
+            questionRepositories.questionCreator("In darts, how many points do you get if you hit a bulls eye?","Fifty","One hundred","Ten","Sixty","Fifty","“An inner bullseye (sometimes referred to as a “double bullseye” in amateur play) is a smaller, inner circle and counts for fifty points while an outer bull is worth twenty five points. Two treble 20s when combined with an inner bullseye is worth 170 points in darts which is the highest possible checkout.”","fifty_20.png",5);
+
+//20 Eighteen inches
+            questionRepositories.questionCreator("In inches, how big is the diameter of a basketball hoop?","Eighteen inches","Twenty inches","Nine inches","Eleven inches","Eighteen inches","“Regulation backgrounds are seventy two inches wide by forty two inches tall. All basketball rims (hoops) are eighteen inches in diameter. The inner rectangle on the backboard is twenty four inches wide by eighteen inches tall.”","eighteen_inches_21.png",5);
+
+//21 Long jump
+            questionRepositories.questionCreator("What’s the second event on day one of a men’s decathlon?","Long jump","Tennis","Basketball","Volleyball","Long jump","“Competitors earn points for their performance in each discipline and the overall winner is the man who accrues the most points. The first day consists of (in order): One hundred meter, long jump, shot put, high jump, and four hundred. The second day’s events are one hundred ten meter hurdles, discus, pole vault, javelin and one thousand five hundred.”","long_jump_22.png",5);
+
+//22 Table tennis
+            questionRepositories.questionCreator("Britain’s Desmond Douglas was world number seven in which sport during the 1980s?","Table tennis","Long jump","Darts","Chess","Table tennis","“Douglas was eleven times English table tennis champion, who peaked at equal world No. seven and the European No. three.","table_tennis_23.png",5);
+
+//23 1877
+            questionRepositories.questionCreator("In which year was the first Wimbledon tournament held?","1877","1899","1874","1888","1877","“The 1877 Wimbledon Championship was a men’s tennis tournament held at the All England croquet and lawn tennis club (AEC & LTC) in Wimbledon, London. It was the world’s first official lawn tennis tournament, and was later recognized as the first Grand Slam tournament or “Major”. “","1877_24.png",5);
+
+//24 Ten feet
+            questionRepositories.questionCreator("In feet, how high is a basketball hoop?","Ten feet","Twelve feet","Eleven feet","Twenty feet","Ten feet","“The top of the hoop is ten feet above the ground. Regulation backboards are seventy two inches wide by forty two inches tall. All basketball rims (hoops) are eighteen inches in diameter.”","ten_feet_25.png",5);
+
+//25 Polo
+            questionRepositories.questionCreator("Which sport is played on the biggest pitch in terms of area?","Polo","Hockey","Golf","Football","Polo","“The sport with largest pitch would be polo of the horse variety. If we exclude horses then cricket has large ovals and Australian football is played on large cricket grounds or even larger Australian Football fields. Some sports don’t have standardized fields.”","polo_26.png",5);
+
+//26 5 minute
+            questionRepositories.questionCreator("What is the maximum time limit allowed to look for a lost ball in golf?","5 minutes","2 minutes","1 minute","10 minutes","5 minutes","“So keep your golfing woes to a minimum with our guide to losing your ball. A player has five minutes to look for a ball before it is deemed to be lost.”","5_minute_27.png",5);
+
+//27 Willow
+            questionRepositories.questionCreator("What type of wood is a cricket bat traditionally made from?","Willow","Acacia","Narra","Mahogany","Willow","“The bat is traditionally made from willow wood, specifically from a variety of white willow called cricket bat willow (Salix Alba var. caerulea), treated with raw (unboiled) linseed oil, which has a protective function.”","willow_28.png",5);
+
+//28 Cycling
+            questionRepositories.questionCreator("Which sport is Sarah Hammer associated with?","Cycling","Snow boarding","Hockey","Race","Cycling","“Sarah Kathryn Hammer (born August 18, 1983) is a former American professional racing cyclist and four-time Olympic silver medalist.”","cycling_29.png",5);
+
+//29 January
+            questionRepositories.questionCreator("Which month is the Australian open tennis tournament held?","January","February","September","June","January","“The Australian open is a tennis tournament held annually over the last fortnight of January in Melbourne, Australia.","january_30.png",5);
+
+//30 Strike
+            questionRepositories.questionCreator("In baseball, if a batter swings at a ball and misses a pitch, it is considered a what?","Strike","Misses ball","Ball","Mistake","Strike","“A strike in baseball results when a batter swings at and misses a pitch, does not swing at a pitch in the strike zone or hits a foul ball that is not caught.”","strike_31.png",5);
+
+//31 Four
+            questionRepositories.questionCreator("How many bases are there on a baseball field including the home plate?","Four","Five","Six","Three","Four","“The bases are perhaps the most important part of the baseball field. There are four bases: home plate, first base, second base, and third base.","four_32.png",5);
+
+//32 Nine
+            questionRepositories.questionCreator("How many players are there in a baseball team, on the field at one time?","Nine","Eleven","Ten","Twelve","Nine","“A baseball game is played between two teams, each composed of nine players, that take turns playing offense (batting and baserunning) and defense (pitching and fielding).”","nine_33.png",5);
+
+//33 Javelin
+            questionRepositories.questionCreator("Which sport is ‘Mariya Abakumova’ associated with?","Javelin","Shot put","Discus throw","Hockey","Javelin","“Mariya Vasiliyevna Abakumova born fifteen January 1986) is a Russian track and field athlete who competes in the javelin throw. She won gold at the 2011 world.”","javelin_34.png",5);
+
+//34 Seattle supersonics
+            questionRepositories.questionCreator("What was the former name of the Oklahoma City thunder basketball team?","Seattle supersonics","Thunder bolt","The beetles","Seagull of the Sea","Seattle supersonics","“The team was originally established as the Seattle SuperSonics, an expansion team that joined the NBA for the 1967-68 season.”","seattle_supersonics_35.png",5);
+
+//35 Two
+            questionRepositories.questionCreator("How many players are there in beach volleyball game?","Two","Four","Six","Five","Two","“Beach Volleyball is a team sport played by two teams of two players on a sand court divided by a net.”","two_36.png",5);
+
+//36 Four
+            questionRepositories.questionCreator("How many players are there in polo team?","Four","Ten","Five","Eight","Four","“Each team consists of four mounted players, which can be mixed teams of both men and women.”","four_37.png",5);
+
+//37 General Choi Hong Hi
+            questionRepositories.questionCreator("Who is founder of Tae Kwon Do?","General Choi Hong Hi","Jigoro Kano","Dennis Hong Hi","Vincent Kano","General Choi Hong Hi","“General Choi Hong Hi (9 November 1918-15 June 2002) was a South Korean Army general and martial artist who is a controversial figure in the history of the Korean martial art of taekwondo. Choi is regarded by many as the “founder of Taekwon-Do federation (ITF) organizations.”","general_choi_hong_hi_38.png",5);
+
+//38 Red belt
+            questionRepositories.questionCreator("What belt is the highest in karate?","Red belt","Black belt","Pink belt","Yellow belt","Red belt","“In some schools, a red belt signifies ninth or tenth degree Dan rank, where the tenth degree is the highest rank attainable. In karate, even though grandmaster and non-black belts (according to whatever system) may both wear a “red belt”, the difference is obvious.”","red_belt_39.png",5);
+
+//39 1945
+            questionRepositories.questionCreator("When did Taekwondo begin?","1945","1899","1955","1995","1945","“In 1945 Korea was liberated. In the last few years before liberation, there were many different variations of subak/Taek Kyon in Korea. This was due to all of the other martial arts influence on it. The first Taekwondo School (Kwan) was started in Yong Chun, Seoul, Korea in 1945.”","1945_40.png",5);
+
+//40 Japan
+            questionRepositories.questionCreator("What place sumo wrestling originated from?","Japan","Thailand","Korea","Vietnam","Japan","“Sumo means “striking one another”. The sport originated in japan, the only country where it is practiced professionally.”","japan_41.png",5);
+
+//41 Jigoro Kano
+            questionRepositories.questionCreator("Who made judo?","Jigoro Kano","Remy Presas","Christopher Vistal","Crisogono Vistal","Jigoro Kano","“He took jujitsu and adapted it to the times. His new methodology was called Judo. In 1882, Dr. Jigoro Kano (The father of judo) made a comprehensive study of these ancient self-defense forms and integrated the best of these forms into a sport which is known as Kodokan Judo.”","jigoro_kano_42.png",5);
+
+//42 Remy Presas
+            questionRepositories.questionCreator("Who created Arnis?","Remy Presas","Malulan Ramon","Patricio Malulan","Policarpio Agustin","Remy Presas","“Remy Amador Presas (December 19, 1936 – August 28, 2001) was the founder of Modern Arnis, a popular Filipino martial art. Born in the Philippines, he moved to the united states in 1974, where he taught his art via seminars and camps.”","remy_presas_43.png",5);
+
+//43 Philippine
+            questionRepositories.questionCreator("Where did Arnis originate?","Philippine","Spain","France","China","Philippine","“The origin of Arnis can be traced back to native fighting techniques during conflicts among the various Prehispanic Filipino tribes or kingdoms, though the current from has Spanish influence from old fencing which originated in Spain in the 15th century.”","philippine_44.png",5);
+
+//44 December 11. 2009
+            questionRepositories.questionCreator("When did Arnis become national sports?","December 11. 2009","January 26, 2000","November 5, 1941","June 2, 1936","December 11. 2009","“Arnis was declared as the Philippine National Martial Art and Sport on December 11, 2009 through Republic Act 9850 signed by Pres. Gloria Macapagal - Arroyo .”","december_11_2009_45.png",5);
+
+//45 Indonesian Rattan
+            questionRepositories.questionCreator("What are arnis sticks made of?","Indonesian Rattan","Filipino Rattan","Philippine Narra","Acacia","Indonesian Rattan","“All Kali/Arnis, Eskrima sticks are made of hard Indonesian Rattan which is considerably harder than Filipino Rattan.”","indonesian_rattan_46.png",5);
+
+//46 Friedrich Ludwig Jahn
+            questionRepositories.questionCreator("Who is the creator of gymnasium","Friedrich Ludwig Jahn","Patricio Malulan Jr.","Patricio Malulan Sr.","Policarpio Agustin","Friedrich Ludwig Jahn","“Friedrich Ludwig Jahn (August 11, 1778 - October 15, 1852) was a German gymnastics educator and nationalist his admirers know him as Turnvater Jahn, roughly meaning “father of gymnastics” Jahn.”","friedrich_ludwig_jahn_47.png",5);
+
+//47 Indian
+            questionRepositories.questionCreator("Where did Chess originate?","Indian","France","Spain","Japan","Indian","“Many countries claim to have invented the chess game in some incipient form. The most commonly held belief is that chess originated in India, where it was called Chaturanga, which appears to have been invented in the 6th century AD.”","indian_48.png",5);
+
+//48 France
+            questionRepositories.questionCreator("Where was fencing invented?","France","Paris","England","Spain","France","“ The foil was invented in France as a training weapon in the middle of the 18th century to practice fast and elegant thrust fencing. “","france_49.png",5);
+
+//49 Eighteen
+            questionRepositories.questionCreator("How many holes are there in a full round of golf?","Eighteen","Nine","Five","Twenty","Eighteen","“A traditional golf course is eighteen holes, but nine-hole courses are common and can be played twice through for a full round of eighteen holes.","eighteen_50.png",5);
+
+//50 Philippine
+            questionRepositories.questionCreator("Where can you find arnis being widely practice?","Philippine","India","China","France","Philippine","“Arnis is a very old Filipino martial art. It uses swords, daggers and sticks, as well as weaponless techniques using the hands and feet.”","philippine_51.png",5);
+
+//51 Archery
+            questionRepositories.questionCreator("In what sport would one find an Albion round?","Archery","Darts","Javelin throw","Shot pot","Archery","“In women’s archery, an Albion round involves firing 36 arrows at targets at each of three distances.”","archery_52.png",5);
+
+//52 Chukka
+            questionRepositories.questionCreator("In Polo, what is a period of play called?","Chukka","Inning","Game","On","Chukka","“In polo, periods of play are called chukkas. Most often there are six chukkas to a game, but sometimes there are four or eight.”","chukka_53.png",5);
+
+//53 Australian doubles
+            questionRepositories.questionCreator("What variation might one play in tennis?","Australian doubles","American doubles","African doubles","China doubles","Australian doubles","“In Australian doubles tennis, a teammate can play on the same side of the court as the server. In standard tennis, this is forbidden.”","australian_doubles_54.png",5);
+
+//54 Advantage
+            questionRepositories.questionCreator("In tennis, what follows a deuce?","Advantage","Forwarded","Tie","Advance","Advantage","“Advantage, in tennis, is the point scored immediately after deuce. If the player scoring it also scores the next point, he or she is the winner of the game.”","advantage_55.png",5);
+
+//55 Twenty six
+            questionRepositories.questionCreator("How many points is required for a win in association croquet?","Twenty six","Fifty","Thirty five","Fourteen","Twenty six","“Association croquet is a game between sides of one or two players each. The first to earn twenty six points is the winner.”","twenty_six_56.png",5);
+
+//56 Three
+            questionRepositories.questionCreator("How many years old are horses that run the Kentucky Derby?","Three","Ten","Four","Six","Three","“The Kentucky Derby is limited to three-year-old horses. Some of the most famous horses in racing history have run in the race.”","three_57.png",5);
+
+//57 Rubber
+            questionRepositories.questionCreator("What is a golf ball made of?","Rubber","Aluminum","Wood","Cotton","Rubber","“A golf ball is made mostly of rubber and has a thin, plastic cover.”","rubber_58.png",5);
+
+//58 Fourteen
+            questionRepositories.questionCreator("What is the maximum number of clubs that can be used in tournament golf?","Fourteen","Twelve","Ten","Twenty","Fourteen","“No more than fourteen clubs may be used in tournament play.”","fourteen_59.png",5);
+
+//59 Scotland
+            questionRepositories.questionCreator("In which country was golf invented?","Scotland","Paris","America","France","Scotland","“Although its name is originally Dutch, the game of golf is believed to have been invented in Scotland.”","scotland_60.png",5);
+
+//60 Three
+            questionRepositories.questionCreator("How many holes are there in a bowling ball?","Three","Two","Four","One","Three","“There are three holes in a regulation bowling ball: one for the thumb and two for the first two fingers.”","three_61.png",5);
+
+//61 Ninety centimeters
+            questionRepositories.questionCreator("How long must a billiard cue be?","Ninety centimeters","Eighty centimeters","Seventy centimeters","Sixty centimeters","Ninety centimeters","“A billiard cue must be at least thirty five inches (ninety centimeters) long. In regulation play, there is no maximum length.”","ninety_centimeters_62.png",5);
+
+//62 Bowling
+            questionRepositories.questionCreator("Which sport is also known as tenpins?","Bowling","Tennis","Chess","Darts","Bowling","“Bowling is called tenpins, because the object of the game is to knock down ten pins that are arranged in a triangle.”","bowling_63.png",5);
+
+//63 Lady paramount
+            questionRepositories.questionCreator("What is the president of a woman’s archery tournament called?","Lady paramount","Mocking jay","Woman archer","Archeries","Lady paramount","“A lady paramount presides over a woman’s archery tournament. Sometimes the term is also used for a sponsor of an amateur match.”","lady_paramount_64.png",5);
+
+//64 Billiards
+            questionRepositories.questionCreator("What was the first sport to have a world championship?","Billiards","Athlete","Tennis","Basketball","Billiards","“The first world championships event for any sport was for billiards. It was held in 1873.”","billiards_65.png",5);
+
+//65 Jack
+            questionRepositories.questionCreator("In lawn bowling, what is the target ball called?","Jack","Jockey","Point","Target","Jack","“In lawn bowling, players roll bowls over a grass surface toward a small white ball called a jack.”","jack_66.png",5);
+
+//66 The Stanley Cup
+            questionRepositories.questionCreator("What is the name of the prize awarded the National Hockey League champions?","The Stanley Cup","The Mayor's Cup","The Janna Cup","The Aisk Cup","The Stanley Cup","“Lord Stanley awarded the first prize named for him 1893 to Canada’s championship hockey team. The Stanley Cup was made international in 1914.”","the_stanley_cup_67.png",5);
+
+//67 Puck
+            questionRepositories.questionCreator("What is the object that hockey players send across the ice called?","Puck","Pack","Puckey","Pecker","Puck","“Hockey players use a rubber disc called a puck. Getting it into the opposing team’s goal earns a point.”","puck_68.png",5);
+
+//68 Figure Skating
+            questionRepositories.questionCreator("What sport was the first to be made an event in the Winter Olympic Games?","Figure Skating","Hockey","Skiing","Snow boarding","Figure Skating","“Figure skating was named an official sport of the winter Olympics in 1908.”","figure_skating_69.png",5);
+
+//69 Skiing
+            questionRepositories.questionCreator("In what sport would one find a loppet?","Skiing","Skating","Hockey","Snow boarding","Skiing","“A loppet is a cross-country ski run.”","skiing_70.png",5);
+
+//70 Germany
+            questionRepositories.questionCreator("What country hosted the 2006 FIFA World cup?","Germany","Australia","Mexico","America","Germany","“Germany hosted the 2006 FIFA World Cup football competition. The winner was Italy.”","germany_71.png",5);
+
+//71 1930
+            questionRepositories.questionCreator("When was the first World Cup played?","1930","1940","1890","2000","1930","“In 1904 the Fédération International de Football Association (FIFA) was formed to regulate the rules of soccer. In 1930, FIFA organized the first world cup.”","1930_72.png",5);
+
+//72 Algeria
+            questionRepositories.questionCreator("In what country does Mouloudia Club d’oran play?","Algeria","Afghanistan","Africa","America","Algeria","“Mouloudia Club d’oran is a well-known football team. Its headquarters are in the Algeria port city of Oran.”","algeria_73.png",5);
+
+//73 Forty five
+            questionRepositories.questionCreator("How many players are on an America football team?","Forty five","Fifty five","Eleven","Ten","Forty five","“National Football league (NFL) teams are allowed to have to forty five players. Only eleven of them can be o the field at any one time.”","forty_five_74.png",5);
+
+//74 1967
+            questionRepositories.questionCreator("When was the first Super Bowl played?","1967","1980","1970","1950","1967","“The Super Bowl, the professional American football championship game, was first held in 1967. It has been played every year since then.”","1967_75.png",5);
+
+//75 Five
+            questionRepositories.questionCreator("How many rings are there on the Olympic flag?","Five","Three","Four","Six","Five","“The Olympic Flag has five linked rings representing the five parts of the world joined by the Games: the Americas, Europe, Asia, Africa, and Australia.”","five_76.png",5);
+
+//76 776 BCE
+            questionRepositories.questionCreator("What is the date of the first known Olympic Games?","776 BCE","600 BCE","770 BCE","800 BCE","776 BCE","“The first Olympic Games, for which three are written records, took place in Greece in 776 BCE. Milon of Croton was a wrestler who six championships.”","776_bce_77.png",5);
+
+//77 1896 CE
+            questionRepositories.questionCreator("What year did the modern Olympics start?","1896 CE","1999 CE","1890 CE","1870 CE","1896 CE","“The First modern Olympic Games were held in 1896 in Athens, Greece.”","1896_ce_78.png",5);
+
+//78 Four years
+            questionRepositories.questionCreator("How often are the Olympic Games held?","Four years","Three years","Five years","Two years","Four years","“The summer Games and the Winter Games are held once every four years. Until the early 1990s the summer and winter games were held in the same year. Today they are separated by two years.”","four_years_79.png",5);
+
+//79 All out
+            questionRepositories.questionCreator("What term applies when all batsmen have all been retired?","All out","Default","Strike","Pass out","All out","“In cricket, the term “all out” means that a side’s batsmen have all been retired.”","all_out_80.png",5);
+
+//80 Bowler
+            questionRepositories.questionCreator("In cricket, what is the name of the player who delivers the ball?","Bowler","Pitcher","Thrower","Shooter","Bowler","“The bowler, delivering the ball with a straight arm, tries to hit the wicket with the ball so that the bails fall. The one of several ways that the batsman is dismissed.”","bowler_81.png",5);
+
+//81 1975
+            questionRepositories.questionCreator("In what year was the first World Cup of cricket held?","1975","1967","1980","1990","1975","“In 1975 the first World Cup of cricket was played in England. The event was a great success and continued at four-year intervals.”","1975_82.png",5);
+
+//82 Six
+            questionRepositories.questionCreator("In cricket, how many throws make an over?","Six","Three","Four","Five","Six","“When the bowler has thrown the ball six times, an “over” is completed.”","six_83.png",5);
+
+//83 Baseball
+            questionRepositories.questionCreator("In the US, what sport is known as “the pastime”?","Baseball","Basketball","Chess","Archery","Baseball","“Baseball, a nine-player game involving throwing and hitting a ball, is one of the most popular professional sports in the US.”","baseball_84.png",5);
+
+//84 Bullfight
+            questionRepositories.questionCreator("In what context might one see a matador?","Bullfight","Judo","Karate","Taekwondo","Bullfight","“The matador is the central human figure in a bullfight. Bullfighting was once popular in Spain and other Hispanic nations, but is less popular today.”","bullfight_85.png",5);
+
+//85 Cricket
+            questionRepositories.questionCreator("In what game would one find a googly?","Cricket","Hockey","Tennis","Badminton","Cricket","“A googly is a kind of delivery featured in the game of cricket.”","cricket_86.png",5);
+
+//86 Delhi
+            questionRepositories.questionCreator("In what city were the Asian Games first held?","Delhi","Rio","Jamaica","Mexico","Delhi","“The first Asian Games competition was held in Delhi, India, in 1951. The city also hosted the games of 1982.”","delhi_87.png",5);
+
+//87 Badminton
+            questionRepositories.questionCreator("Which of the following sports does not involve a ball?","Badminton","Tennis","Squash","Table tennis","Badminton","Badminton is a racquet sport played using racquets to hit a shuttlecock across a net. Although it may be played with larger teams, the most common forms of the game are \"singles\" and \"doubles\"","badminton_88.png",5);
+
+//88 Long jump
+            questionRepositories.questionCreator("In which sport do you run and jump as far as possible into a sandpit?","Long jump","Volleyball","Javelin throw","Discus throw","Long jump","“Long jump is a track and field event in which athletes combine speed, strength and agility in an attempt to leap as far as possible from a take-off point”","long_jump_89.png",5);
+
+//89 Cricket
+            questionRepositories.questionCreator("Which sport involves a bat, a ball and wickets?","Cricket","Baseball","Softball","Badminton","Cricket","“Cricket is a bat-and-ball game played between two teams of eleven players. It is set on a cricket centered on a twenty-meter twenty two-yard) pitch with two wickets each comprising a bail balanced on three stumps”.","cricket_90.png",5);
+
+//90 Table tennis
+            questionRepositories.questionCreator("Which sport uses the lightest ball?","Table tennis","Softball","Baseball","Basketball","Table tennis","“Table tennis, also known as Ping-Pong, is a sport in which two or four players hit a lightweight ball back and forth across a table using small bats”","table_tennis_91.png",5);
+
+//91 Golf
+            questionRepositories.questionCreator("Which outdoor sport involves a club, a ball and holes in the ground?","Golf","Baseball","Softball","Cricket","Golf","“Golf is a club-and-ball sport in which players use various clubs to hit balls into a series of holes on a course in as few strokes as possible”","golf_92.png",5);
+
+//92 Boxing
+            questionRepositories.questionCreator("Which sport did Mike Tyson played?","Boxing","Dance sport","Sumo wrestling","Judo","Boxing","“Mike Tyson dominated boxing in the 1980s like no other in his sport ever did. With explosive power and fast knockouts, Tyson rose to stardom to become the youngest heavyweight champion in boxing history”","boxing_93.png",5);
+
+//93 Football
+            questionRepositories.questionCreator("Which the national game of Brazil?","Football","Baseball","Hockey","Fencing","Football","“Football is the most popular sport in Brazil. Other than football, sports like volleyball, mixed martial arts, basketball, and motor sports, especially Formula One, enjoy high levels of popularity”","football_94.png",5);
+
+//94 Canada
+            questionRepositories.questionCreator("Which country has Lacrosse as its national summer sport?","Canada","America","France","Australia","Canada","“It was declared a national summer sport by an act of parliament in 1994. Lacrosse was an Olympic event in 1904 and 1908 (a men\'s competition, both gold were won by Canada).”","canada_95.png",5);
+
+//95 China
+            questionRepositories.questionCreator("Which country hosted 2008 Olympics?","China","India","America","Mexico","China","“The 2008 Summer Olympic Games, officially known as the Games of the XXIX Olympiad and commonly known as Beijing 2008, was an international multi-sport event that was held from 8 to 24 August 2008 in Beijing, China”","china_96.png",5);
+
+//96 James Naismith
+            questionRepositories.questionCreator("Who invented basketball?","James Naismith","Bladder Buddy","William G. Morgan","George Hancock","James Naismith","“James Naismith was a Canadian-American physical educator, physician, chaplain, sports coach and innovator. He invented the game of basketball at age 30 in 1891”","james_naismith_97.png",5);
+
+//97 West Germany
+            questionRepositories.questionCreator("Who were the runners-up in the 1966 World Cup?","West Germany","Africa","Australia","China","West Germany","The 1966 FIFA World Cup was the eighth FIFA World Cup and was held in England from 11 to 30 July 1966. England beat West Germany 4–2 in the final, winning the Jules Rimet Trophy.","west_germany_98.png",5);
+
+//98 Milan
+            questionRepositories.questionCreator("In which city the San Siro Stadium is located in Italy?","Milan","Jamaica","Rio","India","Milan","“San Siro. The Giuseppe Meazza commonly known as San Siro, is a football stadium in the San Siro district of Milan, Italy, which is the home of A.C. Milan and Inter”","milan_99.png",5);
+
+//99 1900
+            questionRepositories.questionCreator("When did women begin competing in the Olympics?","1900","1989","1980","1889","1900","“Even in the early years of the modern Olympics, women were not well represented (consequently a rival Women\'s Olympics was held). Women participated for the first time at the 1900 Paris Games with the inclusion of women\'s events in lawn tennis and golf. Women\'s athletics and gymnastics debuted at the 1928 Olympics.”","1900_100.png",5);
+
+
+            //TODO END OF SPORTS
+
+            //TODO PEOPLE
+            //1 Sigmund Freud
+            questionRepositories.questionCreator("﻿Father of Psychoanalysis.","Sigmund Freud","Anna Freud","Carl Rogers","Karen Horney","Sigmund Freud","Austrian neurologist","sigmund_freud_1.png",1);
+
+//2 Jean Piaget
+            questionRepositories.questionCreator("Theorist of Cognitive development","Jean Piaget","Jerome Bruner","John Bowlby","Charles Lyell","Jean Piaget","Swiss psychologist and he was placed great importance on the education of children.","jean_piaget_2.png",1);
+
+//3 Erik Erikson
+            questionRepositories.questionCreator("Theorist of Physco Social learning","Erik Erikson","Lev Vygotsky","Enrico Fermi","Jack Kelby","Erik Erikson","A German-American developmental psychologist and psychoanalysis.","erik_erikson_3.png",1);
+
+//4 Bill Gates
+            questionRepositories.questionCreator("Founder of Microsoft Corporation.","Bill Gates","Steve Jobs","Charles Babbage","Jerome Bruner","Bill Gates","William Henry Gates III an American Business magnate, investor, author, philanthropist and humanitarian.","bill_gates_4.png",1);
+
+//5 Steve Paul Jobs
+            questionRepositories.questionCreator("Chairman, chief execute officer, and a co-founder of Apple Inc.","Steve Paul Jobs","Thomas Savery","Charles Babbage","Henry Ford","Steve Paul Jobs","An American entrepreneur, business magnate, chairman and majority shareholder of Pixar.","steve_paul_jobs_5.png",1);
+
+//6 Leonardo da Vinci
+            questionRepositories.questionCreator("He was the painter of Mona Lisa.","Leonardo da Vinci","Michael Angelo","Alexander Bell","Karl Marx","Leonardo da Vinci","Was an Italian polymath of the Renaissance, whose areas of interest included invention, painting sculpting and architecture.","leonardo_da_vinci_6.png",1);
+
+//7 Emilio Aguinaldo
+            questionRepositories.questionCreator("First president of the Philippines","Emilio Aguinaldo","Manuel L. Quezon","Apolinario Mabini","Manuel L. Roxas","Emilio Aguinaldo","He held that office until 1901 When he was captured by United Stated forces during the Philippine – American war (1899-1902)","emilio_aguinaldo_7.png",1);
+
+//8 Marie Curie
+            questionRepositories.questionCreator("Conducted pioneering research on radioactivity.","Marie Curie","Dmitri Mendeleev","Fritz Haber","Ernest R.","Marie Curie","Was a polish and naturalized-French Physicist and Chemist.","marie_curie_8.png",1);
+
+//9 Ernest Rutherford
+            questionRepositories.questionCreator("Father of Nuclear Physics.","Ernest Rutherford","Michael Faraday","OttoHahn","Frederic Sanger","Ernest Rutherford","a New Zealand born British physicist and 1st baron Rutherford of Nelson, OM , FRS , HFRSELLD.","ernest_rutherford_9.png",1);
+
+//10 Otto Hahn
+            questionRepositories.questionCreator("Father of Nuclear Chemistry.","Otto Hahn","Carl Rogers.","Frederic Sanger","Glenn Seaborg","Otto Hahn","A german chemist and pioneer in the fields of radioactivity and radiochemistry.","otto_hahn_10.png",1);
+
+//11 Albert Einstein
+            questionRepositories.questionCreator("Who published the theory of special relativity on 1905.","Albert Einstein","Steven Weinberg.","Niels Bohr","Max Planck","Albert Einstein","a German-born theoretical physicist.","albert_einstein_11.png",1);
+
+//12 Galileo Galilei
+            questionRepositories.questionCreator("Father of Modern Science, astronomer and physicist.","Galileo Galilei","Hands Bethe","James Chadwik","Lev Landau","Galileo Galilei","who invented telescope","galileo_galilei_12.png",1);
+
+//13 William Shakespeare
+            questionRepositories.questionCreator("English poet and playwright.","William Shakespeare","Winston Churchill","Mikhail Gorbachev","Thomas Jefferson","William Shakespeare","greatest writer in English Language","william_shakespeare_13.png",1);
+
+//14 Abraham Lincoln
+            questionRepositories.questionCreator("American President during civil War.","Abraham Lincoln","Isaac Newton","Charaka","Steven S.","Abraham Lincoln","help end slavery","abraham_lincoln_14.png",1);
+
+//15 George Washington
+            questionRepositories.questionCreator("First President of USA (1732 0 1799)","George Washington","George W. Bush","Bill Clinton","Gerald Ford","George Washington","Was the Commander in chief of the continental forces during the American wars of independence","george_washington_15.png",1);
+
+//16 Socrates
+            questionRepositories.questionCreator("Classical Greek Philosopher","Socrates","John Locke","David hume","Ludwig","Socrates","one of the founders of western Philosophy.","socrates_16.png",1);
+
+//17 Aristotle
+            questionRepositories.questionCreator("Ancient Greek Philosopher and Scientist","Aristotle","Immanuel Kant","Albert Camus","Thomas Aquinas","Aristotle","Aristotle was an ancient Greek philosopher and scientist born in the city of Stagira, Chalkidiki, in the north of Classical Greece","aristotle_17.png",1);
+
+//18 Charles Darwin
+            questionRepositories.questionCreator("Developed theory of evolution","Charles Darwin","Karl Marx","Martin Luther","Nelson Mandela","Charles Darwin","An English Natural Scientist.","charles_darwin_18.png",1);
+
+//19 Confucius
+            questionRepositories.questionCreator("Chinese philosopher","Confucius","Mencius","Mozi","Xun Kuang","Confucius","He was born around 551 BC to a modest family and a Chinese teacher, editor and politician.","confucius_19.png",1);
+
+//20 Mohammed Ali
+            questionRepositories.questionCreator("American Boxer human rights activist , and philanthropist.","Mohammed Ali","Mike Tyson","Joe Louis","Jack Johnson","Mohammed Ali","He is widely regarded as one of the most significant celebrated sports figures of the 20th century.","mohammed_ali_20.png",1);
+
+//21 Indira Gandhi
+            questionRepositories.questionCreator("She was India’s First female Prime Minister","Indira Gandhi","Uma Bharti","Sucheta Kriplani","Sushma Swaraj","Indira Gandhi","She was the Prime Minister of the Republic of Indian From Nov. 1917 to October 1984 a total of 15 years until her assassination.","indira_gandhi_21.png",1);
+
+//22 Ludwigvan beethoven
+            questionRepositories.questionCreator("According to him Music is a higher revelation than all Wisdom and Philosophy.","Ludwigvan beethoven","Henry Ford","Lao Tzu","Nikola Tesla","Ludwigvan beethoven","A german Composer and pianist.","ludwigvan_beethoven_22.png",1);
+
+//23 Eva Peron
+            questionRepositories.questionCreator("First lady of Argentina (1946 – 1952)","Eva Peron","Juliana awada","Isabel De peron","Cristina Ferandez","Eva Peron","She became a powerful political figure w/a large of support.","eva_peron_23.png",1);
+
+//24 Rodrigo Duterte
+            questionRepositories.questionCreator("The 16th president of the Philippines.","Rodrigo Duterte","Ninoy Aquino","Gloria Macapagal Arroyo","Joseph Estrada","Rodrigo Duterte","The is known as Digong , and the 1st president from the southernmost island of country, Mindanao","rodrigo_duterte_24.png",1);
+
+//25 Andres Bonifacio
+            questionRepositories.questionCreator("Father of the Philippine Revolution","Andres Bonifacio","Emilio Jacinto","Juan Luna","Pedro Patemo","Andres Bonifacio","A Filipino Revolutionary leader and the president of the Tagalog Republic.","andres_bonifacio_25.png",1);
+
+//26 M.S Swaminathan
+            questionRepositories.questionCreator("Father of Indian green revolution is:","M.S Swaminathan","Normal Borlang","K.C Mehta","B.P Pal","M.S Swaminathan","Swaminathan is known as the \"Father of Indian Green Revolution\" for his leadership and success in introducing and further developing high-yielding varieties of wheat in India. He is the founder and chairman of the About Chairman.","m_s_swaminathan_26.png",1);
+
+//27 Louis Pastuer
+            questionRepositories.questionCreator("Who gave the Germ Theory of diseases?","Louis Pastuer","Claude Bernard","Hugo de Vries","Luigi Galvani","Louis Pastuer","A French biologist Microbiologist and Chemist","louis_pastuer_27.png",1);
+
+//28 P.A.M Dirac
+            questionRepositories.questionCreator("Who proposed the theor of anti-particles?","P.A.M Dirac","Max Planck","Plato","Albert Einstein","P.A.M Dirac","Paul Adrien Maurice Diract an English theoritical physicist and one of the most significant physicist of the 20th century","p_a_m_dirac_28.png",1);
+
+//29 Otto Von Guericke
+            questionRepositories.questionCreator("Who condution the famous experiment to prove that nature abhors vacuum?","Otto Von Guericke","Joseph Black","John Dalton","Evangelista Torricelli","Otto Von Guericke","A German scientist, inventor and politician.","otto_von_guericke_29.png",1);
+
+//30 John Glenn
+            questionRepositories.questionCreator("Which astronaut has become a politician?","John Glenn","rank Borman","Thomas Stafford","German Titov","John Glenn","US Marine Corops aviator, engineer, astronaut and United State senator from Ohio, the first American to orit the earth.","john_glenn_30.png",1);
+
+//31 Judit Resnik
+            questionRepositories.questionCreator("Who was the first woman astronaut to die during a space flight?","Judit Resnik","Mary Cleave","Rhea Seddon","Anna Fisher","Judit Resnik","An American engineer, she died when the space shuttle challenger was destroyed during the launch of mission.","judit_resnik_31.png",1);
+
+//32 Eugene Cernan
+            questionRepositories.questionCreator("Who was the last astronaut to leave the Moon?","Eugene Cernan","Neil Armstrong","Harrison Schmitt","Edwin Aldrin","Eugene Cernan","An American NASA astronaut, Navan aviator and fighter pilot.","eugene_cernan_32.png",1);
+
+//33 David Livingstone
+            questionRepositories.questionCreator("Who explored the central and southern Africa and discovered Victoria Falls, among other things.","David Livingstone","Alfred Wallace","Richard Leakey","Henry Norton Stanley","David Livingstone","A scottist christian congregationalist and pioneer medical missionary.","david_livingstone_33.png",1);
+
+//34 K.D Naegamvala
+            questionRepositories.questionCreator("Who led the first Indian solar eclipse expedition of Juer in 1898?","K.D Naegamvala","M.K Vainu Bappu","A.L Narayan","C. Nagaraja Iyer","K.D Naegamvala","Kavasji Dadabha Naegamvala was an astrophysicist and the director of Takhtasingji observatory.","k_d_naegamvala_34.png",1);
+
+//35 Robert E. Peary
+            questionRepositories.questionCreator("Who led the expedition to Greenland and later proved it to be an island?","Robert E. Peary","John Milne","Dicaearchus","Daubree","Robert E. Peary","No Fun Facts","robert_e_peary_35.png",1);
+
+//36 Ferdinand Magellan
+            questionRepositories.questionCreator("Who led the first marine expedition to navigate around the earth?","Ferdinand Magellan","Marco Polo","Ptolemy","Nicholas of Celsa","Ferdinand Magellan","A portuguese explorer who organized the spanish expedition to the East Indies from 1519-1522","ferdinand_magellan_36.png",1);
+
+//37 Ronald Amundsen
+            questionRepositories.questionCreator("Who is the first man to reach the South Pole?","Ronald Amundsen","Francis Drake","Ferdinand Magellan","Robert Scott","Ronald Amundsen","A norwegian explorer of polar regions and leader of the Antartic expedition of 1910-1912","ronald_amundsen_37.png",1);
+
+//38 Adrien de Gerlache
+            questionRepositories.questionCreator("Who led the first expedition to stay in Antartica during the winter?","Adrien de Gerlache","Leonard Kristensen","James Clark Ross","E.Borchgrevink","Adrien de Gerlache","An officer in the Belgian Royal Navy","adrien_de_gerlache_38.png",1);
+
+//39 Richard E. Byrd
+            questionRepositories.questionCreator("Who is the first man to stay alone in Antartica for five months?","Richard E. Byrd","Ernest Shackleton","Cherry Garrard","None","Richard E. Byrd","American Naval officer and explorer, He receive Medal of Honor highest honor for valor given by united states.","richard_e_byrd_39.png",1);
+
+//40 Francis Bacon
+            questionRepositories.questionCreator("Who said knowledge is power?","Francis Bacon","Aristotle","Euclid","Albert Einstein","Francis Bacon","An English philosopher statesman,scientist,jurist, orator and Author.","francis_bacon_40.png",1);
+
+//41 Thomas A. Edison
+            questionRepositories.questionCreator("Who said genius is one 1% inspiration and 99% perspiration?","Thomas A. Edison","Albert Einstein","Isaac Newton","Thomas Jefferson","Thomas A. Edison","American inventor and bussinessman.","thomas_a_edison_41.png",1);
+
+//42 J.Bhabh
+            questionRepositories.questionCreator("Who laid the foundation of nuclear science the country?","J.Bhabh","Kram Sarabha","Raja Ramanna","M.G.K Menon","J.Bhabh","An Indian nuclear physicist, founding director and professor of physics at Tata Institute","j_bhabh_42.png",1);
+
+//43 Shrinivas Kulkarna
+            questionRepositories.questionCreator("Who discovered millisecond pulsars?","Shrinivas Kulkarna","Shiv Kumar","Govind Swarup","Charaka","Shrinivas Kulkarna","An Indian Astronomer.","shrinivas_kulkarna_43.png",1);
+
+//44 Michael Crichton
+            questionRepositories.questionCreator("Who wrote the novel Jurassic Park?","Michael Crichton","Stanley Kubrick","George Lucas","Steven Spielberg","Michael Crichton","An American, Author , Screen writer, film director, film producer, and televesion producer.","michael_crichton_44.png",1);
+
+//45 Isaac Animov
+            questionRepositories.questionCreator("Who gave the laws of robotocs?","Isaac Animov","Voltaire","Karel Capek","Douglas Adams","Isaac Animov","An American writter and professor of biochemistry at Boston University.","isaac_animov_45.png",1);
+
+//46 Euclid
+            questionRepositories.questionCreator("Father of Geometry","Euclid","Max Born","Isaac Newton","Marco Polo","Euclid","Sometimes given the name Euclid of Alexandria to distinguish him from Euclides of Megara, and a Greek mathematician.","euclid_46.png",1);
+
+//47 Carl Linnaeus
+            questionRepositories.questionCreator("Father of modern taxonomo","Carl Linnaeus","Nikolai Varilov","Gregor Mendel","Agnes Arber","Carl Linnaeus","A Swedist botanist, physician, and zoologist and formalised binomial nomenclature, the modern system of naming organism.","carl_linnaeus_47.png",1);
+
+//48 Alexander Braun
+            questionRepositories.questionCreator("Father of economics","Alexander Braun","Erik Acharius","Michael Adanson","Andrea Cesalpino","Alexander Braun","Alexander Carl Heinrich Braun was a German botanist from reqensburg Bavaria.","alexander_braun_48.png",1);
+
+//49 Jose Rizal
+            questionRepositories.questionCreator("He is widely considered one of the greatest heroes of the Philippines","Jose Rizal","Ferdinand Magellan","Lapu-Lapu","Erik Acharius","Jose Rizal","Also known as jose Protasio Rizal Mercado Y  Alonso Realonda, A Filipino nationalist and polymath during the tailend of the spanish colonial period.","jose_rizal_49.png",1);
+
+//50 Ferdinand Marcos
+            questionRepositories.questionCreator("Who was the 10th President of the Philippines?","Ferdinand Marcos","Diosdado Macapagal Arroyo","Benigno Aquino III","Fidel V. Ramos","Ferdinand Marcos","A Filipino politician and kleptocrat. He ruled as a dictator.","ferdinand_marcos_50.png",1);
+
+//51 Francisco Quisumbing
+            questionRepositories.questionCreator("Who was the inventor of Quink Ink used by the Parker Pen company?","Francisco Quisumbing","Ramon Barba","Dado Banatao","Jose Rizal","Francisco Quisumbing","A Filipino botanist and gained his Ph.D in Plant Taxonomy, Systematics and Morphology from the University of Chicago in 1923.","francisco_quisumbing_51.png",1);
+
+//52 Gregorio Y. Zara
+            questionRepositories.questionCreator("Who was the inventor of the first two-way videophone?","Gregorio Y. Zara","Daniel Dingel","Roberto del Rosario","Ramon Barba","Gregorio Y. Zara","A Filipino engineer and physicist. A native of Liopa, Batangas, Philippine Islands.","gregorio_y_zara_52.png",1);
+
+//53 Aisa Mijeno
+            questionRepositories.questionCreator("Inventor of SALT lamp.","Aisa Mijeno","Pedro Flores","Thomas Edison","Magdalena Villarus","Aisa Mijeno","A Filipino scientist and entrepreneur.","aisa_mijeno_53.png",1);
+
+//54 Ernesto Baron
+            questionRepositories.questionCreator("Who was the Filipino broadcaster and inventor?","Ernesto Baron","Hery Omaga-Diaz","Noli de Castro","Dong Puno","Ernesto Baron","Best known as the weatherman in ABS-CBN new program TV Patrol and also known as the walking Encyclopedia.","ernesto_baron_54.png",1);
+
+//55 Angel C. Alcala
+            questionRepositories.questionCreator("Who ceate the artificial coral reefs that help a lot to the Philippines aquatic ecosystem.","Angel C. Alcala","Pedro Flores","Dong Puno","Ernesto Baron","Angel C. Alcala","A Filipino biologist who was named a National Scientist of the Philippines.","angel_c_alcala_55.png",1);
+
+//56 Margaret Burbridge
+            questionRepositories.questionCreator("Woman astronomer discovered six comets.","Margaret Burbridge","Hypatia","Caroline Herschel","Christine Wilson","Margaret Burbridge","A British-born American astrophysicist noted for original research and holding mand administrative posts.","margaret_burbridge_56.png",1);
+
+//57 Tim Berners-Lee
+            questionRepositories.questionCreator("Father of Web.","Tim Berners-Lee","Bill Gates","Henry Ford","Alfred Russel","Tim Berners-Lee","British Engineer, computer scientist and Professor at MIT in 1991.","tim_berners_lee_57.png",1);
+
+//58 Alfred Adler
+            questionRepositories.questionCreator("Father of Psychology.","Alfred Adler","Jean Piaget","Lev Vygotsky","Robert Koch","Alfred Adler","Austrian media doctor, and psychotherapist","alfred_adler_58.png",1);
+
+//59 Lawrence Kohlberg
+            questionRepositories.questionCreator("Theorist of moral Development.","Lawrence Kohlberg","B.F Skinner","Rudolf Diesel","Carl Benz","Lawrence Kohlberg","American psycologist and born on October 25,1927","lawrence_kohlberg_59.png",1);
+
+//60 Albert Bandura
+            questionRepositories.questionCreator("Theorist of Social Learning","Albert Bandura","Ramon Barbara","Galen","Francis Bacon","Albert Bandura","A psycologist who is the David Star Jordan Professor Emeritus of Social Science in Psychology at stanford University.","albert_bandura_60.png",1);
+//1 Alan Turing
+            questionRepositories.questionCreator("﻿Father of Artificial Intelligence","Alan Turing","John von Neuman","Warren Mc cullach","John mc Carthy","Alan Turing","Alan turing was a logician mathematician and comp. scientist was born in London in 1912,","alan_turing_1.png",1);
+
+//2 James Hutton
+            questionRepositories.questionCreator("Who is known as the Father of geology?","James Hutton","Alfred Wegener","Charles Lyell","Hillon","James Hutton","A Scottish geologist , physician chemical manu8facturer , naturalist and experimental , agriculture","james_hutton_2.png",1);
+
+//3 Norbert Wiener
+            questionRepositories.questionCreator("Considered to be the father of cybernatics.","Norbert Wiener","Claude Shannon","Konrad Zuse","Alan turing","Norbert Wiener","American mathematician was born on Novemb er 26, 1894 at Cambridge.","norbert_wiener_3.png",1);
+
+//4 Susruta
+            questionRepositories.questionCreator("Father of plastic surgery.","Susruta","Hippocrates","Galen","Charaka","Susruta","Ancient Indian physician during BCE to 1000 BCE.","susruta_4.png",1);
+
+//5 Irène Curie and F. Joliot
+            questionRepositories.questionCreator("Who discovered artificial radioactivity?","Irène Curie and F. Joliot","Henri Bacquerel","Marie Curie","Pierre Curie","Irène Curie and F. Joliot","This induced radioactivity was discovered by Irène Curie and F. Joliot in 1934 and received the Nobel Prize in 1935 for this discovery. This is also known as man-made radioactivity. The phenomenon by which even light elements are made radioactive by artificial or induced methods is called artificial radioactivity.","irène_curie_and_f_joliot_5.png",1);
+
+//6 G.W Leibniz
+            questionRepositories.questionCreator("Who is independently discovered calculus?","G.W Leibniz","Francis Bacon","Christian Guygens","Leonardo Fibonacci","G.W Leibniz","A german rationalist philosopher and one of the great dendissance men of Western thought.","g_w_leibniz_6.png",1);
+
+//7 Harvey Cushing
+            questionRepositories.questionCreator("Father of brain surgery","Harvey Cushing","Pierre Broca","Galen","Christian Barnard","Harvey Cushing","American neuron surgeon, pathologist, writer and draftsman.","harvey_cushing_7.png",1);
+
+//8 Linus Pauling
+            questionRepositories.questionCreator("Who claimed that Vitamin c can prevent common cold?","Linus Pauling","Paul Muller","Rebe Dubos","G. natta","Linus Pauling","American chemist,biochemist peace activist,author and educator.","linus_pauling_8.png",1);
+
+//9 William whewell
+            questionRepositories.questionCreator("Who invented the term “SCIENCE”?","William whewell","Francis Bacon","Roger Bacon","Plato","William whewell","An English polymath scientist, Anglican priest, philosopher and theologian.","william_whewell_9.png",1);
+
+//10 Erasistratus
+            questionRepositories.questionCreator("Father of physiology.","Erasistratus","Thales","Herophilus","Anaximander","Erasistratus","A Greek anatomist and royal physician. He founded a school of anatomy in Alexandria.","erasistratus_10.png",1);
+
+//11 Karl Jansky
+            questionRepositories.questionCreator("Who discovered radio waves coming from the sky?","Karl Jansky","Max Weber","J.S Hey","Robert Watson-Watt","Karl Jansky","An American physicist and radio engineer.","karl_jansky_11.png",1);
+
+//12 Phan tuan
+            questionRepositories.questionCreator("Who was the first Asian astronaut to go into space?","Phan tuan","John Glenn","Ravish Malhotra","Rakesh Sharma","Phan tuan","a retired Vietnam airforce aviator.","phan_tuan_12.png",1);
+
+//13 Alexer Leonov
+            questionRepositories.questionCreator("Who was the first man to walk in space?","Alexer Leonov","John Glenn","John Young","Alan Shepard","Alexer Leonov","A retired Soviet/Russian cosmonaut , Air Force Major general, writer and artist.","alexer_leonov_13.png",1);
+
+//14 Valentina Tereshkova
+            questionRepositories.questionCreator("Who was the first Woman in space?","Valentina Tereshkova","Sally Ride","Anna Fisher","Rhea Seddon","Valentina Tereshkova","Retired Russian  cosmonaut, engineer and politician.","valentina_tereshkova_14.png",1);
+
+//15 Fabian Gottlieb Bellingshausen
+            questionRepositories.questionCreator("Who is the first man to reach antartica?","Fabian Gottlieb Bellingshausen","Thomas Cook","Paul Scott","John young","Fabian Gottlieb Bellingshausen","One of Russia’s most celebrated explorers and the discovered of the continent of Antarctica.","fabian_gottlieb_bellingshausen_15.png",1);
+
+//16 Henry Ford
+            questionRepositories.questionCreator("Who is the father of the automobile?","Henry Ford","Rudolf Diesel","Gottlieb Daimler","Carl Benz","Henry Ford","He was so much more interested in machines and building things.","henry_ford_16.png",1);
+
+//17 Dmitri Mendeleev
+            questionRepositories.questionCreator("Who is the father of Periodic Table of elements?","Dmitri Mendeleev","Alfred Nobel","Johann Baeyer","John Glenn","Dmitri Mendeleev","He is a Russian chemist and inventor.","dmitri_mendeleev_17.png",1);
+
+//18 Paul Ehrlich
+            questionRepositories.questionCreator("Who is the father of the science of chemotherapy, using chemical to treat diseases?","Paul Ehrlich","Leo Szilard","Hippocrates","Avicenna","Paul Ehrlich","He is a German , and won the Nobel prize in Physiology or Medicine for his exemplary work on immunology","paul_ehrlich_18.png",1);
+
+//19 Edward Teller
+            questionRepositories.questionCreator("Who is the father of the hydrogen bomb?","Edward Teller","Leo Szilard","J. Robert Oppenheimer","Otto Hahn","Edward Teller","On it’s 100th birthday in 1959, Edward Teller warned the oil industry about global warming.","edward_teller_19.png",1);
+
+//20 D.N Wadia
+            questionRepositories.questionCreator("Who is the Father of geology in India?","D.N Wadia","Mihir Sen","K.S Valdiya","M.K Bose","D.N Wadia","One among the great geologist in geological.","d_n_wadia_20.png",1);
+
+//21 Andreas Vesalius
+            questionRepositories.questionCreator("Who is the founding Father of modern anatomy?","Andreas Vesalius","Hippocrates","Avicenna","Galen","Andreas Vesalius","Humani Corporis Fabrica (On the fabric of the human body) revolutionized the science of medicine and laid foundation for the modern human anatomy.","andreas_vesalius_21.png",1);
+
+//22 Francis Galton
+            questionRepositories.questionCreator("Who is considered to be the father of eugenics?","Francis Galton","Karl Pearson","Charles Darwin","Avicenna","Francis Galton","English explorer, anthropologist, eugenicists, geographer and meteorologist.","francis_galton_22.png",1);
+
+//23 Walther Nernst
+            questionRepositories.questionCreator("Who discovered the Third Law of thermodynamics?","Walther Nernst","L.E Boltzmann","Count Rumford","P.M.S Blackett","Walther Nernst","The 3rd law was developed by the chemist Walther Nernst during the years 1906–12, and is therefore often referred to as Nernst\'s theorem or Nernst\'s postulate. The third law of thermodynamics states that the entropy of a system at absolute zero is a well-defined constant.","walther_nernst_23.png",1);
+
+//24 Gerhard Domagk
+            questionRepositories.questionCreator("Who discovered sulpha drugs?","Gerhard Domagk","Robert Wilkins","Howard Florey","Alexander Fleming","Gerhard Domagk","a German pathologist and bacteriologist","gerhard_domagk_24.png",1);
+
+//25 Anton Leeuwenhoek
+            questionRepositories.questionCreator("Who discovered one-celled animals?","Anton Leeuwenhoek","Galen","Marcello Malpighi","Charaka","Anton Leeuwenhoek","who invented or greatly improved the microscope and discovered living organisms,.","anton_leeuwenhoek_25.png",1);
+
+//26 Autor Singh Paintal
+            questionRepositories.questionCreator("Who discovered J-receptor-the nerve terminals in lungs that cause breathlessness?","Autor Singh Paintal","Peter Medawar","B.S Anand","A.L. Hodgkin","Autor Singh Paintal","Indian Medical Scientist","autor_singh_paintal_26.png",1);
+
+//27 Ronald Ross
+            questionRepositories.questionCreator("Who discovered that malaria is caused by a particular type of mosquito?","Ronald Ross","Christian Eijman","Charaka","Louis Pasteur","Ronald Ross","A British medical doctor who Eijkman receive Nobel Prize for physiology or Medicine in 1902 for his work in transmission of malaria.","ronald_ross_27.png",1);
+
+//28 Konrad Lorenz
+            questionRepositories.questionCreator("Who discovered im printing?","Konrad Lorenz","Charles Darwin","B.F Skinner","Alfred Russel","Konrad Lorenz","Austrian zoologist, ethnologist and ornithologist.","konrad_lorenz_28.png",1);
+
+//29 I.P Pavlov
+            questionRepositories.questionCreator("Who is discovered condition reflex through his experiments on dogs?","I.P Pavlov","Sigmund Freud","B.F Skinner","Carl Jung","I.P Pavlov","A Russian physiologist known primarily for his work in classical conditioning","i_p_pavlov_29.png",1);
+
+//30 Oliver Wendell holmes
+            questionRepositories.questionCreator("Who coined the term ‘anesthesia’  for any pain-killer given during an operation?","Oliver Wendell holmes","Paul Ehrlich","Susruta","Carl Jung","Oliver Wendell holmes","The word \"anesthesia\", coined by Oliver Wendell Holmes (1809–1894) in 1846 from the Greek ἀν-, an-, \"without\"; and αἴσθησις, aisthēsis, \"sensation\"), refers to the inhibition of sensation.","oliver_wendell_holmes_30.png",1);
+
+//31 S. Chandrasekhar
+            questionRepositories.questionCreator("Who came close to predicting the presence of black holes?","S. Chandrasekhar","A.S Eddington","Albert Einstein","Harlow Shapley","S. Chandrasekhar","Indian American astrophysicist, who spend his professional list in the US","s_chandrasekhar_31.png",1);
+
+//32 Wilhelm von Biela
+            questionRepositories.questionCreator("The coment known after him split into two who is he?","Wilhelm von Biela","Francis Baily","David Brewster","Heinrich Olbers","Wilhelm von Biela","A German Austrian military officer and amateur astronomer.","wilhelm_von_biela_32.png",1);
+
+//33 Samuel Morse
+            questionRepositories.questionCreator("The telegraphic code is known after him, who is he?","Samuel Morse","Joseph henry","Andre ampere","Jean fourier","Samuel Morse","American painter and inventor.","samuel_morse_33.png",1);
+
+//34 Hans Bethe
+            questionRepositories.questionCreator("Who proposed the idea that stars generate energy by nuclear fusion?","Hans Bethe","Albert Einstein","M.N Sana","Bertrand Rusell","Hans Bethe","German – American nuclear physicist.","hans_bethe_34.png",1);
+
+//35 Claude E. Shannon
+            questionRepositories.questionCreator("Who coined the term ‘Bit’ for a unit of information?","Claude E. Shannon","Ren Descartes","Albert Einstein","uigi Galvani","Claude E. Shannon","American mathematician electrical engineer and cryptographer, known as the father of information theory.","claude_e_shannon_35.png",1);
+
+//36 Richard Dawking
+            questionRepositories.questionCreator("Who coined the term ‘meme’ any bit of information, whether it is a fact, fad or rumor?","Richard Dawking","Charles Darwin","William Hamilton","Ren Descartes","Richard Dawking","English ethnologist, evolutionary biologist and Author.","richard_dawking_36.png",1);
+
+//37 Robert Millikan
+            questionRepositories.questionCreator("Who devised an equipment to measure the charge on an electron?","Robert Millikan","S. Ramanujan","Richard Dawking","Susruta","Robert Millikan","American experimental physicist, honored with the Nobel Prize for physics.","robert_millikan_37.png",1);
+
+//38 Georg Cantos
+            questionRepositories.questionCreator("Who gave some revolutionary concepts about infinity?","Georg Cantos","Kurt Goedel","G.H Hardy","S. Ramanujan","Georg Cantos","A German mathematician, created set theory which has become a fundamental theory in mathematics.","georg_cantos_38.png",1);
+
+//39 Louis Pasteur
+            questionRepositories.questionCreator("Who game the Germ Theory of diseases?","Louis Pasteur","Claude Bernard","Hugo de Vries","Luigi Galvani","Louis Pasteur","A French biologist, microbiologist and chemist","louis_pasteur_39.png",1);
+
+            //TODO END OF PEOPLE
         }
 
 

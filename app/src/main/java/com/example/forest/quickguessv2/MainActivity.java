@@ -2,23 +2,17 @@ package com.example.forest.quickguessv2;
 
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
-import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.User;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
@@ -29,8 +23,6 @@ import com.example.forest.quickguessv2.Service.MyService;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         private void init() {
 //        ApplicationClass.getRefWatcher(this);
-        TypeFaceUtil.initFont(this);
+        TypeFaceUtil.initDimboFont(this);
         WindowHelper.hideNavigationBar(this);
         ButterKnife.bind(this);
         lifeRepositories = new LifeRepositories(this);

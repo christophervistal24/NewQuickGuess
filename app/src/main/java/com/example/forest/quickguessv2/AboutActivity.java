@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
@@ -33,7 +31,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         WindowHelper.hideNavigationBar(this);
         setContentView(R.layout.activity_about);
-        TypeFaceUtil.initFont(this);
+        TypeFaceUtil.initDimboFont(this);
         ButterKnife.bind(this);
         initAnimation();
         scroll.setSmoothScrollingEnabled(true);
