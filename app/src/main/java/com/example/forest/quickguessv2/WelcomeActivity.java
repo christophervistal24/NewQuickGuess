@@ -161,7 +161,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-            Log.d("position",String.valueOf(position));
             addBottomDots(position);
             SoundUtil.songLoad(getApplicationContext(),R.raw.click)
                     .start();
@@ -185,24 +184,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     message2.setVisibility(View.VISIBLE);
                     message2.setTypingSpeed(40);
                     message2.setTextAutoTyping("Last night I celebrate my Birthday in my house, lots of my friends had been there," +
-                            " one of my friend give me a bottle of wine.");
+                            " one of my friend give me a bottle of wine. Read more....");
 
-                    handler.postDelayed(new Runnable() {
+
+                    message2.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void run() {
-                            message2.setTypingSpeed(40);
-                            message2.setTextAutoTyping("");
+                        public void onClick(View view) {
+                            displayMessage2();
                         }
-                    }, 3000);
-
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                    public void run() {
-                    message2.setTypingSpeed(40);
-                    message2.setTextAutoTyping("we decided to drink it, then suddenly I felt dizzy, when I" +
-                            " woked up all of my friends was gone, and there's a letter beside me");
-                }
-            }, 10000);
+                    });
                     break;
 
                 case 2:
@@ -219,6 +209,19 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
+    private void displayMessage2()
+    {
+        final AutoTypeTextView message2 = findViewById(R.id.message2);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                message2.setTypingSpeed(40);
+                message2.setTextAutoTyping("We decided to drink it, then suddenly I felt dizzy, when I" +
+                        " woked up all of my friends was gone, and there's a letter beside me");
+            }
+        }, 300);
+
+    }
     /**
      * Making notification bar transparent
      */

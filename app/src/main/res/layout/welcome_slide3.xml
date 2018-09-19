@@ -14,8 +14,8 @@
         android:id="@+id/three_child_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:padding="10dp"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
        <com.dragankrstic.autotypetextview.AutoTypeTextView
@@ -27,7 +27,13 @@
            android:textColor="#ff0000"
            />
         <!--android:textColor="#ff7675"-->
-
+        <ImageView
+            android:id="@+id/friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:layout_gravity="center"
+            android:src="@drawable/friends" />
     </LinearLayout>
 
 </RelativeLayout>
