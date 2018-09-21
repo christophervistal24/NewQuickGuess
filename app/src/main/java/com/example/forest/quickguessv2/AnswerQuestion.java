@@ -89,10 +89,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
     }
 
-//    private void categoryBackground() {
-//        Intent i = getIntent();
-//        background.setImageResource(BackgroundUtil.setBackground(getApplicationContext(),i));
-//    }
 
     private void classInstantiate() {
         lifeRepositories = new LifeRepositories(this);
@@ -205,6 +201,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         SharedPreferenceHelper.PREF_FILE = "question";
         SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
         SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
+        SharedPreferenceHelper.setSharedPreferenceString(this,"question_image", q.getFun_facts_image());
         radioGroupdisplayOrHide();
         timerLayoutDisplayOrHide();
         question.setVisibility(View.GONE);

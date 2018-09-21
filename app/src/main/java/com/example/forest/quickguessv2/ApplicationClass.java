@@ -62,7 +62,6 @@ public class ApplicationClass extends Application{
         questionCategoryRepositories.categoryCreator("music","All about music"); //6
         questionCategoryRepositories.categoryCreator("technology","All about technologies"); //7
         questionCategoryRepositories.categoryCreator("entertainment","All about entertainment"); //8
-
     }
 
     private void insertQuestions()
@@ -2289,6 +2288,309 @@ public class ApplicationClass extends Application{
             questionRepositories.questionCreator("Who game the Germ Theory of diseases?","Louis Pasteur","Claude Bernard","Hugo de Vries","Luigi Galvani","Louis Pasteur","A French biologist, microbiologist and chemist","louis_pasteur_39.png",1);
 
             //TODO END OF PEOPLE
+
+            //TODO TECHNOLOGY
+            //1 Year-1880s
+            questionRepositories.questionCreator("﻿In which decade was the American Institute of Electrical Engineers (AIEE) founded?","Year-1880s","1850s","1930s","1950s","Year-1880s","The IEEE (Institute of electrical and Electronics Engineer) was formed in 1963 by the merge of the institute of radio Engineer (IRE, founded 1912) and the American institute of electrical engineers (AIEE, founded 1884)","year_1880s_1.png",7);
+
+//2 Year-1900
+            questionRepositories.questionCreator("In which decade with the first transatlantic radio broadcast occur?","Year-1900","1850s","1860s","1870s","Year-1900","On December 12, 1901, a radio transmission received by Gulielmo Marcon resulted in the first transmission of a transatlantic wireless signal (Morse code) from Poldhu Cornwall, To St. John’s Newfoundland","year_1900_2.png",7);
+
+//3 1970's
+            questionRepositories.questionCreator("In which decade was the SPICE simulator introduced?","1970's","1980's","1950's","1960's","1970's","SPICE (Simulation Program with Integrated Circuit Emphasis) was introduced in May 1972 by University of Berkeley California.","1970_s_3.png",7);
+
+//4 Variant Voltage Variable Frequency
+            questionRepositories.questionCreator("What does VVVF stand for?","Variant Voltage Variable Frequency","Variable voltage Vile Frequency","Variable Velocity Variable Fun","Very Very Vicious Frequency","Variant Voltage Variable Frequency","it is a method of controlling the speed of an AC induction motor, whereby speed, current and torque can all be accurately controlled.","variant_voltage_variable_frequency_4.png",7);
+
+//5 Programmable Logic Computer
+            questionRepositories.questionCreator("What does the term PLC stand for?","Programmable Logic Computer","Programmable Lift Controller","Programmable List Control","Piezo Lamp Connector","Programmable Logic Computer","Used in manufacturing, engineering, and process operations.","programmable_logic_computer_5.png",7);
+
+//6 Amplitude modulation
+            questionRepositories.questionCreator("What Does AM mean?","Amplitude modulation","Angelo Marconi","Amperes","Anno median","Amplitude modulation","Amplitude modulation was the first type to be used in radio it works well with HF and Morse code.","amplitude_modulation_6.png",7);
+
+//7 Sundar Pichai
+            questionRepositories.questionCreator("Who is the present CEO of Google?","Sundar Pichai","Lawrence E. Page","Paul Allen","Larry Ellison","Sundar Pichai","“Pichai Sundararajan, also known as Sundar Pichai, is an Indian American business executive. Pichai is the chief executive officer of Google Inc.”","sundar_pichai_7.png",7);
+
+//8 Mark Hurd & Safra Catz
+            questionRepositories.questionCreator("Who is the present CEO of ORACLE?","Mark Hurd & Safra Catz","Larry Ellison","Paul Allen","Richard Stallman","Mark Hurd & Safra Catz","“Ellison, who is believed to be the fifth-wealthiest man in the world, will be replaced by Mark Hurd and Safra Catz, Oracle said. In an unusual move, Hurd and Catz will both be named CEO of the company—not co-CEOs. Ellison will become executive chairman and chief technology officer September 18, 2014.”","mark_hurd_&_safra_catz_8.png",7);
+
+//9 James Gosling
+            questionRepositories.questionCreator("Who invented JAVA?","James Gosling","Sabeer Bhatia","Richard Stallman","Larry Wall","James Gosling","“James Arthur Gosling, OC (born May 19, 1955) is a Canadian computer scientist, best known as the founder and lead designer behind the Java programming language.”","james_gosling_9.png",7);
+
+//10 Larry Wall
+            questionRepositories.questionCreator("Who invented PERL programming language?","Larry Wall","Sergey Brin","Sam Pitroda","Aaron Swartz","Larry Wall","“Larry Wall (born September 27, 1954) is an American Computer programmer and author. He created the PERL programming language.”","larry_wall_10.png",7);
+
+//11 Semiconductor
+            questionRepositories.questionCreator("What is a transistor?","Semiconductor","Conductor","Insulator","Superconductor","Semiconductor","“A transistor is a semiconductor device used to amplify or switch electronic signals and electrical power. It is composed of semiconductor material usually with at least three terminals for connection to an external circuit.”","semiconductor_11.png",7);
+
+//12 URL
+            questionRepositories.questionCreator("What is the formal term for a web address?","URL","Netsite","Website","FTP","URL","“Web Address is a URL with HTTP/HTTPS. The term \"web address\" is a synonym for a URL that uses the HTTP or HTTPS protocol. The Uniform Resource Locator (URL) was developed by Tim Berners-Lee in 1994 and the Internet Engineering Task Force (IETF) URI working group. Today, the format of the URL has not changed.”","url_12.png",7);
+
+//13 Year 2007
+            questionRepositories.questionCreator("When did the Apple iPhone first become available?","Year 2007","Year 2005","Year 1999","Year 2000","Year 2007","“On January 9, 2007, Steve Jobs announced iPhone at the Macworld convention, receiving substantial media attention. Jobs announced that the first iPhone would be released later that year. On June 29, 2007, the first iPhone was released”","year_2007_13.png",7);
+
+//14 Central Processing Unit
+            questionRepositories.questionCreator("In terms of computing, what does CPU stand for?","Central Processing Unit","Center Process Unit","Collide Part Unit","Care Prepare Undone","Central Processing Unit","“A central processing unit (CPU) is the electronic circuitry within a computer that carries out the instructions of a computer program by performing the basic arithmetic, logical, control and input/output (I/O) operations specified by the instructions”","central_processing_unit_14.png",7);
+
+//15 Year 1889
+            questionRepositories.questionCreator("Nintendo was founded after the year of?","Year 1889","Year 1990","Year 1900","Year 1880","Year 1889","“Nintendo is founded, September 23, 1889. Founded in 1889 by Fusajiro Yamauchi in Kyoto, Japan, The Nintendo Playing Card Company was a small business that would go on to revolutionize gaming around the world”","year_1889_15.png",7);
+
+//16 Random Access Memory
+            questionRepositories.questionCreator("What does RAM stand for?","Random Access Memory","Rent Accurate Memory","Random Act Memory","Raise Access Memo","Random Access Memory","“Random-access memory RAM is a form of computer data storage that stores data and machine code currently being used”","random_access_memory_16.png",7);
+
+//17 Read Only Memory
+            questionRepositories.questionCreator("What does ROM stand for?","Read Only Memory","React Own Memo","Right Of Memory","Read own Memory","Read Only Memory","“Read-only memory (ROM) is a type of non-volatile memory used in computers and other electronic devices”","read_only_memory_17.png",7);
+
+//18 World Wide Web
+            questionRepositories.questionCreator("What does the abbreviation WWW stand for?","World Wide Web","Work Web Work","World Work Web","Work Wide Web","World Wide Web","“The World Wide Web dramatically increased the use of the internet. Tim Berners-Lee established the convention in 1989”","world_wide_web_18.png",7);
+
+//19 Hyper Text Transfer Protocol
+            questionRepositories.questionCreator("What does http stand for?","Hyper Text Transfer Protocol","Hide Text Transfer Protocol","Hyper Translate Transfer Protocol","Highlight Text Translate Protocol","Hyper Text Transfer Protocol","“The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, and hypermedia information systems. HTTP is the foundation of data communication for the World Wide Web”","hyper_text_transfer_protocol_19.png",7);
+
+//20 Archie
+            questionRepositories.questionCreator("Which one is the first search engine in internet?","Archie","Google","Altavista","WAIS","Archie","“The first few hundred web sites began in 1993 and most of them were at colleges, but long before most of them existed came Archie. The first search engine created was Archie, created in 1990 by Alan Emtage, a student at McGill University in Montreal.”","archie_20.png",7);
+
+//21 One hundred twenty eight bit
+            questionRepositories.questionCreator("Number of bit used by the IPv6 address?","One hundred twenty eight bit","Sixty four bit","Thirty two bit","Two hundred fifty six bit","One hundred twenty eight bit","“In IPv4, each octet consists of a decimal number ranging from 0 to 255. These numbers are typically separated by periods. In IPv6, addresses are expressed as a series of eight 4-character hexadecimal numbers, which represent 16 bits each (for a total of 128 bits)”","one_hundred_twenty_eight_bit_21.png",7);
+
+//22 Nexus
+            questionRepositories.questionCreator("Which one is the first web browser invented in 1990?","Nexus","Internet Explorer","Mosaic","Mozilla","Nexus","“The first web browser was invented in 1990 by Tim Berners-Lee. It was called WorldWideWeb (no spaces) and was later renamed Nexus”","nexus_22.png",7);
+
+//23 Creeper virus
+            questionRepositories.questionCreator("First computer virus is known as?","Creeper virus","Rabbit","Elk Cloner","SCA virus","Creeper virus","“Creeper virus is a computer virus that is most commonly recognized as the first computer virus. In 1971, Bob Thomas at BBN created Creeper as an experimental self-duplicating program that was intended not to inflict damage on, but to illustrate a mobile application. Creeper corrupted DEC PDP-10 computers operating on the TENEX operating system by messing around the installed printers, displaying the message “I’m the creeper, catch me if you can!””","creeper_virus_23.png",7);
+
+//24 Security
+            questionRepositories.questionCreator("Firewall in computer is used for?","Security","Data Transmission","Authentication","Monitoring","Security","“A firewall is a system designed to prevent unauthorized access to or from a private network. You can implement a firewall in either hardware or software form, or a combination of both. Firewalls prevent unauthorized internet users from accessing private networks connected to the internet, especially intranets.”","security_24.png",7);
+
+//25 COBOL
+            questionRepositories.questionCreator("Which of the following is not a database management software?","COBOL","MySQL","Sybase","Oracle","COBOL","“COBOL an acronym for \"common business-oriented language\" is a compiled English-like computer programming language designed for business use”","cobol_25.png",7);
+
+//26 Apple
+            questionRepositories.questionCreator("Mac operating system is developed by which company?","Apple","IBM","Microsoft","Samsung","Apple","“Mac OS, operating system (OS) developed by the American computer company Apple Inc. The OS was introduced in 1984 to run the company\'s Macintosh line of personal computers (PCs).”","apple_26.png",7);
+
+//27 Washington
+            questionRepositories.questionCreator("Where is the headquarters of Microsoft office located?","Washington","Texas","California","New York","Washington","“Microsoft Corporation (abbreviated as MS) is an American multinational technology company with headquarters in Redmond, Washington”","washington_27.png",7);
+
+//28 Image file
+            questionRepositories.questionCreator(".gif is an extension of?","Image file","Video file","Audio file","Word file","Image file","“GIF, or Graphic Interchange Format, is a file extension for an often animated raster graphics file and is the second most common image format used on the World Wide Web after JPEG. GIF uses the LZW compression algorithm and is owned by Unisys”","image_file_28.png",7);
+
+//29 Language 2000
+            questionRepositories.questionCreator("How many computer languages are in use?","Language 2000","Language 2500","Language 3000","Language 4000","Language 2000","“There are about 2,000 computer languages in active use, whereas there were only 15 in use in 1970”","language_2000_29.png",7);
+
+//30 Steve Jobs
+            questionRepositories.questionCreator("Who founded Apple Computer?","Steve Jobs","Paul Allen","Mark Zuckerberg","Bill Gates","Steve Jobs","“Steve Jobs founded Apple Computer with Steve Wozniak and another partner in 1976. Jobs became the chairman and CEO of apple in 1996”","steve_jobs_30.png",7);
+
+//31 Mouse
+            questionRepositories.questionCreator("What is the name for a computer pointing device?","Mouse","Hand","Pointer","Insertion Point","Mouse","“A mouse allows a computer user to move to different parts of the screen without keyboard”","mouse_31.png",7);
+
+//32 Year 1995
+            questionRepositories.questionCreator("When was the DVD introduced?","Year 1995","Year 1997","Year 2000","Year 1889","Year 1995","“Compact discs that stored sound were introduced in 1982. By the mid-1980’s new discs called CD-ROMs could store pictures and computer programs”","year_1995_32.png",7);
+
+//33 Apple
+            questionRepositories.questionCreator("Who is the maker of iPhone?","Apple","Samsung","Cherry mobile","Huawei","Apple","“Apple computer is the maker of the iPhone. The telephone and miniature computer first went on sale in 2007”","apple_33.png",7);
+
+//34 Year 2001
+            questionRepositories.questionCreator("In what year was the iPod first sold?","Year 2001","Year 2000","Year 1999","Year 1998","Year 2001","“Apple’s iPod portable music device was first released in 2001. The initial version had a 5GB hard drive”","year_2001_34.png",7);
+
+//35 Mosaic
+            questionRepositories.questionCreator("What was the first graphical browser for the World Wide Web?","Mosaic","Nexus","Internet Explorer","Mozilla","Mosaic","“Invented by Marc Andreesen in 1993, Mosaic was the first graphical browser for the World Wide Web”","mosaic_35.png",7);
+
+//36 Chess
+            questionRepositories.questionCreator("What game was Deep Blue skilled at?","Chess","Basketball","Darts","Volleyball","Chess","“Deep Blue, a computer built by IBM, was a whiz at chess. In fact, it beat world chess champion Garry Kasparov twice”","chess_36.png",7);
+
+//37 Microsoft
+            questionRepositories.questionCreator("What company created XBOX?","Microsoft","Sony","Nintendo","Apple","Microsoft","“Xbox is a video gaming brand created and owned by Microsoft of the United States. It represents a series of video game consoles developed by Microsoft, with three consoles released in the sixth, seventh and eighth generations, respectively.”","microsoft_37.png",7);
+
+//38 Honda
+            questionRepositories.questionCreator("Which car company produces the Civic?","Honda","Skoda","Audi","Nissan","Honda","“The Civic is a line of compact cars developed and manufactured by Honda. In North America, the Civic is the second-longest continuously running nameplate from a Japanese manufacturer; only its perennial rival, the Toyota Corolla, introduced in 1968, has been in production longer.”","honda_38.png",7);
+
+//39 Year 2013
+            questionRepositories.questionCreator("When was the Sony PlayStation 4 released?","Year 2013","Year 1995","Year 2016","Year 2010","Year 2013","“The console was released on November 15, 2013, in the United States and Canada, followed by further releases on November 29, 2013. By the end of 2013, the PS4 was launched in more European, Asian and South American countries The PS4 released in Japan at ¥39,980 on February 22, 2014.”","year_2013_39.png",7);
+
+//40 Safari
+            questionRepositories.questionCreator("Which of the following web browser is developed by Apple?","Safari","Opera","Firefox","Chrome","Safari","“Safari is a web browser developed by Apple based on the WebKit engine. First released in 2003 with Mac OS X Panther, a mobile version has been included in iOS devices since the introduction of the iPhone in 2007”","safari_40.png",7);
+
+//41 London
+            questionRepositories.questionCreator("Where did the world’s first underground railway system open?","London","France","Hungary","U.S.A","London","“The London Underground first opened as an \"underground railway\" in 1863 and its first electrified underground line opened in 1890, making it the world\'s first metro system.”","london_41.png",7);
+
+//42 Motorola
+            questionRepositories.questionCreator("What was the first company to produce a handheld mobile telephone?","Motorola","Nokia","Sony Ericson","Samsung","Motorola","“Motorola was the first company to produce a handheld mobile phone. On April 3, 1973, Martin Cooper, a Motorola researcher and executive, made the first mobile telephone call from handheld subscriber equipment, placing a call to Dr. Joel S. Engel of Bell Labs, his rival.”","motorola_42.png",7);
+
+//43 Intel 386DX
+            questionRepositories.questionCreator("What was the first 32 bit microprocessor from Intel?","Intel 386DX","Intel Pentium 80 MHz","Intel 486SI","Intel Athlon XP","Intel 386DX","“The Intel 80386, also known as i386 or just 386, is a 32-bit microprocessor introduced in 1985. The first versions had 275,000 transistors and were the CPU of many work stations and high-end personal computers of the time.”","intel_386dx_43.png",7);
+
+//44 Graham Bell
+            questionRepositories.questionCreator("Which inventor introduced the telephone, in 1876?","Graham Bell","Thomas Watson","Michael Faraday","Thomas Edison","Graham Bell","“Alexander Graham Bell was a Scottish-born scientist, inventor, engineer, and innovator who is credited with inventing and patenting the first practical telephone. He also founded the American Telephone and Telegraph Company in 1885”","graham_bell_44.png",7);
+
+//45 Machines
+            questionRepositories.questionCreator("What does M in I.B.M stand for?","Machines","Memory","Model","Management","Machines","“International Business Machines Corporation is an American multinational technology company headquartered in Armonk, New York, United States, with operations in over 170 countries.”","machines_45.png",7);
+
+//46 CD-ROM
+            questionRepositories.questionCreator("Which of the following is not a part of the internet?","CD-ROM","Youtube","World wide web","Email","CD-ROM","“CD-ROM (Compact Disc, read-only-memory) is an adaptation of the CD that is designed to store computer data in the form of text and graphics, as well as hi-fi stereo sound”","cd_rom_46.png",7);
+
+//47 Database
+            questionRepositories.questionCreator("What does DB stand for?","Database","Data Boot","Driver Base","Driver Boot","Database","“A database is an organized collection of data, stored and accessed electronically. Database designers typically organize the data to model aspects of reality in a way that supports processes requiring information, such as (for example) modelling the availability of rooms in hotels in a way that supports finding a hotel with vacancies.”","database_47.png",7);
+
+//48 Louis Blériot
+            questionRepositories.questionCreator("Who was first to fly over the English Channel?","Louis Blériot","Harry Houdini","Howard Hughes","Charles Lindbergh","Louis Blériot","“First airplane flight across the English Channel: Louis Blériot crossed the Channel on July 25, 1909, winning the Daily Mail prize of £1,000.”","louis_blériot_48.png",7);
+
+//49 Gameboy
+            questionRepositories.questionCreator("Which of the following game consoles was developed by Nintendo?","Gameboy","PlayStation","Xbox","Saturn","Gameboy","“In 1989, Nintendo released the Game Boy, which became the first handheld console to sell in large numbers”","gameboy_49.png",7);
+
+//50 Nintendo
+            questionRepositories.questionCreator("What company developed “The Legends of Zelda” series of video game?","Nintendo","Ubisoft","Electronic Arts","Microsoft","Nintendo","“The Legend of Zelda: A Link to the Past is an action-adventure video game developed and published by Nintendo for the Super Nintendo Entertainment System video game console. It is the third installment in The Legend of Zelda series and was released in 1991 in Japan and 1992 in North America and Europe”","nintendo_50.png",7);
+
+//51 Liquid Crystal Display
+            questionRepositories.questionCreator("What is LCD an acronym of?","Liquid Crystal Display","Liquid Cable Display","Liquid Creative Display","Liquid Clear Display","Liquid Crystal Display","“A liquid-crystal display is a flat-panel display or other electronically modulated optical device that uses the light-modulating properties of liquid crystals”","liquid_crystal_display_51.png",7);
+
+//52 Rudolf Diesel
+            questionRepositories.questionCreator("Who invented the diesel engine?","Rudolf Diesel","Shawn Diesel","Bill Diesel","Vin Diesel","Rudolf Diesel","“Rudolf Christian Karl Diesel 18 March 1858 – 29 September 1913) was a German inventor and mechanical engineer famous for the invention of the diesel engine, and for his mysterious death at sea. Diesel was the subject of the 1942 film Diesel”","rudolf_diesel_52.png",7);
+
+//53 Language
+            questionRepositories.questionCreator("What is “L” in SQL stand for?","Language","Local","Light","Layer","Language","“SQL is a domain-specific language used in programming and designed for managing data held in a relational database management system, or for stream processing in a relational data stream management system.”","language_53.png",7);
+
+//54 PlayStation
+            questionRepositories.questionCreator("Which of the following game consoles was developed by Sony?","PlayStation","Wii","Xbox","Gameboy","PlayStation","“It is created and owned by Sony Interactive Entertainment since December 3, 1994, with the launch of the original PlayStation in Japan. ... The first handheld game console in the PlayStation series, the PlayStation Portable or PSP, sold a total of 80 million units worldwide by November 2013”","playstation_54.png",7);
+
+//55 Image file
+            questionRepositories.questionCreator("What type of file is .JPG file?","Image file","Movie file","System file","Text file","Image file","“JPEG is a commonly used method of lossy compression for digital images, particularly for those images produced by digital photography. The degree of compression can be adjusted, allowing a selectable tradeoff between storage size and image quality”","image_file_55.png",7);
+
+//56 Kodak
+            questionRepositories.questionCreator("What company invented the first digital camera?","Kodak","Cannon","Nikon","Olympus","Kodak","“Eastman Kodak; world without iPhones or Instagram, where one company reigned supreme. Such a world existed in 1973, when Steven Sasson, a young engineer, went to work for Eastman Kodak. Two years later he invented digital photography and made the first digital camera.”","kodak_56.png",7);
+
+//57 Sweden
+            questionRepositories.questionCreator("In what country is Ericsson’s headquarters located?","Sweden","China","Finland","U.S.A","Sweden","“The company was founded in 1876 by Lars Magnus Ericsson as of 2016 it is headquartered in Stockholm, Sweden”","sweden_57.png",7);
+
+//58 Samsung
+            questionRepositories.questionCreator("Which manufactured released the galaxy tab series?","Samsung","Sony","Motorola","LG","Samsung","“The Samsung Galaxy Tab is a line of Android-based tablet computers produced by Samsung Electronics. The first model in the series, the 7-inch Samsung Galaxy Tab, was presented to the public on 2 September 2010 at the IFA in Berlin”","samsung_58.png",7);
+
+//59 Downloading
+            questionRepositories.questionCreator("Saving a file from the internet onto your desktop is called?","Downloading","Uploading","Transferring","Storing","Downloading","“In computer networks, to download (abbreviation DL) is to receive data from a remote system, typically a server such as a web server, an FTP server, an email server, or other similar systems. This contrasts with uploading, where data is sent to a remote server”","downloading_59.png",7);
+
+//60 Bugs
+            questionRepositories.questionCreator("Errors in computing programs are called?","Bugs","Follies","Mistake","Spam","Bugs","“A software bug is an error, flaw, failure or fault in a computer program or system that causes it to produce an incorrect or unexpected result, or to behave in unintended ways”","bugs_60.png",7);
+
+//61 IBM
+            questionRepositories.questionCreator("Which American Computer Company is also known by the nick name “Big blue”?","IBM","Microsoft","Apple","Compaq Corporation","IBM","“International Business Machines Corporation, perhaps better known by its acronym IBM, is called the Big Blue. Among the blue-chip stocks on the US stock market, IBM was a steady and consistently high performer over the years”","ibm_61.png",7);
+
+//62 Raymond Samuel Tomlinson
+            questionRepositories.questionCreator("Who invented mail system and @ symbol for address?","Raymond Samuel Tomlinson","Ian Murdock","David Bowie","Paul Buchheit","Raymond Samuel Tomlinson","“Ray Tomlinson is the reason your e-mail address includes a \'@\' symbol. For this reason – and many others – you wouldn\'t be remiss in calling Tomlinson the inventor of e-mail”","raymond_samuel_tomlinson_62.png",7);
+
+//63 Light Fidelity
+            questionRepositories.questionCreator("What is the full form of Li-Fi network?","Light Fidelity","Laser Frequency","Limitless finite","Light field","Light Fidelity","“Li-Fi is a technology for wireless communication between devices using light to transmit data and position. In its present state only LED lamps can be used for the transmission of visible light”","light_fidelity_63.png",7);
+
+//64 Charles Babbage
+            questionRepositories.questionCreator("Who considered as the father of computing?","Charles Babbage","Von Neumann","Graham Bell","Claude Shannon","Charles Babbage","“Charles Babbage was considered to be the father of computing after his invention and concept of the Analytical Engine in 1837. The Analytical Engine contained an Arithmetic Logic Unit (ALU), basic flow control, and integrated memory; hailed as the first general-purpose computer concept”","charles_babbage_64.png",7);
+
+//65 Matti Makkonen
+            questionRepositories.questionCreator("Who is known as the father of SMS?","Matti Makkonen","Samir Bhatia","Anuj Gupta","Thomas Kurian","Matti Makkonen","“Father of SMS passes away. Matti Makkonen, known as the father of SMS after developing the idea of sending messages via mobile networks, has died. LONDON Matti Makkonen, known as the father of SMS after developing the idea of sending messages via mobile networks, has died”","matti_makkonen_65.png",7);
+
+//66 Internet of things
+            questionRepositories.questionCreator("‘IoT’ refers to?","Internet of things","Intranet of Teleservices","Internet Organism of Teleservices","Internet Organism of Telecommunication","Internet of things","“The Internet of Things (IoT) is the network of physical devices, vehicles, home appliances, and other items embedded with electronics, software, sensors, actuators, and connectivity which enables these things to connect and exchange data, creating opportunities for more direct integration of the physical world into computer-based systems, resulting in efficiency improvements, economic benefits, and reduced human exertions”","internet_of_things_66.png",7);
+
+//67 Mouse
+            questionRepositories.questionCreator("Which is an Input device?","Mouse","Printer","Monitor","Speaker","Mouse","“In computing, an input device is a piece of computer hardware equipment used to provide data and control signals to an information processing system such as a computer or information appliance. Examples of input devices include keyboards, mouse, scanners, digital cameras and joysticks”","mouse_67.png",7);
+
+//68 LOTUS
+            questionRepositories.questionCreator("Which one of the following is not a computer language?","LOTUS","BASIC","C++","JAVA","LOTUS","“A spreadsheet program designed for IBM-compatible personal computers by Lotus Corporation in 1982. Lotus 1-2-3 was the first publicly available program to combine graphics, spreadsheet functions and data management (three functions, hence the name).”","lotus_68.png",7);
+
+//69 Microsoft
+            questionRepositories.questionCreator("Which company bought the popular video teleconferencing software ‘Skype’","Microsoft","Google","Accenture","Oracle","Microsoft","“Microsoft bought Skype in May 2011 for $8.5 billion. Skype division headquarters are in Luxembourg, but most of the development team and 44% of all the division\'s employees are still situated in Tallinn and Tartu, Estonia.”","microsoft_69.png",7);
+
+//70 Facebook
+            questionRepositories.questionCreator("Mark Zuckerberg is the owner of?","Facebook","Google","Linux","Linkedln","Facebook","“Mark Elliot Zuckerberg is an American technology entrepreneur and philanthropist. He is known for co-founding and leading Facebook as its chairman and chief executive officer”","facebook_70.png",7);
+
+//71 Secure
+            questionRepositories.questionCreator("What does the letter “S” stand for in the Web terminology “HTTPS”?","Secure","Safe","Short","Shorter","Secure","“Hypertext Transfer Protocol Secure is an extension of the Hypertext Transfer Protocol for secure communication over a computer network, and is widely used on the Internet”","secure_71.png",7);
+
+//72 Ericson
+            questionRepositories.questionCreator("Who is the founder of the Bluetooth?","Ericson","IBM","Apple","Dell","Ericson","“Dr. Jaap Haartsen, who invented Bluetooth while working at Ericsson in the 1990s, has been nominated as a finalist by the European Patent Office in the industry category for its European Inventor Award.”","ericson_72.png",7);
+
+//73 Port 110
+            questionRepositories.questionCreator("What is the port number of POP3?","Port 110","Port 58","Port 80","Port 21","Port 110","“Post Office Protocol version 3 (POP3) is a standard mail protocol used to receive emails from a remote server to a local email client”","port_110_73.png",7);
+
+//74 Silicon
+            questionRepositories.questionCreator("IC chips for computer are usually made of?","Silicon","Silver","Aluminum","Copper","Silicon","“An integrated circuit or monolithic integrated circuit (also referred to as an IC, a chip, or a microchip) is a set of electronic circuits on one small flat piece (or \"chip\") of semiconductor material, normally silicon”","silicon_74.png",7);
+
+//75 Julian Assange
+            questionRepositories.questionCreator("Which one of the following is the founder of ‘WikiLeaks’","Julian Assange","Evans Williams","Jack Dorsey","Noah Glass","Julian Assange","“Julian Paul Assange is an Australian computer programmer and the editor of WikiLeaks. Assange founded WikiLeaks in 2006, but came to international attention in 2010, when WikiLeaks published a series of leaks provided by Chelsea Manning”","julian_assange_75.png",7);
+
+//76 ASCII 128
+            questionRepositories.questionCreator("ASCII has how many codes?","ASCII 128","ASCII64","ASCII256","ASCII382","ASCII 128","“ASCII (American Standard Code for Information Interchange) is the most common format for text files in computers and on the Internet. In an ASCII file, each alphabetic, numeric, or special character is represented with a 7-bit binary number (a string of seven 0s or 1s). 128 possible characters are defined”","ascii_128_76.png",7);
+
+//77 John Napier
+            questionRepositories.questionCreator("Logarithm table was invented by?","John Napier","John Douglas","John Doe","John Harrison","John Napier","“John Napier invented logarithms, but many other scientists and mathematicians helped develop Napier\'s logarithms to the system we use today. The first table of common logarithms was compiled by the English mathematician Henry Briggs”","john_napier_77.png",7);
+
+//78 Uninterruptible Power Supply
+            questionRepositories.questionCreator("UPS stands for?","Uninterruptible Power Supply","Uninterruptible Power Standby","Universal Power Supply","Universal Power","Uninterruptible Power Supply","“An uninterruptible power supply or uninterruptible power source (UPS) is an electrical apparatus that provides emergency power to a load when the input power source or mains power fails”","uninterruptible_power_supply_78.png",7);
+
+//79 Douglas Engelbart
+            questionRepositories.questionCreator("Who is known as the inventor of Computer mouse?","Douglas Engelbart","Herman Hollerith","Tom Cranston","Jack Kilby","Douglas Engelbart","“Jack Kilby and Robert Noyce invented the integrated circuit, which is otherwise known as the chip. Invented by Douglas Engelbart of Stanford Research Center in 1964, the first prototype computer mouse was made to use with a graphical user interface \'windows\'.”","douglas_engelbart_79.png",7);
+
+//80 Pen Drive
+            questionRepositories.questionCreator("Which of the following is not a component in multimedia?","Pen Drive","Video","Data","Audio","Pen Drive","“A USB flash drive, also variously known as a thumb drive, pen drive, gig stick, flash stick, jump drive, disk key, disk on key flash-drive, memory stick USB stick or USB memory, is a data storage device that includes flash memory with an integrated USB interface”","pen_drive_80.png",7);
+
+//81 SRAMS
+            questionRepositories.questionCreator("Caches are usually built out of?","SRAMS","DRAMS","PROM","EEPROM","SRAMS","“The Intel 80486 microprocessor, for example, contains an 8K memory cache, and the Pentium has a 16K cache. Such internal caches are often called Level 1 (L1) caches. Most modern PCs also come with external cache memory, called Level 2 (L2) caches. Like L1 caches, L2 caches are composed of SRAM but they are much larger.”","srams_81.png",7);
+
+//82 Universal Serial Bus Port
+            questionRepositories.questionCreator("USB port stand for?","Universal Serial Bus Port","United Serial Bus Port","Universal Sequential Bus Port","Universal Serial BIOS Port","Universal Serial Bus Port","“A Universal Serial Bus (USB) is a common interface that enables communication between devices and a host controller such as a personal computer (PC). It connects peripheral devices such as digital cameras, mice, keyboards, printers, scanners, media devices, external hard drives and flash drives.”","universal_serial_bus_port_82.png",7);
+
+//83 File Allocation Table
+            questionRepositories.questionCreator("In context of Computers, FAT stands for?","File Allocation Table","Folder Access Table","File Access Table","Folder Allocation Table","File Allocation Table","‘FAT\" stands for \"File Allocation Table,\" which keeps track of all your files and helps the computer locate them on the disk. FAT32 is an improvement to the original FAT system, since it uses more bits to identify each cluster on the disk.’”","file_allocation_table_83.png",7);
+
+//84 On client
+            questionRepositories.questionCreator("Where are cookies stored?","On client","In HTML","In web.xml","None of these","On client","“A cookie is information stored on your computer by a website you visit. In some browsers, each cookie is a small file, but in Firefox, all cookies are stored in a single file, located in the Firefox profile folder. Cookies often store your settings for a website, such as your preferred language or location”","on_client_84.png",7);
+
+//85 Guglielmo Marconi
+            questionRepositories.questionCreator("Who invented the radio?","Guglielmo Marconi","Sanjay Mehrotra","Eli Harari","Jack Yuan","Guglielmo Marconi","“Guglielmo Marconi, 1st Marquis of Marconi; 25 April 1874 – 20 July 1937) was an Italian inventor and electrical engineer known for his pioneering work on long-distance radio transmission and for his development of Marconi\'s law and a radio telegraph system”","guglielmo_marconi_85.png",7);
+
+//86 Erasable Programmable Read Only Memory
+            questionRepositories.questionCreator("EPROM stand for?","Erasable Programmable Read Only Memory","Enter Programmable Read Only Memory","Execute Program Read Only Memory","Erasable Program Read Only Memory","Erasable Programmable Read Only Memory","“An EPROM, or erasable programmable read-only memory, is a type of memory chip that retains its data when its power supply is switched off”","erasable_programmable_read_only_memory_86.png",7);
+
+//87 Fourth Generation Language
+            questionRepositories.questionCreator("4GL stand for?","Fourth Generation Language","Fourth Generation Light","Fourth Giving Life","Fourth Giving Light","Fourth Generation Language","“A fourth generation (programming) language (4GL) is a grouping of programming languages that attempt to get closer than 3GLs to human language, form of thinking and conceptualization. 4GLs are designed to reduce the overall time, effort and cost of software development.”","fourth_generation_language_87.png",7);
+
+//88 Thomas Knoll
+            questionRepositories.questionCreator("Who invented Photoshop?","Thomas Knoll","Alexander Popov","Samuel Morse","Thomas Edison","Thomas Knoll","“Photoshop was developed in 1987 by the American brothers Thomas and John Knoll, who sold the distribution license to Adobe Systems Incorporated in 1988.Thomas Knoll, a PhD student at the University of Michigan, began writing a program on his Macintosh Plus to display grayscale images on a monochrome display.”","thomas_knoll_88.png",7);
+
+//89 George Devol
+            questionRepositories.questionCreator("Who invented the first robot in the world?","George Devol","Thomas Edison","Samuel Morse","Alexander Popov","George Devol","“In 1954 George Devol invented the first digitally operated and a programmable robot called the Unimate. In 1956, Devol and his partner Joseph Engelberger formed the world\'s first robot company. In 1961, the first industrial robot, Unimate, went online in a General Motors automobile factory in New Jersey”","george_devol_89.png",7);
+
+//90 Stanford University
+            questionRepositories.questionCreator("The expert system was developed by which university?","Stanford University","Harvard  University","University of Oxford","University of Cambridge","Stanford University","“The first expert system was developed in 1965 by Edward Feigenbaum and Joshua Lederberg of Stanford University in California, U.S. Dendral, as their expert system was later known, was designed to analyze chemical compounds.”","stanford_university_90.png",7);
+
+//91 John McCarthy
+            questionRepositories.questionCreator("Who is the father of Artificial Intelligence?","John McCarthy","Thomas Edison","George Devol","Thomas Knoll","John McCarthy","“John McCarthy is one of the \"founding fathers\" of artificial intelligence, together with Marvin Minsky, Allen Newell and Herbert A. Simon. McCarthy coined the term \"artificial intelligence\" in 1955, and organized the famous Dartmouth Conference in summer 1956. This conference started AI as a field.”","john_mccarthy_91.png",7);
+
+//92 Kevin Systrom
+            questionRepositories.questionCreator("Who invented Instagram?","Kevin Systrom","Larry page","Sergey Brin","Biz Stone","Kevin Systrom","“In 2010, Systrom cofounded the photo-sharing and, later, video-sharing social networking service Instagram with Mike Krieger in San Francisco, California”","kevin_systrom_92.png",7);
+
+//93 Susan Wojcicki
+            questionRepositories.questionCreator("Who is the CEO of Youtube?","Susan Wojcicki","Jawed karim","Anne Wojcicki","Steve Chen","Susan Wojcicki","“Susan Diane Wojcicki is an American technology executive. She has been the CEO of YouTube since February 2014. She is from Los Altos, California, and has a net worth of $410 million”","susan_wojcicki_93.png",7);
+
+//94 Ben Silbermann
+            questionRepositories.questionCreator("Who is the founder of Pinterest?","Ben Silbermann","Brian Chesky","Drew Houston","John Collison","Ben Silbermann","“Ben Silbermann (born 1982)[1] is an American Internet entrepreneur who is the co-founder and CEO of Pinterest, a virtual pinboard which lets users organize images, links, recipes and other things”","ben_silbermann_94.png",7);
+
+//95 Drew Houston
+            questionRepositories.questionCreator("Who is the founder of Dropbox?","Drew Houston","John Collison","Brian Chesky","Ben Silbermann","Drew Houston","“Dropbox was founded in 2007 by MIT students Drew Houston and Arash Ferdowsi as a startup company, with initial funding from seed accelerator Y Combinator”","drew_houston_95.png",7);
+
+//96 Personal Computer Advance Technology
+            questionRepositories.questionCreator("PC/AT stands for?","Personal Computer Advance Technology","Programming Computer Advance Technology","Program Create Advance Teachnology","Personal Cite Advance technology","Personal Computer Advance Technology","“The IBM Personal Computer AT, more commonly known as the IBM AT and also sometimes called the PC AT or PC/AT, was IBM\'s second-generation PC, designed around the 6 MHz Intel 80286 microprocessor and released in 1984 as System Unit 5170.”","personal_computer_advance_technology_96.png",7);
+
+//97 Sixty Four bits
+            questionRepositories.questionCreator("Word length of Super computers?","Sixty Four bits","Sixty Three bits","Eighty bits","Ninety bits","Sixty Four bits","“\"Word size\" refers to the number of bits processed by a computer\'s CPU in one go (these days, typically 32 bits or 64 bits).”","sixty_four_bits_97.png",7);
+
+//98 Zhang Yiming
+            questionRepositories.questionCreator("Who is the founder of tik tok?","Zhang Yiming","Yi Xing","Zhang Heng","Bi Sheng","Zhang Yiming","“TikTok, also known as Douyin (Chinese: 抖音短视频; pinyin: Dǒuyīn duǎnshìpín; literally \"vibrato short video\") or Tik Tok, is a Chinese music video platform and social network that was launched in September 2016 by Zhang Yiming, founder of Toutiao.”","zhang_yiming_98.png",7);
+
+//99 Satya Nadella
+            questionRepositories.questionCreator("Who is the CEO of Microsoft?","Satya Nadella","John Collison","Drew Houston","Brian Chesky","Satya Nadella","“Satya Nadella. Satya Narayana Nadella (born 19 August 1967) is an American business executive of Indian descent. He is the Chief Executive Officer (CEO) of Microsoft, succeeding Steve Ballmer in 2014”","satya_nadella_99.png",7);
+
+//100 Integrated Services Digital Networks
+            questionRepositories.questionCreator("ISDN stands for?","Integrated Services Digital Networks","Integrated Service Drive Networks","Income Services Drive Networks","Integrated Success Digital Networks","Integrated Services Digital Networks","“ISDN stands for Integrated Services Digital Network. It is a design for a completely digital telephone/telecommunications network. It is designed to carry voice, data, images, and video, everything you could ever need.”","integrated_services_digital_networks_100.png",7);
+
+            //TODO END TECHNOLOGY
         }
 
 

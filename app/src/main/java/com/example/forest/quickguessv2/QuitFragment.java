@@ -16,7 +16,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuitFragment extends Fragment implements View.OnClickListener{
+public class QuitFragment extends Fragment {
 
 
     public QuitFragment() {
@@ -32,20 +32,4 @@ public class QuitFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
-    @Override
-    @OnClick({R.id.quit_no,R.id.quit_yes})
-    public void onClick(View view) {
-        switch(view.getId())
-        {
-            case R.id.quit_no :
-                getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-                break;
-
-            case R.id.quit_yes:
-                Objects.requireNonNull(getActivity()).finish();
-                System.exit(0);
-                break;
-        }
-    }
 }

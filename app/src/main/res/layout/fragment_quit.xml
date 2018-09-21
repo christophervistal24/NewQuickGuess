@@ -7,49 +7,7 @@
     tools:context=".QuitFragment"
     android:focusable="true">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_centerInParent="true"
-       android:gravity="center"
-       android:orientation="horizontal"
-       >
-       <ImageView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:adjustViewBounds="true"
-           android:contentDescription="@string/menu_background"
-           android:maxHeight="0dp"
-           android:scaleType="centerInside"
-           android:src="@drawable/warning" />
-
-   </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="horizontal">
 
 
-        <ImageButton
-            android:id="@+id/quit_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/x"
-            android:layout_marginTop="85dp"
-            android:layout_marginRight="20dp"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
-            android:id="@+id/quit_yes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/close"
-            android:layout_marginTop="85dp"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
 
 </RelativeLayout>

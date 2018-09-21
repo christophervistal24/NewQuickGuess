@@ -24,4 +24,11 @@ public class LaunchUtil {
                 .pivot(x,y)
                 .playOn(v);
     }
+
+    public static void animateSnake(View v)
+    {
+        YoYo.with(Techniques.Swing)
+                .duration(2000)
+                .playOn(v);
+    }
 }

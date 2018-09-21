@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +23,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dragankrstic.autotypetextview.AutoTypeTextView;
 import com.example.forest.quickguessv2.Helpers.FirstLaunchHelper;
@@ -33,6 +31,11 @@ import com.example.forest.quickguessv2.Utilities.LaunchUtil;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 import com.huanhailiuxin.coolviewpager.CoolViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -182,10 +185,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     final AutoTypeTextView message2 = findViewById(R.id.message2);
                     LaunchUtil.animateWolfy(wolfy2,50,800);
                     message2.setVisibility(View.VISIBLE);
-                    message2.setTypingSpeed(40);
-                    message2.setTextAutoTyping("Last night I celebrate my Birthday in my house, lots of my friends had been there," +
-                            " one of my friend give me a bottle of wine. Read more....");
-
+                    message2.setTypingSpeed(2);
+                        String messageString = "Last night I celebrate my Birthday at my house, lots of my friends had been there, one of my friends give me a bottle of wine. read more...";
+                        message2.setTextAutoTyping(messageString);
 
                     message2.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -197,8 +199,23 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 case 2:
                     AutoTypeTextView message3 = findViewById(R.id.message3);
-                    message3.setTypingSpeed(80);
-                    message3.setTextAutoTyping("Life of your friends is on my hands, if you want to save them, come and play with me Bwahahaha..");
+                    message3.setTypingSpeed(2);
+                    message3.setTextAutoTyping("Life of your friends is on my hands if you want to save them, come and play with me Bwahahaha.");
+                    break;
+
+                case 3:
+                    ImageView snake = findViewById(R.id.snake);
+                    LaunchUtil.animateSnake(snake);
+                    AutoTypeTextView message4 = findViewById(R.id.message4);
+                    message4.setTypingSpeed(2);
+                    message4.setTextAutoTyping("This is how my game works! I have many questions that categorized by people, plants, animals, geography, " +
+                            "sports, music, technology, and entertainment. Read more...");
+                    message4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            displayMessage4();
+                        }
+                    });
                     break;
             }
         }
@@ -220,11 +237,21 @@ public class WelcomeActivity extends AppCompatActivity {
                         " woked up all of my friends was gone, and there's a letter beside me");
             }
         }, 300);
-
     }
-    /**
-     * Making notification bar transparent
-     */
+
+    private void displayMessage4() {
+        final AutoTypeTextView message4 = findViewById(R.id.message4);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                message4.setTypingSpeed(2);
+                message4.setTextAutoTyping(" each category contain 100 questions the good news here is for every 30 questions that you answered correctly you can save one of your friend's life.");
+            }
+        }, 300);
+    }
+        /**
+         * Making notification bar transparent
+         */
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -254,7 +281,7 @@ public class WelcomeActivity extends AppCompatActivity {
             {
                 LaunchUtil.animateWolfy(wolfy,50,800);
                 message.setVisibility(View.VISIBLE);
-                message.setTypingSpeed(80);
+                message.setTypingSpeed(2);
                 message.setTextAutoTyping("Hello! my name is Wolfy can you help me?");
             }
             container.addView(view);

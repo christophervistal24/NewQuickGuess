@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,8 +85,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
-
-        return view;
+       return view;
     }
 
     @Override
@@ -107,7 +108,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks,R.id.btnQuit})
+    @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks})
     public void onClick(View view) {
         String classname = null;
         switch (view.getId())
@@ -129,9 +130,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                         .start();
                 break;
 
-            case R.id.btnQuit:
-                ((MainActivity)getActivity()).fragmentUtil.startQuitFragment();
-                break;
         }
         try {
             Class <?> Cref = Class .forName("com.example.forest.quickguessv2."+classname);

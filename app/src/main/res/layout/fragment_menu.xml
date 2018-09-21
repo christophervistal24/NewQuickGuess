@@ -129,23 +129,7 @@
 
 
 
- <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        >
 
-        <ImageButton
-            android:id="@+id/btnQuit"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:background="@drawable/quit" />
-    </LinearLayout>
 
 
 

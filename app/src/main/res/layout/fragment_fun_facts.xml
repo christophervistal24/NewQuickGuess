@@ -33,7 +33,7 @@
 
         <ImageView
             android:id="@+id/imageFunfacts"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="250dp"
             android:src="@drawable/cat_people"

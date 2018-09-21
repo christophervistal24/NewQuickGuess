@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
@@ -29,6 +30,7 @@ import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -91,8 +93,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         timerLayout = getActivity().findViewById(R.id.timerLayout);
         RGroup.clearCheck();
         imageBackground = getActivity().findViewById(R.id.background);
-        String getImage = "aardvark_26";
-        imageFunfacts.setImageResource(context.getResources().getIdentifier(getImage,"drawable",context.getPackageName()));
         questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE );
         radioBackBackground();
         ((AnswerQuestion)getActivity()).removeCallback();
@@ -126,7 +126,13 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         SharedPreferenceHelper.PREF_FILE="question";
         title.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"title",null));
         content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
+        String image = SharedPreferenceHelper.getSharedPreferenceString(context,"question_image",null);
+        Picasso.with(getContext())
+                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_300,h_250,q_auto,fl_lossy/animals/"+image)
+                .placeholder(R.drawable.placeholder)
+                .into(imageFunfacts);
         radioBackBackground();
+
         super.onActivityCreated(savedInstanceState);
     }
 
