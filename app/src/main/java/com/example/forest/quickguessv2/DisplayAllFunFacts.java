@@ -11,6 +11,7 @@ import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Questions.Questions;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
+import com.example.forest.quickguessv2.Utilities.EncryptUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import java.util.ArrayList;
@@ -39,10 +40,14 @@ public class DisplayAllFunFacts extends AppCompatActivity {
     }
 
     private void getCredentials() {
-        SharedPreferenceHelper.PREF_FILE="user_played";
-        category = SharedPreferenceHelper.
-                getSharedPreferenceString(getApplicationContext(),"category",null)
-                .toLowerCase();
+        try {
+            SharedPreferenceHelper.PREF_FILE="user_played";
+            category = SharedPreferenceHelper.
+                    getSharedPreferenceString(getApplicationContext(),"category",null)
+                    .toLowerCase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getAllFunfacts();
     }
 
@@ -67,9 +72,15 @@ public class DisplayAllFunFacts extends AppCompatActivity {
                   .questionsDao().getQuestionByCategoryId(category_id);
           for(Questions q : questionsList)
           {
-              com.example.forest.quickguessv2.RecyclerView.Questions questions =
-                      new com.example.forest.quickguessv2.RecyclerView.Questions(q.getFun_facts(),q.getFun_facts_image());
-                    questionsItems.add(questions);
+              try {
+                  com.example.forest.quickguessv2.RecyclerView.Questions questions =
+                          new com.example.forest.quickguessv2.RecyclerView.Questions(EncryptUtil.decryptMethod(q.getFun_facts()),EncryptUtil.decryptMethod(q.getFun_facts_image()));
+                  questionsItems.add(questions);
+              } catch (Exception e)
+              {
+                  e.printStackTrace();
+              }
+
           }
         adapter = new FunFactsAdapter(questionsItems,getApplicationContext());
         questionRecyclerView.setAdapter(adapter);

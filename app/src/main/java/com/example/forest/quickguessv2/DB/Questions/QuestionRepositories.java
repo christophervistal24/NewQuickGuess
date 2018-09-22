@@ -6,6 +6,7 @@ import com.example.forest.quickguessv2.AnswerQuestion;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.FinishCategoryActivity;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
+import com.example.forest.quickguessv2.Utilities.EncryptUtil;
 import com.example.forest.quickguessv2.Utilities.RandomizeUtil;
 
 import java.util.List;
@@ -21,17 +22,23 @@ public class QuestionRepositories {
 
     public void questionCreator(String question, String a, String b, String c , String d , String correct , String fun_facts , String fun_facts_image, int category_id)
     {
-           Questions questions = new Questions();
-           questions.setQuestion(question);
-           questions.setChoice_a(a);
-           questions.setChoice_b(b);
-           questions.setChoice_c(c);
-           questions.setChoice_d(d);
-           questions.setCorrect_answer(correct);
-           questions.setFun_facts(fun_facts);
-           questions.setFun_facts_image(fun_facts_image);
-           questions.setCategory_id(category_id);
-           DB.getInstance(context).questionsDao().insert(questions);
+        //encrypt
+        try {
+            Questions questions = new Questions();
+            questions.setQuestion(EncryptUtil.encryptMethod(question));
+            questions.setChoice_a(EncryptUtil.encryptMethod(a));
+            questions.setChoice_b(EncryptUtil.encryptMethod(b));
+            questions.setChoice_c(EncryptUtil.encryptMethod(c));
+            questions.setChoice_d(EncryptUtil.encryptMethod(d));
+            questions.setCorrect_answer(EncryptUtil.encryptMethod(correct));
+            questions.setFun_facts(EncryptUtil.encryptMethod(fun_facts));
+            questions.setFun_facts_image(EncryptUtil.encryptMethod(fun_facts_image));
+            questions.setCategory_id(category_id);
+            DB.getInstance(context).questionsDao().insert(questions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private List<Questions> getQuestions(int id)

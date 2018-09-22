@@ -19,6 +19,7 @@ import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Service.MyService;
+import com.example.forest.quickguessv2.Utilities.EncryptUtil;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 
 import butterknife.BindView;
@@ -61,7 +62,14 @@ public class CategoriesActivity extends AppCompatActivity {
         String category = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(),"category",null);
         if (category != null)
         {
-            int position = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
+            int position = 0;
+            try {
+                position = DB.getInstance(getApplicationContext())
+                            .categoriesQuestionDao()
+                            .getCategoryIdByName(category.toLowerCase());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             viewPager.setCurrentItem(position-1);
         }
         if (Sfx != null)

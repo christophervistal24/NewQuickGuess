@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Friends.Friends;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;

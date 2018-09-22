@@ -12,6 +12,7 @@ import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Helpers.WindowHelper;
+import com.example.forest.quickguessv2.Utilities.EncryptUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
 import butterknife.BindView;
@@ -46,11 +47,16 @@ public class FinishCategoryActivity extends AppCompatActivity {
     }
 
     private void displayMessage() {
-        SharedPreferenceHelper.PREF_FILE="user_played";
-        category = SharedPreferenceHelper
-                        .getSharedPreferenceString(getApplicationContext(),"category",null)
-                        .toLowerCase();
-        message.setText(String.format("Congratulations you finish the %s category now you can see all fun facts", category.toUpperCase()));
+
+        try {
+            SharedPreferenceHelper.PREF_FILE="user_played";
+            category = SharedPreferenceHelper
+                    .getSharedPreferenceString(getApplicationContext(),"category",null)
+                    .toLowerCase();
+            message.setText(String.format("Congratulations you finish the %s category now you can see all fun facts", category.toUpperCase()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

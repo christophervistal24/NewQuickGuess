@@ -16,11 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.Adapters.SlideAdapter;
 import com.example.forest.quickguessv2.DB.DB;
+import com.example.forest.quickguessv2.DB.Friends.FriendsRepositories;
 import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
@@ -31,6 +33,7 @@ import com.example.forest.quickguessv2.DB.UserStatus.UserStatus;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.QuestionInterface.QuestionInterface;
 import com.example.forest.quickguessv2.Utilities.BackgroundUtil;
+import com.example.forest.quickguessv2.Utilities.EncryptUtil;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.GameBundleUitl;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
@@ -73,6 +76,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     Bundle bundle;
     FragmentUtil fragmentUtil;
     QuestionRepositories questionRepositories;
+    FriendsRepositories friendsRepositories;
     public MediaPlayer sample;
     protected  SlideAdapter adapter;
 
@@ -91,9 +95,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
 
     private void classInstantiate() {
-        lifeRepositories = new LifeRepositories(this);
-        pointsRepositories = new PointsRepositories(this);
-        questionRepositories = new QuestionRepositories(this);
+        lifeRepositories = new LifeRepositories(getApplicationContext());
+        pointsRepositories = new PointsRepositories(getApplicationContext());
+        questionRepositories = new QuestionRepositories(getApplicationContext());
+        friendsRepositories = new FriendsRepositories(getApplicationContext());
         fragmentUtil = new FragmentUtil();
         bundle = new Bundle();
         sample = soundTick(R.raw.clock_tick);
@@ -120,12 +125,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
             List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
 
-            //set
-            question.setText(q.getQuestion());
-            choice_a.setText(randomizeChoices.get(0));
-            choice_b.setText(randomizeChoices.get(1));
-            choice_c.setText(randomizeChoices.get(2));
-            choice_d.setText(randomizeChoices.get(3));
+            //set and decrypt
+                try {
+                    question.setText(EncryptUtil.decryptMethod(q.getQuestion()));
+                    choice_a.setText(EncryptUtil.decryptMethod(randomizeChoices.get(0)));
+                    choice_b.setText(EncryptUtil.decryptMethod(randomizeChoices.get(1)));
+                    choice_c.setText(EncryptUtil.decryptMethod(randomizeChoices.get(2)));
+                    choice_d.setText(EncryptUtil.decryptMethod(randomizeChoices.get(3)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
         } catch (NullPointerException e)
         {
             finish();
@@ -137,7 +148,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         if(checked) {
             sample.release();
-            getAnswer(button.getText().toString(), q.getCorrect_answer());
+            try {
+                getAnswer(button.getText().toString(), EncryptUtil.decryptMethod(q.getCorrect_answer()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             countDownTimer.cancel();
             RGroup.setEnabled(false);
         }
@@ -198,10 +213,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
-        SharedPreferenceHelper.PREF_FILE = "question";
-        SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
-        SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", q.getFun_facts());
-        SharedPreferenceHelper.setSharedPreferenceString(this,"question_image", q.getFun_facts_image());
+        try {
+            SharedPreferenceHelper.PREF_FILE = "question";
+            SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
+            SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", EncryptUtil.decryptMethod(q.getFun_facts()));
+            SharedPreferenceHelper.setSharedPreferenceString(this,"question_image", EncryptUtil.decryptMethod(q.getFun_facts_image()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         radioGroupdisplayOrHide();
         timerLayoutDisplayOrHide();
         question.setVisibility(View.GONE);

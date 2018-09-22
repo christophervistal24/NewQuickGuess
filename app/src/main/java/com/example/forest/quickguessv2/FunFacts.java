@@ -1,17 +1,14 @@
 package com.example.forest.quickguessv2;
 
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
-import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -128,7 +123,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
         String image = SharedPreferenceHelper.getSharedPreferenceString(context,"question_image",null);
         Picasso.with(getContext())
-                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_300,h_250,q_auto,fl_lossy/animals/"+image)
+                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/animals/"+image)
                 .placeholder(R.drawable.placeholder)
                 .into(imageFunfacts);
         radioBackBackground();
@@ -145,6 +140,11 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
+        isUserCanSaveFriends();
+        continueLayout();
+    }
+
+    private void continueLayout() {
         questionLayout.setVisibility(View.VISIBLE);
         question.setVisibility(View.VISIBLE);
         ((AnswerQuestion)getActivity()).timerLayoutDisplayOrHide();
@@ -154,8 +154,11 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         ((AnswerQuestion)getActivity()).userPoints = 0;
         ((AnswerQuestion)getActivity()).sample =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
         ((AnswerQuestion)getActivity()).sample.start();
+    }
 
-
+    private void isUserCanSaveFriends() {
+        int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
+        ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, new int[]{5, 10, 15});
     }
 
     private void radioBackBackground()
