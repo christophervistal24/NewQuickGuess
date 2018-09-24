@@ -130,7 +130,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 SoundUtil.songLoad(getContext(),R.raw.click)
                         .start();
                 break;
-
         }
         try {
             Class <?> Cref = Class .forName("com.example.forest.quickguessv2."+classname);

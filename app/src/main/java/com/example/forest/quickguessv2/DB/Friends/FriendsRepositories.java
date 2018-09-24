@@ -28,7 +28,6 @@ public class FriendsRepositories {
     //5
     //10
     //15
-
     public void checkAnsweredQuestion(int category_id,int[] items)
     {
         int countAnswered = DB.getInstance(context).userStatusDao().countAnsweredQuestion(category_id);

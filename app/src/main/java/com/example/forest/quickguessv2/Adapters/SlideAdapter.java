@@ -69,9 +69,9 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
         no.setTypeface(Typeface.createFromAsset(view.getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         int category_id = DB.getInstance(context).categoriesQuestionDao().getCategoryIdByName(lst_title[position].toLowerCase());
         int answered_question = DB.getInstance(context).userStatusDao().countAnsweredQuestion(category_id);
-        int no_of_question = DB.getInstance(context).questionsDao().countQuestionByCategory(category_id);
+//        int no_of_question = DB.getInstance(context).questionsDao().countQuestionByCategory(category_id);
         description.setText(R.string.tap_to_start);
-        no.setText( String.format("%s /  %s",String.valueOf(answered_question), String.valueOf(no_of_question)));
+        no.setText( String.format("%s %s ",String.valueOf(answered_question) , "%"));
         YoYo.with(Techniques.DropOut)
                 .duration(800)
                 .delay(500)

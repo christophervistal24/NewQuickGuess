@@ -4,7 +4,7 @@ import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 
 public class GameoverRepositories {
 
-    public static void isGameOver(LifeRepositories lifeRepositories)
+    public static void gameOver(LifeRepositories lifeRepositories)
     {
         if (lifeRepositories.getUserLife() <= 0)
         {

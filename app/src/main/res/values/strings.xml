@@ -45,6 +45,9 @@
     <string name="share">Share on Facebook</string>
     <string name="_continue">CONTINUE</string>
     <string name="answered">Answered</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--End-->
 
 </resources>

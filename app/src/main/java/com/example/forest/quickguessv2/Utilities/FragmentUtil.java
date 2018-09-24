@@ -36,14 +36,15 @@ public class FragmentUtil extends Fragment{
         fragmentTransaction.commit();
     }
 
-    public void startQuitFragment()
+   /* public void startQuitFragment()
     {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         QuitFragment QuitFragment = new QuitFragment();
         fragmentTransaction.add(R.id.fragment_quit,QuitFragment);
         fragmentTransaction.commit();
-    }
+    }*/
+
     public void startFunFactsFragment(Context context)
     {
       if (context instanceof AnswerQuestion)

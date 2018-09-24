@@ -19,6 +19,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
+import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
@@ -59,6 +61,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     int count = 0;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
+    protected int items[] = new int[]{30, 60, 90};
 
 
     @Override
@@ -132,19 +135,34 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     }
 
 
-    //TODO REFACTOR
     @Override
     @OnClick(R.id.btnNext)
     public void onClick(View view) {
-        FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
-        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-            fm.popBackStack();
-        }
-        isUserCanSaveFriends();
-        continueLayout();
+        isGameOverOrNot();
     }
 
-    private void continueLayout() {
+
+    public void isGameOverOrNot()
+    {
+        AnswerQuestion answerQuestionActivity = (AnswerQuestion)getActivity();
+        LifeRepositories lifeRepositories = ((AnswerQuestion) getActivity()).lifeRepositories;
+
+        if  (lifeRepositories.getUserLife() <= 0)
+        {
+            GameoverRepositories.gameOver(lifeRepositories);
+            answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
+            answerQuestionActivity.displayGameOverFragment();
+        } else {
+            FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                fm.popBackStack();
+            }
+            continueLayout();
+            isUserCanSaveFriends();
+        }
+    }
+
+    protected void continueLayout() {
         questionLayout.setVisibility(View.VISIBLE);
         question.setVisibility(View.VISIBLE);
         ((AnswerQuestion)getActivity()).timerLayoutDisplayOrHide();
@@ -156,9 +174,9 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         ((AnswerQuestion)getActivity()).sample.start();
     }
 
-    private void isUserCanSaveFriends() {
+    protected void isUserCanSaveFriends() {
         int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
-        ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, new int[]{5, 10, 15});
+        ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, items);
     }
 
     private void radioBackBackground()

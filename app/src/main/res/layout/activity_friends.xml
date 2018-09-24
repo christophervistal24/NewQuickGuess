@@ -7,11 +7,52 @@
     android:gravity="center_vertical"
     tools:context=".FriendsActivity">
 
+   <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:maxHeight="0dp"
+       android:scaleType="centerCrop"
+        android:src="@drawable/save_friend_bg" />
+
+
     <LinearLayout
-        android:id="@+id/rootLayout"
+        android:id="@+id/fakeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/fakeLayout"
+        android:id="@+id/keysLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal">
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rootLayout"
+        android:layout_below="@+id/keysLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
 
     </LinearLayout>
 

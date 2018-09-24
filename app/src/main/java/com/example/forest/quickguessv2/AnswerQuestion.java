@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -60,6 +61,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.life) TextView life;
     @BindView(R.id.userPoints) TextView points;
     @BindView(R.id.timerLayout) LinearLayout timerLayout;
+    @BindView(R.id.fragment_game_over) FrameLayout gameOver;
 
     private static final long counter = 21000;
     public CountDownTimer countDownTimer;
@@ -188,12 +190,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
                 @Override
                 public void onFinish() {
+                    try {
                         timer.setText("0");
                         isCounterRunning = false;
-                        getAnswer("No answer", q.getCorrect_answer());
-//                    timer.setText("0");
-//                    isCounterRunning = false;
-//                    getAnswer("No answer", q.getCorrect_answer());
+                        getAnswer("No answer", EncryptUtil.decryptMethod(q.getCorrect_answer()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             };
             countDownTimer.start();
@@ -237,6 +241,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
+    protected void displayGameOverFragment()
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        GameOverFragment gameOverFragment = new GameOverFragment();
+        fragmentTransaction.add(R.id.fragment_game_over,gameOverFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public void correct() {
@@ -262,13 +275,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
         updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories);
         points.setText(String.valueOf(updatedUserPoints));
-        GameoverRepositories.isGameOver(lifeRepositories);
         result();
     }
 
     @Override
     public void result() {
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         QuestionResult questionResult = new QuestionResult();
