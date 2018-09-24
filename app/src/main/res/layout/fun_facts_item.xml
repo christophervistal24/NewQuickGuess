@@ -7,16 +7,22 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/questionFunFacts"
+        android:id="@+id/questionAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/questionImage"
+        android:id="@+id/questionFunFacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="1dp" />
+        android:padding="1dp"
+        android:textSize="18sp" />
+
+   <ImageView
+       android:id="@+id/funfactsImage"
+       android:layout_width="200dp"
+       android:layout_height="200dp" />
 
 </LinearLayout>

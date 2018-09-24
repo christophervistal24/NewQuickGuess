@@ -175,8 +175,10 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     }
 
     protected void isUserCanSaveFriends() {
-        int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
-        ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, items);
+       try {
+           int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
+           ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, items);
+       } catch  (NullPointerException e) {}
     }
 
     private void radioBackBackground()

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,9 @@ import com.example.forest.quickguessv2.DisplayAllFunFacts;
 import com.example.forest.quickguessv2.R;
 import com.example.forest.quickguessv2.RecyclerView.Questions;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.anwarshahriar.calligrapher.Calligrapher;
@@ -38,10 +41,14 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
     @Override
     public void onBindViewHolder(FunFactsAdapter.ViewHolder holder, final int position) {
         final Questions questionsItem = questionsItems.get(position);
+        holder.txtTitle.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
         holder.txtQuestion.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        holder.questionImage.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        holder.txtTitle.setText(questionsItem.getTitle());
         holder.txtQuestion.setText(questionsItem.getQuestion_fun_facts());
-        holder.questionImage.setText(questionsItem.getImage());
+        Picasso.with(context)
+                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/animals/"+questionsItem.getImage())
+                .placeholder(R.drawable.placeholder)
+                .into(holder.funfactsImage);
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,15 +62,18 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
         return questionsItems.size();
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtQuestion;
-        TextView questionImage;
+        TextView txtTitle;
+        ImageView funfactsImage;
         LinearLayout parent;
 
         ViewHolder(View itemView) {
             super(itemView);
+            txtTitle = itemView.findViewById(R.id.questionAnswer);
             txtQuestion = itemView.findViewById(R.id.questionFunFacts);
-            questionImage = itemView.findViewById(R.id.questionImage);
+            funfactsImage = itemView.findViewById(R.id.funfactsImage);
             parent = itemView.findViewById(R.id.parent);
         }
     }

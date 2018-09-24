@@ -3,6 +3,7 @@ package com.example.forest.quickguessv2.DB.Questions;
 import android.content.Context;
 
 import com.example.forest.quickguessv2.AnswerQuestion;
+import com.example.forest.quickguessv2.CategoriesActivity;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.FinishCategoryActivity;
 import com.example.forest.quickguessv2.Helpers.RedirectHelper;
@@ -46,11 +47,6 @@ public class QuestionRepositories {
         return DB.getInstance(context).questionsDao().getQuestionsByCategory(id);
     }
 
-  /*  public static int countQuestions(Context context)
-    {
-        return DB.getInstance(context).questionsDao().countQuestion();
-    }
-*/
 
   public Questions selectQuestion(int category_id)
   {
@@ -59,8 +55,10 @@ public class QuestionRepositories {
       {
           return questionsList.get(0);
       } else {
-          ((AnswerQuestion) context).sample.release();
-          ((AnswerQuestion) context).finish();
+          if (context instanceof AnswerQuestion){
+              ((AnswerQuestion) context).finish();
+              ((AnswerQuestion) context).sample.release();
+          }
           new RedirectHelper(context, FinishCategoryActivity.class);
       }
       return null;

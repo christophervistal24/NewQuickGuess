@@ -4,8 +4,10 @@ public class Questions {
 
     private String question_fun_facts;
     private String image;
+    private String title;
 
-    public Questions(String question_fun_facts, String image) {
+    public Questions(String title,String question_fun_facts, String image) {
+        this.title = title;
         this.question_fun_facts = question_fun_facts;
         this.image = image;
     }
@@ -24,5 +26,13 @@ public class Questions {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

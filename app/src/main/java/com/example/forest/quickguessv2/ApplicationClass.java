@@ -76,7 +76,7 @@ public class ApplicationClass extends Application{
 
 //3 Blue whale
 //Found
-            questionRepositories.questionCreator("Which animal is the largest in size?","African elephant","Blue whale","Giraffe","Killer whale","Blue whale","Blue whales are the largest animals ever known to have lived on Earth. These magnificent marine mammals rule the oceans at up to 100 feet long and upwards of 200 tons. Their tongues alone can weigh as much as an elephant. Their hearts is as much as an automobile.","blue_whale_4.png",3);
+            /*questionRepositories.questionCreator("Which animal is the largest in size?","African elephant","Blue whale","Giraffe","Killer whale","Blue whale","Blue whales are the largest animals ever known to have lived on Earth. These magnificent marine mammals rule the oceans at up to 100 feet long and upwards of 200 tons. Their tongues alone can weigh as much as an elephant. Their hearts is as much as an automobile.","blue_whale_4.png",3);
 
 //4 Sperm whale
 //Found
@@ -184,7 +184,7 @@ public class ApplicationClass extends Application{
 
 //30 South America
 //Found
-            questionRepositories.questionCreator("Where is rhea found?","North America","China","Ireland","South America","South America","This ratite is the largest bird in the Americas. It is a fast runner; and when it runs, its neck is almost horizontal to the ground. Rheas congregate in flocks of 20 to 30 birds. The lesser or Darwin\'s rhea, Rhea pennata, is mostly found in the southern part of South America","south_america_31.png",3);
+            questionRepositories.questionCreator("Where is rhea found?","North America","China","Ireland","South America","South America","This ratite is the largest bird in the Americas. It is a fast runner; and when it runs, its neck is almost horizontal to the ground. Rheas congregate in flocks of 20 to 30 birds. The lesser or Darwin\'s rhea, Rhea pennata, is mostly found in the southern part of South America","south_america_31.png",3);*/
         }
     }
 
