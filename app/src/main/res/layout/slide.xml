@@ -36,6 +36,36 @@
             android:textSize="35sp"
             android:textStyle="bold" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/leftArrow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="38dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:maxHeight="0dp"
+                android:scaleType="centerInside"
+                android:src="@null" />
+
+            <ImageView
+                android:id="@+id/rightArrow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="37dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:maxHeight="0dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/right" />
+        </RelativeLayout>
         <TextView
             android:id="@+id/txtdescription"
             android:layout_width="wrap_content"

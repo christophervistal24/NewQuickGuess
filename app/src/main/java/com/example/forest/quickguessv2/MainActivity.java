@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         disposeAllBackstack();
-        startService(new Intent(this,MyService.class));
+//        startService(new Intent(this,MyService.class));
         init();
         checkUser();
      //        printKeyHash();
