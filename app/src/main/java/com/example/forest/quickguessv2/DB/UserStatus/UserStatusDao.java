@@ -13,4 +13,7 @@ public interface UserStatusDao {
     @Query("SELECT COUNT(category_id) FROM user_status WHERE category_id = :category_id")
     int countAnsweredQuestion(int category_id);
 
+    @Query("SELECT COUNT(id) FROM user_status WHERE category_id =:category_id  AND class_id=:class_id")
+    int countAnsweredByClassAndCategoryId(int category_id, int class_id);
+
 }

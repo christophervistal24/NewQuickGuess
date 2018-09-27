@@ -1,4 +1,4 @@
-package com.example.forest.quickguessv2.Services.Points;
+package com.example.forest.quickguessv2.Services.WebService;
 
 public class PointsResponse {
     private int points;

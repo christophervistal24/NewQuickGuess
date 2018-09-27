@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DisplayAllFunFacts extends AppCompatActivity {
-
     private RecyclerView questionRecyclerView;
     private RecyclerView.Adapter adapter;
     private List<com.example.forest.quickguessv2.RecyclerView.Questions> questionsItems;

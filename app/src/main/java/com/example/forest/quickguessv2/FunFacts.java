@@ -125,8 +125,10 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         title.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"title",null));
         content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
         String image = SharedPreferenceHelper.getSharedPreferenceString(context,"question_image",null);
+        SharedPreferenceHelper.PREF_FILE="user_played";
+        String category = SharedPreferenceHelper.getSharedPreferenceString(context,"category",null);
         Picasso.with(getContext())
-                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/animals/"+image)
+                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
                 .placeholder(R.drawable.placeholder)
                 .into(imageFunfacts);
         radioBackBackground();

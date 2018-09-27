@@ -1,4 +1,4 @@
-package com.example.forest.quickguessv2.Services.Points;
+package com.example.forest.quickguessv2.Services.WebService;
 
 import android.content.Context;
 
@@ -7,8 +7,7 @@ import com.example.forest.quickguessv2.R;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PointsService {
-
+public class RanksService {
     public static Retrofit RetrofitInstance(Context context)
     {
         return new Retrofit.Builder()

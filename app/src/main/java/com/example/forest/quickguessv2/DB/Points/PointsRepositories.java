@@ -1,18 +1,15 @@
 package com.example.forest.quickguessv2.DB.Points;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.widget.Toast;
 
-import com.example.forest.quickguessv2.APIsInterface.IPointsInterface;
+import com.example.forest.quickguessv2.APIsInterface.APIPoints;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.User.UserRepositories;
 import com.example.forest.quickguessv2.Helpers.Connectivity;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
-import com.example.forest.quickguessv2.R;
-import com.example.forest.quickguessv2.Services.Points.PointsRequest;
-import com.example.forest.quickguessv2.Services.Points.PointsResponse;
-import com.example.forest.quickguessv2.Services.Points.PointsService;
+import com.example.forest.quickguessv2.Services.WebService.PointsRequest;
+import com.example.forest.quickguessv2.Services.WebService.PointsResponse;
+import com.example.forest.quickguessv2.Services.WebService.PointsService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +40,7 @@ public class PointsRepositories {
             //need to set this to 1 in order to replace the old points
             points.setId(1);
             Retrofit refrofit = PointsService.RetrofitInstance(context);
-            IPointsInterface services = refrofit.create(IPointsInterface.class);
+            APIPoints services = refrofit.create(APIPoints.class);
             PointsRequest pointsRequest = new PointsRequest();
             pointsRequest.setPoints(getUserPoints());
             pointsRequest.setUsername(UserRepositories.username(context));

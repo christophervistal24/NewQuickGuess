@@ -56,6 +56,10 @@ public class Questions
     @NonNull
     private int category_id;
 
+    @ColumnInfo(name="classication_id")
+    @NonNull
+    private int class_id;
+
     public String getQuestion() {
         return question;
     }
@@ -136,4 +140,13 @@ public class Questions
     public void setCategory_id(@NonNull int category_id) {
         this.category_id = category_id;
     }
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(@NonNull int class_id) {
+        this.class_id = class_id;
+    }
+
 }

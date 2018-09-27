@@ -127,8 +127,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btnRanks:
+                classname = "RanksActivity";
                 SoundUtil.songLoad(getContext(),R.raw.click)
                         .start();
+                disposeFragments();
                 break;
         }
         try {

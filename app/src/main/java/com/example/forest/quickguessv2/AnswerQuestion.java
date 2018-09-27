@@ -126,7 +126,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             q = questionRepositories.selectQuestion(category_id);
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
             List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
-
             //set and decrypt
                 try {
                     question.setText(EncryptUtil.decryptMethod(q.getQuestion()));
@@ -175,10 +174,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                         timer.setTextColor(Color.parseColor("#d1395c"));
                         YoYo.with(Techniques.Pulse)
                                 .duration(500)
-                                .repeat(-1)
+                                .repeat(5)
                                 .playOn(timer);
                     }  else {
-                        timer.setTextColor(Color.parseColor("#ffffff"));
+                        timer.setTextColor(Color.parseColor("#707070"));
                     }
 
                     if  (remainingTime == 1)
@@ -260,9 +259,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         // 1 - is eqaul to correct
         userStatus.setQuestion_result(1);
         userStatus.setCategory_id(q.getCategory_id());
+        userStatus.setClass_id(q.getClass_id());
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
-        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints+1,pointsRepositories);
+        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),++userPoints,pointsRepositories);
         points.setText(String.valueOf(updatedUserPoints));
         result();
     }

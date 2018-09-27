@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:clickable="true"
     tools:context=".FunFacts"
-    android:background="@drawable/bg_sky"
     android:id="@+id/funFactsFragment"
     android:focusable="true">
 
@@ -15,15 +14,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:maxHeight="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_sky"
-        tools:ignore="ContentDescription" />
 
 
     <LinearLayout
@@ -43,13 +33,13 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:padding="5dp"
             android:textStyle="bold"
-            android:textColor="#fff"
-            android:layout_marginBottom="5dp"
+            android:textColor="#707070"
+            android:background="#fff"
+            android:textAlignment="center"
             android:textSize="40sp" />
 
         <TextView
