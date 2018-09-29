@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuickGuessV2</string>
+    <string name="app_name">Quick Guess</string>
     <string name="your_username">Your name here</string>
     <string name="baseUrl">https://playquickguess.herokuapp.com/</string>
     <string name="facebook_app_id">240267453345824</string>
@@ -46,8 +46,5 @@
     <string name="_continue">CONTINUE</string>
     <string name="answered">Answered</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!--End-->
 
 </resources>
