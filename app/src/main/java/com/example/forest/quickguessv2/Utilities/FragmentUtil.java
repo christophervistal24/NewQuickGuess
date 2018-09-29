@@ -16,7 +16,7 @@ import com.example.forest.quickguessv2.R;
 
 
 public class FragmentUtil extends Fragment{
-
+    public static boolean  sDisableFragmentAnimations = false;
     public AppCompatActivity activity;
 
 
@@ -32,18 +32,9 @@ public class FragmentUtil extends Fragment{
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MenuFragment menuFragment = new MenuFragment();
         fragmentTransaction.add(R.id.fragment_one,menuFragment);
-//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
-   /* public void startQuitFragment()
-    {
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        QuitFragment QuitFragment = new QuitFragment();
-        fragmentTransaction.add(R.id.fragment_quit,QuitFragment);
-        fragmentTransaction.commit();
-    }*/
 
     public void startFunFactsFragment(Context context)
     {
@@ -62,7 +53,6 @@ public class FragmentUtil extends Fragment{
 
     public void startResultFragment(Context context,Bundle bundle)
     {
-
         if (context instanceof AnswerQuestion)
         {
             activity = (AppCompatActivity) context;
@@ -85,5 +75,6 @@ public class FragmentUtil extends Fragment{
             activity.getSupportFragmentManager().popBackStack();
         }
     }
+
 
 }

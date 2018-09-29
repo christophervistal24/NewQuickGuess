@@ -38,12 +38,10 @@
             android:padding="5dp"
             android:textStyle="bold"
             android:textColor="#707070"
-            android:background="#fff"
             android:textAlignment="center"
             android:textSize="40sp" />
 
         <TextView
-            android:background="#fff"
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

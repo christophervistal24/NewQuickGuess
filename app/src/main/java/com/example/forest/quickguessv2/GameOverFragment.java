@@ -7,13 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.UserStatus.UserStatusRepositories;
+import com.example.forest.quickguessv2.Helpers.RedirectHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 
 
 import butterknife.BindView;
@@ -85,17 +88,26 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
     }
 
 
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (FragmentUtil.sDisableFragmentAnimations) {
+            Animation a = new Animation() {};
+            a.setDuration(0);
+            return a;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
 
     @Override
     @OnClick(R.id.btnPlayAgain)
     public void onClick(View view) {
-        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-            fm.popBackStack();
-        }
-        if (funFactsFragment != null) {
-            funFactsFragment.continueLayout();
-        }
+        FragmentUtil.sDisableFragmentAnimations = true;
+        fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentUtil.sDisableFragmentAnimations = false;
+        funFactsFragment.continueLayout();
       }
+
 
     @Override
     public void onDestroy() {

@@ -9,13 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,6 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguessv2.Adapters.SlideAdapter;
 import com.example.forest.quickguessv2.DB.DB;
 import com.example.forest.quickguessv2.DB.Friends.FriendsRepositories;
-import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
@@ -40,6 +41,7 @@ import com.example.forest.quickguessv2.Utilities.GameBundleUitl;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -47,31 +49,30 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 
 public class AnswerQuestion extends AppCompatActivity  implements QuestionInterface{
 
-    @BindView(R.id.background) ImageView background;
     @BindView(R.id.question) TextView question;
-    @BindView(R.id.choice_a) RadioButton choice_a;
-    @BindView(R.id.choice_b) RadioButton choice_b;
-    @BindView(R.id.choice_c) RadioButton choice_c;
-    @BindView(R.id.choice_d) RadioButton choice_d;
+    @BindView(R.id.choice_a)Button choice_a;
+    @BindView(R.id.choice_b) Button choice_b;
+    @BindView(R.id.choice_c) Button choice_c;
+    @BindView(R.id.choice_d) Button choice_d;
     @BindView(R.id.timer) TextView timer;
-    @BindView(R.id.RGroup) RadioGroup RGroup;
     @BindView(R.id.life) TextView life;
     @BindView(R.id.userPoints) TextView points;
     @BindView(R.id.timerLayout) LinearLayout timerLayout;
     @BindView(R.id.fragment_game_over) FrameLayout gameOver;
+    @BindView(R.id.questionLayout) LinearLayout questionLayout;
+    @BindView(R.id.answerQuestionLayout) RelativeLayout answerQuestionLayout;
 
-    private static final long counter = 21000;
+
+    private static final long counter = 2000;
     public CountDownTimer countDownTimer;
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
     private PointsRepositories pointsRepositories;
     private int updatedUserPoints = 0;
-
-    Handler handler;
-    Runnable openFunFactsFragment;
 
     boolean isCounterRunning = false;
     protected Questions q;
@@ -79,7 +80,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     FragmentUtil fragmentUtil;
     QuestionRepositories questionRepositories;
     FriendsRepositories friendsRepositories;
-    public MediaPlayer sample;
+    public MediaPlayer clockTick;
     protected  SlideAdapter adapter;
 
     @Override
@@ -89,7 +90,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         ButterKnife.bind(this);
         TypeFaceUtil.initDimboFont(this);
         classInstantiate();
-//        categoryBackground();
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
@@ -103,7 +103,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         friendsRepositories = new FriendsRepositories(getApplicationContext());
         fragmentUtil = new FragmentUtil();
         bundle = new Bundle();
-        sample = soundTick(R.raw.clock_tick);
+        clockTick = soundTick(R.raw.clock_tick);
         adapter = new SlideAdapter(getApplicationContext());
     }
 
@@ -115,6 +115,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     public void getQuestion()
     {
+
         try {
             startTimer(counter);
             SharedPreferenceHelper.PREF_FILE = "user_played";
@@ -122,6 +123,9 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
             int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(selected_category);
+            int level_id = questionRepositories.questionClassier(category_id);
+            BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
+            BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
             //get one questions
             q = questionRepositories.selectQuestion(category_id);
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
@@ -137,7 +141,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                     e.printStackTrace();
                 }
 
-
         } catch (NullPointerException e)
         {
             finish();
@@ -145,25 +148,41 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     }
 
-    @OnCheckedChanged({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
-    public void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
-        if(checked) {
-            sample.release();
+    @OnClick({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
+    public void click(View v) {
+        String userAnswer = null;
+        switch (v.getId())
+        {
+            case R.id.choice_a:
+                userAnswer = choice_a.getText().toString();
+                break;
+
+            case R.id.choice_b:
+                userAnswer = choice_b.getText().toString();
+                break;
+
+            case R.id.choice_c:
+                userAnswer = choice_c.getText().toString();
+                break;
+
+            case R.id.choice_d:
+                userAnswer = choice_d.getText().toString();
+                break;
+        }
+            clockTick.release();
             try {
-                getAnswer(button.getText().toString(), EncryptUtil.decryptMethod(q.getCorrect_answer()));
+                getAnswer(userAnswer, EncryptUtil.decryptMethod(q.getCorrect_answer()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
             countDownTimer.cancel();
-            RGroup.setEnabled(false);
-        }
-    }
+   }
 
 
     private  void startTimer(final long counter) {
         if (!isCounterRunning) {
             isCounterRunning  = true;
-            sample.start();
+            clockTick.start();
             countDownTimer = new CountDownTimer(counter, 1000) {
                 @Override
                 public void onTick(long timeRemaining) {
@@ -182,7 +201,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
                     if  (remainingTime == 1)
                     {
-                        sample.release();
+                        clockTick.release();
                     }
 
                 }
@@ -192,7 +211,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                     try {
                         timer.setText("0");
                         isCounterRunning = false;
-                        getAnswer("No answer", EncryptUtil.decryptMethod(q.getCorrect_answer()));
+                       getAnswer("No answer", EncryptUtil.decryptMethod(q.getCorrect_answer()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -209,27 +228,24 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     public void onBackPressed() {
         countDownTimer.cancel();
-        sample.release();
+        clockTick.release();
         tellFragments();
         super.onBackPressed();
     }
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
+
         try {
             SharedPreferenceHelper.PREF_FILE = "question";
             SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
             SharedPreferenceHelper.setSharedPreferenceString(this,"question_content", EncryptUtil.decryptMethod(q.getFun_facts()));
             SharedPreferenceHelper.setSharedPreferenceString(this,"question_image", EncryptUtil.decryptMethod(q.getFun_facts_image()));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        radioGroupdisplayOrHide();
         timerLayoutDisplayOrHide();
-        question.setVisibility(View.GONE);
-        //apply some background changes
-//        radioChangeBackground(correct_answer);
+        questionLayoutDisplayOrHide();
         if (answer.trim().equalsIgnoreCase(correct_answer.trim()))
         {
             GameBundleUitl.setQuestionResult(bundle,"result","correct_icon");
@@ -240,15 +256,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
-    protected void displayGameOverFragment()
-    {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        GameOverFragment gameOverFragment = new GameOverFragment();
-        fragmentTransaction.add(R.id.fragment_game_over,gameOverFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
 
     @Override
     public void correct() {
@@ -292,11 +299,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     protected void onResume() {
         try {
-            sample.isPlaying();
+            clockTick.isPlaying();
         } catch (IllegalStateException e)
         {
-            sample = soundTick(R.raw.clock_tick);
-            sample.start();
+            clockTick = soundTick(R.raw.clock_tick);
+            clockTick.start();
         }
         getQuestion();
         super.onResume();
@@ -312,35 +319,29 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     protected void onPause() {
         super.onPause();
-        sample.release();
+        clockTick.release();
     }
 
-    public void radioGroupdisplayOrHide()
-    {
-         RGroup.setVisibility(RGroup.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-    }
+
 
     public void timerLayoutDisplayOrHide()
     {
         timerLayout.setVisibility(timerLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
-
-
-
-    private void radioChangeBackground(String correct_answer)
+    public void questionLayoutDisplayOrHide()
     {
-        BackgroundUtil.radioBackgrounds(getApplicationContext(),RGroup,correct_answer);
+        questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 
-
-
-    public void removeCallback()
+ /*   public void questionLayoutDisplay()
     {
-        if (openFunFactsFragment != null)
-        {
-            handler.removeCallbacks(openFunFactsFragment);
-        }
+        questionLayout.setVisibility(View.VISIBLE);
     }
+    public void questionLayoutHide()
+    {
+        questionLayout.setVisibility(View.GONE);
+    }
+*/
     @Override
     protected void onDestroy() {
         countDownTimer.cancel();
@@ -348,23 +349,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         super.onDestroy();
     }
 
-    private void gotoFunFactsFragment(){ fragmentUtil.startFunFactsFragment(this); }
 
-    protected void onPreExecute() {
-        handler = new Handler();
-        openFunFactsFragment = new Runnable() {
-            public void run() {
-
-                gotoFunFactsFragment();
-               //rebase
+    protected void gotoFunFacts() {
+              //rebase
                 life.setText(String.valueOf(lifeRepositories.getUserLife()));
-//                initUserPoints()
                 userPoints = 0;
                 countDownTimer.cancel();
                 isCounterRunning = true;
-            }
-        };
-        handler.postDelayed(openFunFactsFragment,10);
+                fragmentUtil.startFunFactsFragment(this);
     }
 
     private void tellFragments() {
@@ -374,5 +366,16 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                 ((FunFacts)f).onBackPressed();
         }
     }
+
+    protected void displayGameOverFragment()
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        GameOverFragment gameOverFragment = new GameOverFragment();
+        fragmentTransaction.add(R.id.fragment_game_over,gameOverFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
 }

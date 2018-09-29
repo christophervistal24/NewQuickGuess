@@ -12,7 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -23,6 +25,7 @@ import com.example.forest.quickguessv2.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguessv2.DB.Life.LifeRepositories;
 import com.example.forest.quickguessv2.Helpers.FontHelper;
 import com.example.forest.quickguessv2.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
@@ -48,16 +51,15 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @BindView(R.id.btnNext) Button btnNext;
     @BindView(R.id.facebookShare) Button facebookShare;
     @BindView(R.id.imageFunfacts) ImageView imageFunfacts;
+    AnswerQuestion answerQuestionActivity;
 
-    LinearLayout questionLayout;
+
     TextView question;
     ImageView imageBackground;
-    RadioGroup RGroup;
     LinearLayout timerLayout;
 
     private Context context;
     private Unbinder unbinder;
-    public ArrayList<RadioButton> listOfRadioButtons;
     int count = 0;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
@@ -67,7 +69,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @Override
     public void onResume()
     {
-        ((AnswerQuestion)getActivity()).sample.release();
+        ((AnswerQuestion)getActivity()).clockTick.release();
         ((AnswerQuestion)getActivity()).countDownTimer.cancel();
         super.onResume();
     }
@@ -84,16 +86,11 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
         context = getContext();
-        questionLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.questionLayout);
+
         question = getActivity().findViewById(R.id.question);
-        RGroup = getActivity().findViewById(R.id.RGroup);
-        count = RGroup.getChildCount();
         timerLayout = getActivity().findViewById(R.id.timerLayout);
-        RGroup.clearCheck();
         imageBackground = getActivity().findViewById(R.id.background);
-        questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE );
-        radioBackBackground();
-        ((AnswerQuestion)getActivity()).removeCallback();
+
         return view;
     }
 
@@ -116,6 +113,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     //TODO REFACTOR
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
         Typeface fontHelper = new FontHelper().dimboFont(context);
         title.setTypeface(fontHelper);
         content.setTypeface(fontHelper);
@@ -131,8 +129,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
                 .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
                 .placeholder(R.drawable.placeholder)
                 .into(imageFunfacts);
-        radioBackBackground();
-
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -144,58 +140,56 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     }
 
 
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (FragmentUtil.sDisableFragmentAnimations) {
+            Animation a = new Animation() {};
+            a.setDuration(0);
+            return a;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
     public void isGameOverOrNot()
     {
-        AnswerQuestion answerQuestionActivity = (AnswerQuestion)getActivity();
-        LifeRepositories lifeRepositories = ((AnswerQuestion) getActivity()).lifeRepositories;
-
-        if  (lifeRepositories.getUserLife() <= 0)
-        {
-            GameoverRepositories.gameOver(lifeRepositories);
-            answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
-            answerQuestionActivity.displayGameOverFragment();
-        } else {
-            FragmentManager fm = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
-            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                fm.popBackStack();
-            }
-            continueLayout();
-            isUserCanSaveFriends();
+        answerQuestionActivity = (AnswerQuestion)getActivity();
+        LifeRepositories lifeRepositories = null;
+        if (answerQuestionActivity != null) {
+            lifeRepositories = answerQuestionActivity.lifeRepositories;
+        }
+        if (lifeRepositories != null) {
+            if  (lifeRepositories.getUserLife() <= 0)
+            {
+                GameoverRepositories.gameOver(lifeRepositories);
+                answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
+                answerQuestionActivity.displayGameOverFragment();
+            } else {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentUtil.sDisableFragmentAnimations = true;
+                fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                FragmentUtil.sDisableFragmentAnimations = false;
+                continueLayout();
+                isUserCanSaveFriends();
+           }
         }
     }
 
     protected void continueLayout() {
-        questionLayout.setVisibility(View.VISIBLE);
-        question.setVisibility(View.VISIBLE);
-        ((AnswerQuestion)getActivity()).timerLayoutDisplayOrHide();
-        ((AnswerQuestion)getActivity()).radioGroupdisplayOrHide();
-        ((AnswerQuestion)getActivity()).countDownTimer.start();
-        ((AnswerQuestion)getActivity()).getQuestion();
-        ((AnswerQuestion)getActivity()).userPoints = 0;
-        ((AnswerQuestion)getActivity()).sample =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
-        ((AnswerQuestion)getActivity()).sample.start();
+        answerQuestionActivity.getQuestion();
+        answerQuestionActivity.questionLayoutDisplayOrHide();
+        answerQuestionActivity.timerLayoutDisplayOrHide();
+        answerQuestionActivity.userPoints = 0;
+        answerQuestionActivity.clockTick =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
+        answerQuestionActivity.clockTick.start();
     }
 
     protected void isUserCanSaveFriends() {
        try {
            int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
-           ((AnswerQuestion)getActivity()).friendsRepositories.checkAnsweredQuestion(category_id, items);
-       } catch  (NullPointerException e) {}
+           answerQuestionActivity.friendsRepositories.checkAnsweredQuestion(category_id, items);
+       } catch  (NullPointerException ignored) {}
     }
 
-    private void radioBackBackground()
-    {
-        listOfRadioButtons = new ArrayList<>();
-        for(int i=0; i<count; i++)
-        {
-            View o = RGroup.getChildAt(i);
-            if (o instanceof RadioButton) {
-                listOfRadioButtons.add((RadioButton)o);
-            }
-            listOfRadioButtons.get(i).setClickable(true);
-      }
-
-    }
 
 
     @Override

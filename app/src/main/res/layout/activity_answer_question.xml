@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/sample_bg"
+    android:background="@drawable/easy_bg"
+    android:id="@+id/answerQuestionLayout"
     tools:context=".AnswerQuestion">
 
 
@@ -68,11 +69,16 @@
          android:layout_height="wrap_content"
          android:text="@string/defaultTimerValue"
          android:textAlignment="center"
-         android:textColor="#707070"
+         android:textColor="#5a5a5a"
          android:textSize="55sp"
          android:textStyle="bold" />
  </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/questionResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     <LinearLayout
         android:id="@+id/questionLayout"
@@ -82,26 +88,6 @@
         android:layout_below="@id/timerLayout"
         android:orientation="vertical">
 
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="30sp"-->
-        <!--android:gravity="center"-->
-        <!--/>-->
-
-
-        <!--<TextView-->
-        <!--android:id="@+id/userLife"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--/>-->
-
-
-        <FrameLayout
-            android:id="@+id/questionResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
 
 
         <!--question-->
@@ -110,78 +96,89 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#fff"
             android:padding="20dp"
-            android:text="question here"
+            android:text="Question"
             android:textAlignment="center"
-            android:textColor="#707070"
+            android:textColor="#4a4a4a"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-     <RadioGroup
-            android:id="@+id/RGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:padding="10dp">
 
-            <RadioButton
-                android:id="@+id/choice_a"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_choice"
-                android:button="@null"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="#707070"
-                android:textSize="25sp" />
 
-            <RadioButton
-                android:id="@+id/choice_b"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_choice"
-                android:button="@null"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="#707070"
-                android:textSize="25sp" />
+         <RelativeLayout
+             android:id="@+id/choiceLayoutOne"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/choice_c"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_choice"
-                android:button="@null"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="#707070"
-                android:textSize="25sp" />
+             <Button
+                 android:ellipsize="end"
+                 android:maxLines="1"
+                 android:id="@+id/choice_a"
+                 android:layout_width="160dp"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_marginBottom="5dp"
+                 android:background="@drawable/btn_easy"
+                 android:textAlignment="center"
+                 android:textAllCaps="true"
+                 android:textColor="#fff"
+                 android:padding="25dp"
+                 android:textSize="25sp" />
 
-            <RadioButton
-                android:id="@+id/choice_d"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/button_choice"
-                android:button="@null"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="#707070"
-                android:textSize="25sp" />
-        </RadioGroup>
+             <Button
+                 android:layout_alignParentEnd="true"
+                 android:ellipsize="end"
+                 android:maxLines="1"
+                 android:id="@+id/choice_b"
+                 android:layout_width="160dp"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_marginBottom="5dp"
+                 android:background="@drawable/btn_easy"
+                 android:textAlignment="center"
+                 android:textAllCaps="true"
+                 android:textColor="#fff"
+                 android:padding="25dp"
+                 android:textSize="25sp" />
+
+         </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/choiceLayoutTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:id="@+id/choice_c"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_easy"
+                    android:padding="25dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:layout_alignParentEnd="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:id="@+id/choice_d"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_easy"
+                    android:padding="25dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+
+            </RelativeLayout>
     </LinearLayout>
 
 

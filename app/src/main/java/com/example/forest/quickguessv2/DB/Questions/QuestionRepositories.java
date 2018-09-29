@@ -1,7 +1,6 @@
 package com.example.forest.quickguessv2.DB.Questions;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.example.forest.quickguessv2.AnswerQuestion;
 import com.example.forest.quickguessv2.DB.DB;
@@ -15,7 +14,7 @@ import java.util.List;
 public class QuestionRepositories {
 
     public Context context;
-    private int class_id = 1;
+    private static int class_id = 1;
     public QuestionRepositories(Context context)
     {
         this.context = context;
@@ -51,7 +50,7 @@ public class QuestionRepositories {
 
   public Questions selectQuestion(int category_id)
   {
-     int class_id = zigZagQuestionClassify(category_id);
+     int class_id = questionClassier(category_id);
      List<Questions> questionsList = RandomizeUtil.questions(getQuestions(category_id,class_id),getQuestions(category_id,class_id).size());
       if (questionsList.size() != 0 )
       {
@@ -59,21 +58,22 @@ public class QuestionRepositories {
       } else {
           if (context instanceof AnswerQuestion){
               ((AnswerQuestion) context).finish();
-              ((AnswerQuestion) context).sample.release();
+              ((AnswerQuestion) context).clockTick.release();
           }
           new RedirectHelper(context, FinishCategoryActivity.class);
       }
       return null;
   }
 
-    private int zigZagQuestionClassify(int category_id) {
+    public int questionClassier(int category_id) {
+        class_id = 1;
         if (checkEasyQuestions(category_id)) // if true proceed to moderate
         {
             class_id = 2;
             if (checkModerateQuestions(category_id)) { // if true proceed to difficult
                   class_id = 3;
               }
-           }
+        }
         return class_id;
     }
 

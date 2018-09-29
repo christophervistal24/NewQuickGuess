@@ -4,12 +4,14 @@ package com.example.forest.quickguessv2;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.forest.quickguessv2.Utilities.IOnBackPressed;
 
 import java.util.Objects;
 
@@ -22,7 +24,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuestionResult extends Fragment {
+public class QuestionResult extends Fragment implements IOnBackPressed {
 
     TextView life;
     TextView question;
@@ -39,22 +41,33 @@ public class QuestionResult extends Fragment {
             View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
             unbinder = ButterKnife.bind(this,view);
             String result = this.getArguments().getString("result");
-            life = getActivity().findViewById(R.id.life);
-            question = getActivity().findViewById(R.id.question);
             resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
-            question.setVisibility(View.GONE);
         return view;
     }
 
     @OnClick(R.id.questionResult)
     public void tapScreen()
     {
-        ((AnswerQuestion)getActivity()).onPreExecute();
+        FragmentManager fm = getFragmentManager();
+        int count = fm.getBackStackEntryCount();
+        for (int i = 0; i < count; ++i) {
+            fm.popBackStack();
+        }
+        ((AnswerQuestion)getActivity()).gotoFunFacts();
     }
 
     @Override
     public void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getFragmentManager();
+        int count = fm.getBackStackEntryCount();
+        for (int i = 0; i < count; ++i) {
+            fm.popBackStack();
+        }
     }
 }
