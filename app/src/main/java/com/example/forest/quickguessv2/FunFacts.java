@@ -90,7 +90,10 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         question = getActivity().findViewById(R.id.question);
         timerLayout = getActivity().findViewById(R.id.timerLayout);
         imageBackground = getActivity().findViewById(R.id.background);
-
+        ((AnswerQuestion)getActivity()).choice_a.setClickable(true);
+        ((AnswerQuestion)getActivity()).choice_b.setClickable(true);
+        ((AnswerQuestion)getActivity()).choice_c.setClickable(true);
+        ((AnswerQuestion)getActivity()).choice_d.setClickable(true);
         return view;
     }
 
@@ -176,8 +179,8 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
 
     protected void continueLayout() {
         answerQuestionActivity.getQuestion();
-        answerQuestionActivity.questionLayoutDisplayOrHide();
-        answerQuestionActivity.timerLayoutDisplayOrHide();
+        answerQuestionActivity.displayQuestionLayout();
+        answerQuestionActivity.displayTimer();
         answerQuestionActivity.userPoints = 0;
         answerQuestionActivity.clockTick =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
         answerQuestionActivity.clockTick.start();

@@ -1,15 +1,18 @@
 package com.example.forest.quickguessv2;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -82,6 +85,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     FriendsRepositories friendsRepositories;
     public MediaPlayer clockTick;
     protected  SlideAdapter adapter;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         ButterKnife.bind(this);
         TypeFaceUtil.initDimboFont(this);
         classInstantiate();
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
@@ -244,8 +249,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         } catch (Exception e) {
             e.printStackTrace();
         }
-        timerLayoutDisplayOrHide();
-        questionLayoutDisplayOrHide();
+        hideTimer();
+        hideQuestionLayout();
         if (answer.trim().equalsIgnoreCase(correct_answer.trim()))
         {
             GameBundleUitl.setQuestionResult(bundle,"result","correct_icon");
@@ -282,6 +287,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
         updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories);
         points.setText(String.valueOf(updatedUserPoints));
+        vibrator.vibrate(500);
         result();
     }
 
@@ -324,14 +330,27 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
 
 
-    public void timerLayoutDisplayOrHide()
+
+    protected void hideTimer()
     {
-        timerLayout.setVisibility(timerLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        timerLayout.setVisibility(View.GONE);
     }
-    public void questionLayoutDisplayOrHide()
+
+    protected void displayTimer()
     {
-        questionLayout.setVisibility(questionLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        timerLayout.setVisibility(View.VISIBLE);
     }
+
+    protected void hideQuestionLayout()
+    {
+        questionLayout.setVisibility(View.GONE);
+    }
+
+    public void displayQuestionLayout()
+    {
+        questionLayout.setVisibility(View.VISIBLE);
+    }
+
 
  /*   public void questionLayoutDisplay()
     {

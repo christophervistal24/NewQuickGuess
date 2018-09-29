@@ -26,6 +26,7 @@ import com.example.forest.quickguessv2.Service.MyService;
 import com.example.forest.quickguessv2.Utilities.FragmentUtil;
 import com.example.forest.quickguessv2.Utilities.SoundUtil;
 import com.example.forest.quickguessv2.Utilities.TypeFaceUtil;
+import com.squareup.leakcanary.LeakCanary;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
     FragmentUtil fragmentUtil;
     public PointsRepositories pointsRepositories;
     private boolean isStop = false;
+    YoYo.YoYoString yoYoString = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         disposeAllBackstack();
+
 //        startService(new Intent(this,MyService.class));
         init();
         checkUser();
@@ -55,18 +58,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
         private void init() {
-//        ApplicationClass.getRefWatcher(this);
+
+
+            // Normal app init code...
         TypeFaceUtil.initDimboFont(this);
         WindowHelper.hideNavigationBar(this);
         ButterKnife.bind(this);
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
         pointsRepositories = new PointsRepositories(getApplicationContext());
-        YoYo.with(Techniques.DropOut)
+    /*    YoYo.with(Techniques.DropOut)
                     .duration(2000)
                     .delay(1000)
                     .repeat(-1)
-                    .playOn(title);
+                    .playOn(title);*/
 
     }
 
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         String player = username.getText().toString();
         if  (player.isEmpty()  || InputHelpers.isProperUsername(player) )
         {
-            YoYo.with(Techniques.Shake)
+            yoYoString = YoYo.with(Techniques.Shake)
                     .duration(700)
                     .playOn(username);
             SoundUtil.songLoad(getApplicationContext(),R.raw.error)
@@ -162,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        yoYoString = null;
         DB.getInstance(getApplicationContext()).destroyInstance();
         stopService(new Intent(this,MyService.class));
         super.onDestroy();

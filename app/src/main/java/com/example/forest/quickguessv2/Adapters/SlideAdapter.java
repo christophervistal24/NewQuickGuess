@@ -67,51 +67,51 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
         int answered_question = DB.getInstance(context).userStatusDao().countAnsweredQuestion(category_id);
         description.setText(R.string.tap_to_start);
         no.setText( String.format("%s %s ",String.valueOf(answered_question) , "%"));
-        YoYo.with(Techniques.DropOut)
+     /*   YoYo.with(Techniques.DropOut)
                 .duration(800)
                 .delay(500)
                 .repeat(-1)
                 .playOn(description);
-
+*/
         container.addView(view);
         return view;
     }
 
     private void setArrows(int position , View v) {
-        ImageView left = v.findViewById(R.id.leftArrow);
+    ImageView left = v.findViewById(R.id.leftArrow);
         ImageView right = v.findViewById(R.id.rightArrow);
         if (position >= 1 && position <= 6)
         {
             left.setImageResource(R.drawable.left);
-            YoYo.with(Techniques.Pulse)
+           /* YoYo.with(Techniques.Pulse)
                     .duration(800)
                     .delay(500)
                     .repeat(-1)
                     .pivotX(-200)
-                    .playOn(left);
-            YoYo.with(Techniques.Pulse)
+                    .playOn(left);*/
+            /*YoYo.with(Techniques.Pulse)
                     .duration(800)
                     .delay(500)
                     .pivotX(200)
                     .repeat(-1)
-                    .playOn(right);
+                    .playOn(right);*/
         } else if (position == 0) {
-            YoYo.with(Techniques.Pulse)
+            /*YoYo.with(Techniques.Pulse)
                     .duration(800)
                     .delay(500)
                     .pivotX(200)
                     .repeat(-1)
-                    .playOn(right);
+                    .playOn(right);*/
         } else if (position == 7)
         {
             right.setVisibility(View.GONE);
             left.setImageResource(R.drawable.left);
-            YoYo.with(Techniques.Pulse)
+           /* YoYo.with(Techniques.Pulse)
                     .duration(800)
                     .delay(500)
                     .pivotX(200)
                     .repeat(-1)
-                    .playOn(left);
+                    .playOn(left);*/
         }
     }
 

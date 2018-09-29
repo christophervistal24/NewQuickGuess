@@ -1,6 +1,7 @@
 package com.example.forest.quickguessv2;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.forest.quickguessv2.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguessv2.DB.DB;
@@ -9,6 +10,8 @@ import com.example.forest.quickguessv2.DB.Points.Points;
 import com.example.forest.quickguessv2.DB.Points.PointsRepositories;
 import com.example.forest.quickguessv2.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguessv2.Helpers.Connectivity;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 public class ApplicationClass extends Application{
 
@@ -17,19 +20,17 @@ public class ApplicationClass extends Application{
     PointsRepositories pointsRepositories;
     FriendsRepositories friendsRepositories;
     Points points;
-  /*  private RefWatcher refWatcher;
-
-    public static RefWatcher getRefWatcher (Context context)
-    {
-        ApplicationClass app = (ApplicationClass) context.getApplicationContext();
-        return app.refWatcher;
-    }*/
-    //        refWatcher = LeakCanary.install(this);
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         questionCategoryRepositories = new QuestionCategoryRepositories(this);
         questionRepositories = new QuestionRepositories(this);
         friendsRepositories = new FriendsRepositories(this);
@@ -68,6 +69,7 @@ public class ApplicationClass extends Application{
         //insert questions
         if (DB.getInstance(this).questionsDao().countQuestion() == 0)
         {
+            //all questions
 //1 Starfish
 //Medium
             questionRepositories.questionCreator("Which of following creatures has the power to grow lost parts?","Crab","Starfish","Squirrel","Squid","Starfish","Some species of starfish have the ability to regenerate lost arms and can regrow an entire new limb given time. A few can regrow a complete new disc from a single arm, while others need at least part of the central disc to be attached to the detached part.","starfish_1.png",3,2);

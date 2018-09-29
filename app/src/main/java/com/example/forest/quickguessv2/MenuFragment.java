@@ -92,10 +92,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUserPoints();
-        YoYo.with(Techniques.Shake)
+  /*      YoYo.with(Techniques.Shake)
                 .duration(2000)
                 .repeat(-1)
-                .playOn(btnCategories);
+                .playOn(btnCategories);*/
         super.onViewCreated(view, savedInstanceState);
     }
 

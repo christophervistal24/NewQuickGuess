@@ -25,6 +25,7 @@ public class FinishCategoryActivity extends AppCompatActivity {
     @BindView(R.id.message) TextView message;
     @BindView(R.id.trophyLayout) LinearLayout trophyL;
     String category;
+    YoYo.YoYoString yoYoString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class FinishCategoryActivity extends AppCompatActivity {
     }
 
     private void animteTrophy() {
-        YoYo.with(Techniques.Tada)
-                .pivot(200,150)
+        yoYoString = YoYo.with(Techniques.Tada)
+                .pivot(200, 150)
                 .duration(2000)
                 .delay(500)
                 .repeat(-1)
@@ -63,13 +64,16 @@ public class FinishCategoryActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         DB.getInstance(getApplicationContext()).destroyInstance();
+        if (yoYoString != null) {
+            yoYoString.stop();
+            yoYoString = null;
+        }
         super.onDestroy();
     }
 
     @OnClick(R.id.viewAllFunFacts)
     public void onClick()
     {
-
         new RedirectHelper(getApplicationContext(),DisplayAllFunFacts.class);
     }
 }

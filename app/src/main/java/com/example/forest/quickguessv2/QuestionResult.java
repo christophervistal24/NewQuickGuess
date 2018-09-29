@@ -41,6 +41,10 @@ public class QuestionResult extends Fragment implements IOnBackPressed {
             View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
             unbinder = ButterKnife.bind(this,view);
             String result = this.getArguments().getString("result");
+            ((AnswerQuestion)getActivity()).choice_a.setClickable(false);
+            ((AnswerQuestion)getActivity()).choice_b.setClickable(false);
+            ((AnswerQuestion)getActivity()).choice_c.setClickable(false);
+            ((AnswerQuestion)getActivity()).choice_d.setClickable(false);
             resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
         return view;
     }
