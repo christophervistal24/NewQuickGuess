@@ -42,7 +42,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowHelper.hideNavigationBar(this);
         firstLaunchHelper = new FirstLaunchHelper(this);
         if(!firstLaunchHelper.isFirstTimeLaunch())
         {
@@ -50,11 +49,11 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }
 
-     /*   if  (Build.VERSION.SDK_INT >= 21)
+        if  (Build.VERSION.SDK_INT >= 21)
         {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-*/
+
         setContentView(R.layout.activity_welcome);
         TypeFaceUtil.initDimboFont(this);
         viewPager = findViewById(R.id.view_pager);

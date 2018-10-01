@@ -33,7 +33,7 @@ public class DisplayAllFunFacts extends AppCompatActivity {
         setContentView(R.layout.activity_display_all_fun_facts);
         ButterKnife.bind(this);
         WindowHelper.hideNavigationBar(this);
-        questionRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        questionRecyclerView = findViewById(R.id.recyclerView);
         questionRecyclerView.setHasFixedSize(true);
         questionRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         getCredentials();

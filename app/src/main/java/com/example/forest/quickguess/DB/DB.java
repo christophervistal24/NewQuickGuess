@@ -15,12 +15,14 @@ import com.example.forest.quickguess.DB.Points.Points;
 import com.example.forest.quickguess.DB.Points.PointsDao;
 import com.example.forest.quickguess.DB.Questions.Questions;
 import com.example.forest.quickguess.DB.Questions.QuestionsDao;
+import com.example.forest.quickguess.DB.Ranks.Ranks;
+import com.example.forest.quickguess.DB.Ranks.RanksDao;
 import com.example.forest.quickguess.DB.User.User;
 import com.example.forest.quickguess.DB.User.UserDao;
 import com.example.forest.quickguess.DB.UserStatus.UserStatus;
 import com.example.forest.quickguess.DB.UserStatus.UserStatusDao;
 
-@Database(entities = {User.class,QuestionCategory.class,Questions.class,UserStatus.class,Points.class , Life.class, Friends.class},version = 1)
+@Database(entities = {User.class,QuestionCategory.class,Questions.class,UserStatus.class,Points.class , Life.class, Friends.class,Ranks.class},version = 1)
 public abstract class DB extends RoomDatabase
 {
     private static DB appDatabase;
@@ -34,6 +36,7 @@ public abstract class DB extends RoomDatabase
     public abstract PointsDao pointsDao();
     public abstract LifeDao lifeDao();
     public abstract FriendsDao friendsDao();
+    public abstract RanksDao ranksDao();
 
     public synchronized  static DB getInstance(Context context){
        if(appDatabase == null){

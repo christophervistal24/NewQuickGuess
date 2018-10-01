@@ -3,6 +3,7 @@ package com.example.forest.quickguess.DB.User;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
+import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
@@ -34,9 +35,9 @@ public class UserRepositories {
     }
 
     //check if already exists
-    public static boolean isUserAlreadyRegister(Activity activity)
+    public static boolean isUserAlreadyRegister(Context context)
     {
-        return (DB.getInstance(activity.getApplicationContext()).userDao().isUserExists()) >= 1;
+        return (DB.getInstance(context).userDao().isUserExists()) >= 1;
     }
 
     //default life to user
@@ -50,33 +51,34 @@ public class UserRepositories {
     {
        return lifeRepo.getUserLife();
     }
+
     //get the points of the user
     public static int getUserPoints(PointsRepositories pointsRepositories)
     {
         return pointsRepositories.getUserPoints();
     }
 
+
     //check if user has points
-    public static int isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
+    public static void isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
     {
-        SharedPreferenceHelper.PREF_FILE="points";
         //get the user points
-        int current_points = DB.getInstance(context).pointsDao().getUserPoints();
         Points points = new Points();
+        int current_points = (DB.getInstance(context).userStatusDao().countAllForPoints()) * 100;
+
         //set the points id to 1 to easily replace the existing point
         points.setId(1);
         try { // if user no points
-            points.setPoints(PointsUtil.plusExtra(userPoints));
+            points.setPoints(current_points);
             DB.getInstance(context).pointsDao().insert(points);
         } catch (SQLiteConstraintException exception) { //update the existing points
-            userPoints = (PointsUtil.plusExtra(userPoints)) + current_points;
+            userPoints = current_points;
             points.setPoints(0);
             points.setPoints(userPoints);
             DB.getInstance(context).pointsDao().update(points);
         }
         //sending to rest api the points
-       return pointsRepositories.sendPoints(points);
-
+        pointsRepositories.sendPoints();
     }
 
 

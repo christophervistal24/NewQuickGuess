@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -65,7 +66,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
     private PointsRepositories pointsRepositories;
-    private int updatedUserPoints = 0;
 
     boolean isCounterRunning = false;
     protected Questions q;
@@ -76,6 +76,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     public MediaPlayer clockTick;
     protected  SlideAdapter adapter;
     Vibrator vibrator;
+    int user_points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +88,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         getQuestion();
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
-        points.setText(String.valueOf(UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories)));
+        initUserPoints();
     }
 
+    private void initUserPoints() {
+        int fetchPointsByAnswer = DB.getInstance(getApplicationContext()).userStatusDao().countAllForPoints();
+        user_points = fetchPointsByAnswer * 100;
+        points.setText(String.valueOf(user_points));
+    }
 
     private void classInstantiate() {
         lifeRepositories = new LifeRepositories(getApplicationContext());
@@ -230,7 +236,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void getAnswer(String answer, String correct_answer) {
-
         try {
             SharedPreferenceHelper.PREF_FILE = "question";
             SharedPreferenceHelper.setSharedPreferenceString(this,"title",correct_answer);
@@ -254,7 +259,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     public void correct() {
-
         SoundUtil.songLoad(getApplicationContext(),R.raw.check).start();
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
@@ -264,8 +268,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         userStatus.setClass_id(q.getClass_id());
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
-        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),++userPoints,pointsRepositories);
-        points.setText(String.valueOf(updatedUserPoints));
+        pointsRepositories.sendPoints();
+        initUserPoints();
         result();
     }
 
@@ -275,8 +279,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         SoundUtil.songLoad(getApplicationContext(),R.raw.wrong).start();
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
-        updatedUserPoints = UserRepositories.isUserHasPoints(getApplicationContext(),userPoints,pointsRepositories);
-        points.setText(String.valueOf(updatedUserPoints));
+        pointsRepositories.sendPoints();
+        initUserPoints();
         vibrator.vibrate(500);
         result();
     }
@@ -295,6 +299,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     protected void onResume() {
         try {
+            initUserPoints();
+            points.setText(String.valueOf(user_points));
             clockTick.isPlaying();
         } catch (IllegalStateException e)
         {
@@ -342,15 +348,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     }
 
 
- /*   public void questionLayoutDisplay()
-    {
-        questionLayout.setVisibility(View.VISIBLE);
-    }
-    public void questionLayoutHide()
-    {
-        questionLayout.setVisibility(View.GONE);
-    }
-*/
     @Override
     protected void onDestroy() {
         countDownTimer.cancel();

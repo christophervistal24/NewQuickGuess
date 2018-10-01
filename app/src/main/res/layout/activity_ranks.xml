@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/searchPlayer"
-        android:hint="Search here"
+        android:hint="@string/search_here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"/>

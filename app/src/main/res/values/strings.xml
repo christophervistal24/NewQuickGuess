@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Quick Guess</string>
-    <string name="your_username">Your name here</string>
+    <string name="your_username">Player name</string>
     <string name="baseUrl">https://playquickguess.herokuapp.com/</string>
+    <!--<string name="baseUrl">http://192.168.1.7:80/</string>-->
     <string name="facebook_app_id">240267453345824</string>
     <string name="facebook_login_protocol_scheme">fb240267453345824</string>
     <string name="read_more">Read more…</string>
@@ -45,6 +46,10 @@
     <string name="share">Share on Facebook</string>
     <string name="_continue">CONTINUE</string>
     <string name="answered">Answered</string>
+    <string name="email_address">Email address</string>
+    <string name="player_name">Player name</string>
+    <string name="player_points">Player points</string>
+    <string name="search_here">Type player name here</string>
 
 
 </resources>

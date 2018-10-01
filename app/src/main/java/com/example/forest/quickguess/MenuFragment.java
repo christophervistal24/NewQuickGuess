@@ -64,6 +64,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         initUserPoints();
         userLife.setText(String.valueOf(user_life));
         userPoints.setText(String.valueOf(user_points));
+        ((MainActivity)getActivity()).pointsRepositories.sendPoints();
         super.onResume();
     }
 
@@ -97,10 +98,20 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserPoints() {
-        PointsRepositories pointsRepositories = ((MainActivity)getActivity())
-                                                .pointsRepositories;
-        user_points = SharedPreferenceHelper.
+        /*PointsRepositories pointsRepositories = ((MainActivity)getActivity())
+                                                .pointsRepositories;*/
+      /*  int partial_points = SharedPreferenceHelper.
                                 getSharedPreferenceInt(getContext(),"user_points",0) + UserRepositories.getUserPoints(pointsRepositories);
+        int fetchPointsByAnswer = DB.getInstance(getContext()).userStatusDao().countAllForPoints();
+        if (partial_points > fetchPointsByAnswer)
+        {
+            user_points = fetchPointsByAnswer * 100;
+        } else if (partial_points == fetchPointsByAnswer){
+            user_points = partial_points;
+        }*/
+
+      user_points = DB.getInstance(getContext()).userStatusDao().countAllForPoints() * 100;
+
     }
 
 

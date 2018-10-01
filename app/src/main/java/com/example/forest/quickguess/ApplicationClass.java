@@ -9,7 +9,7 @@ import com.example.forest.quickguess.DB.Points.Points;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.Helpers.Connectivity;
-import com.squareup.leakcanary.LeakCanary;
+
 
 public class ApplicationClass extends Application{
 
@@ -45,7 +45,7 @@ public class ApplicationClass extends Application{
         {
             pointsRepositories = new PointsRepositories(getApplicationContext());
             points = new Points();
-            pointsRepositories.sendPoints(points);
+            pointsRepositories.sendPoints();
         }
     }
 
@@ -1679,7 +1679,7 @@ public class ApplicationClass extends Application{
 //Easy
             questionRepositories.questionCreator("The Filipino actress dubbed as Queen of all Media.","Kris Aquino","Sharon Cuneta","Mariel Rodriguez","Angel Locsin","Kris Aquino","Kristina Bernadette Cojuangco Aquino is a Filipino talk show host, actress and producer. She has hosted talk shows and game shows, and has also starred in films and television series.","kris_aquino_97.png",8,1);
 
-//98 Kris Aquino
+//98 Rosa del Rosario
 //Easy
             questionRepositories.questionCreator("First darna of the Philippines.","Rosa del Rosario","Marneth Ann","Rodelyn Sanoria","Michelle Biol","Rosa del Rosario","Two Darna films were made by Royal Films, both starring Rosa del Rosario in \"Darna\" (1951) and \"Darna at ang Babaing Lawin\" (1952). A year after Darna was first serialized in 1950 in Bulaklak Komiks, Filipinos witnessed the first marvelous flight of Darna in the big screen.","Rosa_del_Rosario_98.png",8,1);
 

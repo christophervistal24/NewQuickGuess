@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.R;
 import com.example.forest.quickguess.RecyclerView.Questions;
 import com.squareup.picasso.Picasso;
@@ -35,13 +36,15 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(FunFactsAdapter.ViewHolder holder, final int position) {
+        SharedPreferenceHelper.PREF_FILE="user_played";
+        String category = SharedPreferenceHelper.getSharedPreferenceString(context,"category",null);
         final Questions questionsItem = questionsItems.get(position);
         holder.txtTitle.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
         holder.txtQuestion.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
         holder.txtTitle.setText(questionsItem.getTitle());
         holder.txtQuestion.setText(questionsItem.getQuestion_fun_facts());
         Picasso.with(context)
-                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/animals/"+questionsItem.getImage())
+                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+questionsItem.getImage())
                 .placeholder(R.drawable.placeholder)
                 .into(holder.funfactsImage);
         holder.parent.setOnClickListener(new View.OnClickListener() {

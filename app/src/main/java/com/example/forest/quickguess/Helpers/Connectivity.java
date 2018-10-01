@@ -31,15 +31,15 @@ public class Connectivity {
         return false;
     }
 
-    public void checkConnection() {
+ /*   public void checkConnection() {
         if (this.isConnected()) {
             final Points points = new Points();
             PointsRepositories pointsRepositories = new PointsRepositories(context);
-            pointsRepositories.sendPoints(points);
+            pointsRepositories.sendPoints();
         } else {
             //no internet connection
         }
-    }
+    }*/
 
     /**
      * Get the network info

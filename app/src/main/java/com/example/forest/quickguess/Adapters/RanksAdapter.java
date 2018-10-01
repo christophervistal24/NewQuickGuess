@@ -31,8 +31,8 @@ public class RanksAdapter extends RecyclerView.Adapter<RanksAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(RanksAdapter.ViewHolder holder, int position) {
         final Ranks rankItem = rankItems.get(position);
-        holder.playerName.setText(rankItem.getUsername());
-        holder.playerPoints.setText(String.valueOf(rankItem.getPoints()));
+        holder.playerName.setText( String.valueOf(position+1) + " - " + rankItem.getUsername());
+        holder.playerPoints.setText("Points : " + String.valueOf(rankItem.getPoints()));
     }
 
     @Override
