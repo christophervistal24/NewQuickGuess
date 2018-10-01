@@ -1,14 +1,35 @@
 package com.example.forest.quickguess;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.example.forest.quickguess.APIsInterface.APIRanks;
+import com.example.forest.quickguess.APIsInterface.APISendStatus;
 import com.example.forest.quickguess.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Friends.FriendsRepositories;
 import com.example.forest.quickguess.DB.Points.Points;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
+import com.example.forest.quickguess.DB.UserStatus.UserStatus;
 import com.example.forest.quickguess.Helpers.Connectivity;
+import com.example.forest.quickguess.Services.WebService.RanksRequest;
+import com.example.forest.quickguess.Services.WebService.RanksResponse;
+import com.example.forest.quickguess.Services.WebService.RanksService;
+import com.example.forest.quickguess.Services.WebService.UserRegisterResponse;
+import com.example.forest.quickguess.Services.WebService.UserStatusRequest;
+import com.example.forest.quickguess.Services.WebService.UserStatusResponse;
+import com.example.forest.quickguess.Services.WebService.UserStatusService;
+import com.example.forest.quickguess.Utilities.EncryptUtil;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class ApplicationClass extends Application{
@@ -32,6 +53,7 @@ public class ApplicationClass extends Application{
         questionCategoryRepositories = new QuestionCategoryRepositories(this);
         questionRepositories = new QuestionRepositories(this);
         friendsRepositories = new FriendsRepositories(this);
+//        sendUserStatus()
         insertCategories();
         insertQuestions();
         insertUserPoints();
@@ -47,6 +69,11 @@ public class ApplicationClass extends Application{
             points = new Points();
             pointsRepositories.sendPoints();
         }
+    }
+
+    private void sendUserStatus() {
+        List<UserStatus> userData = DB.getInstance(getApplicationContext()).userStatusDao().getAllStatusOfUser();
+
     }
 
 

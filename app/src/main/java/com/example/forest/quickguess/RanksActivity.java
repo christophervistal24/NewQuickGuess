@@ -114,6 +114,7 @@ public class RanksActivity extends AppCompatActivity {
     private void displayAllUserRanks() {
         (new PointsRepositories(getApplicationContext())).sendPoints();
         userRanks = new ArrayList<>();
+
         Retrofit refrofit = RanksService.RetrofitInstance(getApplicationContext());
         APIRanks services = refrofit.create(APIRanks.class);
         RanksRequest ranksRequest = new RanksRequest();
