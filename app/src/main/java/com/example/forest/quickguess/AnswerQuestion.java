@@ -61,7 +61,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.answerQuestionLayout) RelativeLayout answerQuestionLayout;
 
 
-    private static final long counter = 2000;
+    private static final long counter = 11000;
     public CountDownTimer countDownTimer;
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;

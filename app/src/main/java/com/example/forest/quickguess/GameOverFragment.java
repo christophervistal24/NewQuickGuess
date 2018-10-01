@@ -52,7 +52,7 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
 
         playAnswered.setText("Answered Question"+String.valueOf(getAnswered()));
-        needToAnswer.setText("Question need to answer to save one friend : "+String.valueOf( getNeedToAnswer()));
+//        needToAnswer.setText("Question need to answer to save one friend : "+String.valueOf( getNeedToAnswer()));
         txtScore.setText("Score : "+String.valueOf(getAnswered()*100));
         return view;
     }

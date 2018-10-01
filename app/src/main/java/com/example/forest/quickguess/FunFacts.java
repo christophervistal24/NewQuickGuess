@@ -166,7 +166,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
                 fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 FragmentUtil.sDisableFragmentAnimations = false;
                 continueLayout();
-                isUserCanSaveFriends();
+//                isUserCanSaveFriends();
            }
         }
     }

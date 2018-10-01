@@ -172,18 +172,14 @@ public class MainActivity extends AppCompatActivity {
     public void create() {
         final String player = username.getText().toString();
 
-        if  ( (player.isEmpty()  || InputHelpers.isProperUsername(player) ) && emailaddress.length() <= 0)
+        if  ( (player.isEmpty()  || InputHelpers.isProperUsername(player) ))
         {
             yoYoString = YoYo.with(Techniques.Shake)
                     .duration(700)
                     .playOn(username);
-            yoYoString = YoYo.with(Techniques.Shake)
-                    .duration(700)
-                    .playOn(emailaddress);
             SoundUtil.songLoad(getApplicationContext(),R.raw.error)
                      .start();
             username.setError("Please provide a proper name");
-            emailaddress.setError("Please provide a proper email address");
         } else {
             displayDialog(player);
         }
@@ -223,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
         Retrofit refrofit = UserRegisterService.RetrofitInstance(getApplicationContext());
         APIRegister services = refrofit.create(APIRegister.class);
-        UserRegisterRequest userRegisterRequest = new UserRegisterRequest(player,emailaddress.toString());
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest(player);
         Call<UserRegisterResponse> UserRegisterResponseCall = services.register(userRegisterRequest);
         UserRegisterResponseCall.enqueue(new Callback<UserRegisterResponse>() {
             @Override
