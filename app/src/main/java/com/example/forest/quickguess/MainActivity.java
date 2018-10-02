@@ -181,12 +181,12 @@ public class MainActivity extends AppCompatActivity {
                      .start();
             username.setError("Please provide a proper name");
         } else {
-            displayDialog(player);
+            signUp(player);
         }
 
     }
 
-    private void displayDialog(final String playername)
+  /*  private void displayDialog(final String playername)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(R.mipmap.ic_launcher);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
 
-    }
+    }*/
 
     private void signUp(final String player)
     {
@@ -239,6 +239,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

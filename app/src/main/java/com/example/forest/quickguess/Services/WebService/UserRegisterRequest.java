@@ -6,11 +6,6 @@ public class UserRegisterRequest {
     public UserRegisterRequest(String name) {
         this.setUsername(name);
     }
-
-
-
-
-
     public String getUsername() {
         return username;
     }

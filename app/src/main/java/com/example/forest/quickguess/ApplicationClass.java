@@ -487,7 +487,7 @@ public class ApplicationClass extends Application{
 
 //5 Budapest
 //Difficult
-            questionRepositories.questionCreator("What is the capital city of Hungary?","Bucharest","Prague ","Budapest","Oslo","Budapest","No Funfacts","budapest_5.png",4,3);
+            questionRepositories.questionCreator("What is the capital city of Hungary?","Bucharest","Prague ","Budapest","Oslo","Budapest","The Budapest metropolitan area had a GDP of $141.0 billion (€129.4 billion) in 2016[citation needed], accounting for 49.6 percent of the GDP of Hungary. GDP per capita in the city is $64,283, which means 148% of the EU average measured on purchasing power parity. Thereby the city is among the top 100 GDP performing cities in the world","budapest_5.png",4,3);
 
 //6 Berlin
 //Difficult
@@ -691,7 +691,7 @@ public class ApplicationClass extends Application{
 
 //56 Australia
 //Difficult
-            questionRepositories.questionCreator("In the following which country is the death penalty for crime forbidden?","India","The United States","Australia","Belarus","Australia","No Funfacts","australia_56.png",4,3);
+            questionRepositories.questionCreator("In the following which country is the death penalty for crime forbidden?","India","The United States","Australia","Belarus","Australia","Capital punishment in Australia has been abolished in all jurisdictions. Queensland abolished the death penalty in 1922. Tasmania did the same in 1968, the federal government abolished the death penalty in 1973, with application also in the Australian Capital Territory and the Northern Territory. Victoria did so in 1975, South Australia in 1976, and Western Australia in 1984. New South Wales abolished the death penalty for murder in 1955, and for all crimes in 1985. In 2010, the federal government passed legislation prohibiting the re-establishment of capital punishment by any state or territory.","australia_56.png",4,3);
 
 //57 Russia
 //Difficult
@@ -747,7 +747,7 @@ public class ApplicationClass extends Application{
 
 //70 Asia
 //Medium
-            questionRepositories.questionCreator("Which continent will you find Turkey?","Europe","Africa","Asia","North America","Asia","No Funfacts","asia_70.png",4,2);
+            questionRepositories.questionCreator("Which continent will you find Turkey?","Europe","Africa","Asia","North America","Asia","Turkey is a nation straddling eastern Europe and western Asia with cultural connections to ancient Greek, Persian, Roman, Byzantine and Ottoman empires. Cosmopolitan Istanbul, on the Bosphorus Strait, is home to the iconic Hagia Sophia, with its soaring dome and Christian mosaics, the massive 17th-century Blue Mosque and the circa-1460 Topkapı Palace, former home of sultans. Ankara is Turkey’s modern capital.","asia_70.png",4,2);
 
 //71 Europe
 //Medium
@@ -775,7 +775,7 @@ public class ApplicationClass extends Application{
 
 //77 Africa
 //Easy
-            questionRepositories.questionCreator("On which continent will you find Egypt?","Africa","Europe","South America","North America","Africa","No Funfacts","africa_77.png",4,1);
+            questionRepositories.questionCreator("On which continent will you find Egypt?","Africa","Europe","South America","North America","Africa","Africa is the world's second largest and second most-populous continent. At about 30.3 million km² including adjacent islands, it covers 6% of Earth's total surface area and 20% of its land area. With 1.2 billion people as of 2016, it accounts for about 16% of the world's human population.","africa_77.png",4,1);
 
 //78 Asia
 //Medium
@@ -819,7 +819,7 @@ public class ApplicationClass extends Application{
 
 //88 Australie
 //Medium
-            questionRepositories.questionCreator("In the following what do the French call Australia?","Australien","Australie","Nouveau Holland","Australe","Australie","No Funfacts","australie_88.png",4,2);
+            questionRepositories.questionCreator("In the following what do the French call Australia?","Australien","Australie","Nouveau Holland","Australe","Australie","Australia is a country and continent surrounded by the Indian and Pacific oceans. Its major cities – Sydney, Brisbane, Melbourne, Perth, Adelaide – are coastal. Its capital, Canberra, is inland. The country is known for its Sydney Opera House, the Great Barrier Reef, a vast interior desert wilderness called the Outback, and unique animal species like kangaroos and duck-billed platypuses.","australie_88.png",4,2);
 
 //89 Yokohama
 //Easy
@@ -1922,7 +1922,7 @@ public class ApplicationClass extends Application{
 
 //35 Robert E. Peary
 
-            questionRepositories.questionCreator("Who led the expedition to Greenland and later proved it to be an island?","Robert E. Peary","John Milne","Dicaearchus","Daubree","Robert E. Peary","No Fun Facts","robert_e_peary_35.png",1,3);
+            questionRepositories.questionCreator("Who led the expedition to Greenland and later proved it to be an island?","Robert E. Peary","John Milne","Dicaearchus","Daubree","Robert E. Peary","Rear Admiral Robert Edwin Peary Sr. was an American explorer, United States Navy officer and Master Mason, who made several expeditions to the Arctic in the late 19th and early 20th centuries. He is best known for claiming to have reached the geographic North Pole with his expedition on April 6, 1909.","robert_e_peary_35.png",1,3);
 
 //36 Ferdinand Magellan
 

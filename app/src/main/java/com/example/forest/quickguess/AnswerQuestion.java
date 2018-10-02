@@ -77,6 +77,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     protected  SlideAdapter adapter;
     Vibrator vibrator;
     int user_points;
+    int level_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +125,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
             int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(selected_category);
-            int level_id = questionRepositories.questionClassier(category_id);
-            BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
-            BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
+            changeBackgroundViaLevel(category_id);
             //get one questions
             q = questionRepositories.selectQuestion(category_id);
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
@@ -146,6 +145,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         {
             finish();
         }
+
+    }
+
+    private void changeBackgroundViaLevel(int category_id) {
+        level_id = questionRepositories.questionClassier(category_id);
+        if  (level_id >= 3)
+        {
+            timer.setTextColor(Color.parseColor("#ffffff"));
+            question.setTextColor(Color.parseColor("#ffffff"));
+        }
+        BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
+        BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
 
     }
 
@@ -196,7 +207,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                                 .duration(500)
                                 .repeat(5)
                                 .playOn(timer);
-                    }  else {
+                    } else if  (level_id >= 3) {
+
+                        timer.setTextColor(Color.parseColor("#ffffff"));
+                    }
+                    else {
                         timer.setTextColor(Color.parseColor("#707070"));
                     }
 

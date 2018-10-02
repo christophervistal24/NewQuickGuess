@@ -4,20 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameOverFragment"
-    android:background="@drawable/easy_bg"
+
+    android:id="@+id/gameOverLayout"
     >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:padding="20dp"
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true"
         >
 
         <TextView
+            android:textColor="#fff"
             android:id="@+id/txtAnswered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_gravity="center"
             android:text="Answered : "/>
 
 
@@ -26,20 +33,35 @@
             android:id="@+id/txtneeedToAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Need to answer : "/>
+            android:layout_gravity="center"
+            android:text="@string/need_to_answer"/>
 
         <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="#fff"
             android:id="@+id/txtScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score : "/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnPlayAgain"
-            android:text="Play Again"/>
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:text="@string/score"/>
 
     </LinearLayout>
+    <Button
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/infoLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPlayAgain"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/play_again"
+        android:textColor="#707070"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>

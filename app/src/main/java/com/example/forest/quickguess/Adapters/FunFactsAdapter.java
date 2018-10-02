@@ -50,7 +50,7 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Position" + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, questionsItem.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
     }
