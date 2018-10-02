@@ -3,6 +3,7 @@ package com.example.forest.quickguess.DB.Questions;
 import android.content.Context;
 
 import com.example.forest.quickguess.AnswerQuestion;
+import com.example.forest.quickguess.CategoriesActivity;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.FinishCategoryActivity;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
@@ -57,8 +58,8 @@ public class QuestionRepositories {
           return questionsList.get(0);
       } else {
           if (context instanceof AnswerQuestion){
-              ((AnswerQuestion) context).finish();
               ((AnswerQuestion) context).clockTick.release();
+              ((AnswerQuestion) context).finish();
           }
           new RedirectHelper(context, FinishCategoryActivity.class);
       }

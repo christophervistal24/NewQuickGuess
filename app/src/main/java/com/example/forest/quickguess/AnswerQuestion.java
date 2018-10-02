@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -26,7 +25,6 @@ import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.DB.Questions.Questions;
-import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.DB.UserStatus.UserStatus;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.QuestionInterface.QuestionInterface;
@@ -78,6 +76,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     Vibrator vibrator;
     int user_points;
     int level_id;
+    private boolean isAnswerQuestionInstance = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +87,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         classInstantiate();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         getQuestion();
+        isAnswerQuestionInstance = true;
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         initUserPoints();
+
     }
 
     private void initUserPoints() {
@@ -119,7 +120,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     {
 
         try {
-            startTimer(counter);
+            if  (isAnswerQuestionInstance)
+            {
+                startTimer();
+            }
             SharedPreferenceHelper.PREF_FILE = "user_played";
             String selected_category = SharedPreferenceHelper
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
@@ -128,6 +132,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             changeBackgroundViaLevel(category_id);
             //get one questions
             q = questionRepositories.selectQuestion(category_id);
+
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
             List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
             //set and decrypt
@@ -191,11 +196,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
    }
 
 
-    private  void startTimer(final long counter) {
+    private  void startTimer() {
         if (!isCounterRunning) {
             isCounterRunning  = true;
             clockTick.start();
-            countDownTimer = new CountDownTimer(counter, 1000) {
+            countDownTimer = new CountDownTimer(AnswerQuestion.counter, 1000) {
                 @Override
                 public void onTick(long timeRemaining) {
                     int remainingTime = (int) (TimeUnit.MILLISECONDS.toSeconds(timeRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeRemaining)));
@@ -323,6 +328,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             clockTick.start();
         }
         getQuestion();
+        isAnswerQuestionInstance = true;
         super.onResume();
     }
 
@@ -365,7 +371,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onDestroy() {
-        countDownTimer.cancel();
+        if  (isCounterRunning)
+        {
+            countDownTimer.cancel();
+        }
         DB.getInstance(getApplicationContext()).destroyInstance();
         super.onDestroy();
     }

@@ -68,6 +68,24 @@ public class ApplicationClass extends Application{
         if (DB.getInstance(this).questionsDao().countQuestion() == 0)
         {
             //all questions
+            //Difficult
+            questionRepositories.questionCreator("﻿What is the popular name for the flowering houseplant Impatiens Walleriana?","Busy Lizzie","Sampaguita","Carnation","Rose","Busy Lizzie","Impatiens Walleriana are well known for blooming for the most part of a year which is where the name is derived from \"BUSY\"","busy_lizzie_1.png",2,3);
+
+//Difficult
+            questionRepositories.questionCreator("The love apple is the original name for what?","Tomato","Star apple","Pine apple","Bell pepper","Tomato","Tomato has seeds and grows from a flowering plant botanically it is classed as a fruit not a vegetable.","tomato_2.png",2,3);
+
+//Difficult
+            questionRepositories.questionCreator("The Death Cap is the most poisonous variety of what?","Mushroom","Fruits","Vines","Flowers","Mushroom","Mushrooms are more closely related in DNA to humans than to plants. Like human skin, mushrooms can produce vitamin D by being exposed to sunlight.","mushroom_3.png",2,3);
+
+//Easy
+            questionRepositories.questionCreator("What is the name given to the female reproductive organ of a flower?","Pistil","Stamen","Sepal","Petal","Pistil","The pistil has a bulbous base (the ovary) containing the ovules, which develop into seeds after fertilization of egg cell(s) in the ovule.","pistil_4.png",2,1);
+
+//Medium
+            questionRepositories.questionCreator("A Kumquat is a small Japanese variety of what sort of fruit?","Orange","Cherry","Kiwi","Lemon","Orange","The fruit came before the color. The word \"orange\" derives from the Arabic \"naranj\" and arrived in English as \"narange\" in the 14th century, gradually losing the initial \"n.\"","orange_5.png",2,2);
+
+//Medium
+            questionRepositories.questionCreator("Harry Wheat croft was a renowned breeder of what?","Roses","Tulip","Cherry  blossoms","Calla lily","Roses","Red rose is a symbol of love, yellow of friendship, orange of enthusiasm, white of purity and pink of joy. Wild roses have 5 petals and 5 sepals. Roses are well known by their prickles.","roses_6.png",2,2);
+
 //1 Starfish
 //Medium
             questionRepositories.questionCreator("Which of following creatures has the power to grow lost parts?","Crab","Starfish","Squirrel","Squid","Starfish","Some species of starfish have the ability to regenerate lost arms and can regrow an entire new limb given time. A few can regrow a complete new disc from a single arm, while others need at least part of the central disc to be attached to the detached part.","starfish_1.png",3,2);

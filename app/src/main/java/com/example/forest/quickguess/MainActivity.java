@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         TypeFaceUtil.initDimboFont(this);
         setContentView(R.layout.activity_main);
         disposeAllBackstack();
-//        startService(new Intent(this,MyService.class));
+        startService(new Intent(this,MyService.class));
         init();
         checkUser();
         //TODO check if the user has a gmail account in here phone
@@ -90,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
         lifeRepositories = new LifeRepositories(this);
         fragmentUtil = new FragmentUtil();
         pointsRepositories = new PointsRepositories(getApplicationContext());
-    /*    YoYo.with(Techniques.DropOut)
+        YoYo.with(Techniques.DropOut)
                     .duration(2000)
                     .delay(1000)
                     .repeat(-1)
-                    .playOn(title);*/
+                    .playOn(title);
 
     }
 
@@ -277,8 +277,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        yoYoString = null;
+        protected void onDestroy() {
+            yoYoString = null;
         DB.getInstance(getApplicationContext()).destroyInstance();
         stopService(new Intent(this,MyService.class));
         super.onDestroy();
