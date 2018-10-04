@@ -33,7 +33,6 @@ import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.EncryptUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.GameBundleUitl;
-import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
@@ -130,7 +129,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
             int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(selected_category);
-            changeBackgroundViaLevel(category_id);
+            Toast.makeText(this, String.valueOf(QuestionRepositories.class_id), Toast.LENGTH_SHORT).show();
+//            changeBackgroundViaLevel(category_id);
             //get one questions
             q = questionRepositories.selectQuestion(category_id);
 
@@ -154,17 +154,17 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     }
 
-    private void changeBackgroundViaLevel(int category_id) {
-        level_id = questionRepositories.questionClassier(category_id);
-        if  (level_id >= 3)
-        {
-            timer.setTextColor(Color.parseColor("#ffffff"));
-            question.setTextColor(Color.parseColor("#ffffff"));
-        }
-        BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
-        BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
-
-    }
+//    private void changeBackgroundViaLevel(int category_id) {
+//        level_id = questionRepositories.questionClassier(category_id);
+//        if  (level_id >= 3)
+//        {
+//            timer.setTextColor(Color.parseColor("#ffffff"));
+//            question.setTextColor(Color.parseColor("#ffffff"));
+//        }
+//        BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
+//        BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
+//
+//    }
 
     @OnClick({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
     public void click(View v) {

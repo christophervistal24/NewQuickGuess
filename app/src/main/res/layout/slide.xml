@@ -66,16 +66,27 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/right" />
         </RelativeLayout>
-        <TextView
-            android:id="@+id/txtdescription"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
+
+        <Button
+            android:id="@+id/easyLevel"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tap_to_start"
-            android:textAlignment="center"
-            android:textSize="45sp"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+            android:text="@string/easy_level"
+           />
+
+        <Button
+            android:id="@+id/moderateLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/moderate_level"
+            />
+
+        <Button
+            android:id="@+id/difficultLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/difficult_level"
+            />
 
     </LinearLayout>
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class QuestionRepositories {
 
     public Context context;
-    private static int class_id = 1;
+    public static int class_id = 1;
     public QuestionRepositories(Context context)
     {
         this.context = context;
@@ -51,7 +51,6 @@ public class QuestionRepositories {
 
   public Questions selectQuestion(int category_id)
   {
-     int class_id = questionClassier(category_id);
      List<Questions> questionsList = RandomizeUtil.questions(getQuestions(category_id,class_id),getQuestions(category_id,class_id).size());
       if (questionsList.size() != 0 )
       {

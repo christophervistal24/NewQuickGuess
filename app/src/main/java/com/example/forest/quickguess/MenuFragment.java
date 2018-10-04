@@ -73,6 +73,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         userPoints.setText(String.valueOf(user_points));
         userLife.setText(String.valueOf(user_life));
         ((MainActivity)getActivity()).pointsRepositories.sendPoints();
+        lifeRevive();
+        super.onResume();
+    }
+
+    private void lifeRevive() {
         if (((MainActivity)getActivity()).lifeRepositories.getUserLife() <= 0)
         {
             long gameOverTime = GameOverUtil.userGameOverTime(getContext());
@@ -84,7 +89,6 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 startTimerForLife(remainingTime);
             }
         }
-        super.onResume();
     }
 
 
@@ -109,6 +113,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUserPoints();
+        lifeRevive();
         animation = YoYo.with(Techniques.Shake)
                 .duration(2000)
                 .repeat(-1)

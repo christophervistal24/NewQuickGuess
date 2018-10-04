@@ -59,11 +59,11 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         SharedPreferenceHelper.PREF_FILE="user_played";
         category = SharedPreferenceHelper.getSharedPreferenceString(getContext(),"category",null);
         int category_id = DB.getInstance(getContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
-        int level_id = ((AnswerQuestion)getActivity()).questionRepositories.questionClassier(category_id);
+//        int level_id = ((AnswerQuestion)getActivity()).questionRepositories.questionClassier(category_id);
         playAnswered.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         txtScore.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         btnPlayAgain.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        BackgroundUtil.changeAnswerQuestionBG(gameOverLayout,level_id);
+//        BackgroundUtil.changeAnswerQuestionBG(gameOverLayout,level_id);
         fm = getFragmentManager();
         funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
 
