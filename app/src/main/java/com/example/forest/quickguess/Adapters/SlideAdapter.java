@@ -1,30 +1,36 @@
 package com.example.forest.quickguess.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguess.AnswerQuestion;
 import com.example.forest.quickguess.DB.DB;
+import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguess.MainActivity;
 import com.example.forest.quickguess.R;
 public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
     private Context context;
     private YoYo.YoYoString descriptionAnimation;
     private YoYo.YoYoString leftArrowAnimation;
     private YoYo.YoYoString rightArrowAnimation;
+    private LifeRepositories lifeRepositories;
     // list of titles
     private String[] lst_title = {
          "PEOPLE","PLANTS","ANIMALS","GEOGRAPHY", "SPORTS","MUSIC","TECHNOLOGY","ENTERTAINMENT"
@@ -47,6 +53,7 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
 
     public SlideAdapter(Context context) {
         this.context = context;
+        lifeRepositories = new LifeRepositories(context);
     }
 
     @Override
@@ -146,7 +153,14 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
           String category = (String) view.getTag();
           SharedPreferenceHelper.PREF_FILE="user_played";
           SharedPreferenceHelper.setSharedPreferenceString(context,"category",category);
-          new RedirectHelper(view.getContext(), AnswerQuestion.class);
+          if (lifeRepositories.getUserLife() <= 0)
+          {
+              AlertDialog.Builder builder = new AlertDialog.Builder(context);
+              builder.setMessage("GAME OVER");
+              builder.show();
+          } else {
+              new RedirectHelper(view.getContext(), AnswerQuestion.class);
+          }
     }
 
 

@@ -8,8 +8,8 @@ public class User
 {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String username;
+
 
     public User(String username) {
         setUsername(username);

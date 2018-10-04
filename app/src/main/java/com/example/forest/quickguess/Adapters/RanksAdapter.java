@@ -1,11 +1,13 @@
 package com.example.forest.quickguess.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.forest.quickguess.R;
@@ -51,9 +53,11 @@ public class RanksAdapter extends RecyclerView.Adapter<RanksAdapter.ViewHolder> 
         TextView playerName;
         TextView playerPoints;
         TextView playerTop;
+        LinearLayout itemLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
+            itemLayout = itemView.findViewById(R.id.itemLayout);
             playerTop = itemView.findViewById(R.id.top);
             playerName = itemView.findViewById(R.id.playerName);
             playerPoints = itemView.findViewById(R.id.playerPoints);

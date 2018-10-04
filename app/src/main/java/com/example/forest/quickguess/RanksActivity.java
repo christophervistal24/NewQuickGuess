@@ -122,7 +122,6 @@ public class RanksActivity extends AppCompatActivity {
         final ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(RanksActivity.this);
         progressDialog.setMessage("Please wait . . .");
-        progressDialog.setTitle("Getting All users");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         // show it
         progressDialog.show();

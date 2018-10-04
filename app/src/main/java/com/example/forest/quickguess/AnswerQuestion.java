@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -32,6 +33,7 @@ import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.EncryptUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.GameBundleUitl;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
@@ -90,8 +92,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         isAnswerQuestionInstance = true;
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         initUserPoints();
-
-    }
+      }
 
     private void initUserPoints() {
         int fetchPointsByAnswer = DB.getInstance(getApplicationContext()).userStatusDao().countAllForPoints();
@@ -318,7 +319,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onResume() {
-        try {
+      try {
             initUserPoints();
             points.setText(String.valueOf(user_points));
             clockTick.isPlaying();
@@ -406,6 +407,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
 
 }

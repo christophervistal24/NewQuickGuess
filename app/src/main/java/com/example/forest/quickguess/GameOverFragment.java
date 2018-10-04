@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.UserStatus.UserStatusRepositories;
@@ -20,6 +21,8 @@ import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,7 +118,8 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         FragmentUtil.sDisableFragmentAnimations = true;
         fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentUtil.sDisableFragmentAnimations = false;
-        funFactsFragment.continueLayout();
+//        funFactsFragment.continueLayout();
+        ((AnswerQuestion)Objects.requireNonNull(getActivity())).finish();
       }
 
 

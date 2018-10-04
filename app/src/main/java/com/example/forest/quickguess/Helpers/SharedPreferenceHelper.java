@@ -32,6 +32,14 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    public static void setSharedPreferenceLong(Context context, String key, long value)
+    {
+        SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
     /**
      * Set a Boolean shared preference
      * @param key - Key to set shared preference
@@ -78,5 +86,11 @@ public class SharedPreferenceHelper {
     {
         SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
         return settings.getBoolean(key, defValue);
+    }
+
+    public static long getSharedPreferenceLong(Context context, String key, long defValue)
+    {
+        SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
+        return settings.getLong(key, defValue);
     }
 }
