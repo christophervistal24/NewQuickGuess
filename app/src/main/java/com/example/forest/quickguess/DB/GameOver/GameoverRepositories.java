@@ -8,13 +8,12 @@ public class GameoverRepositories {
 
     /*public static boolean gameOver(LifeRepositories lifeRepositories)
     {
-//        if (lifeRepositories.getUserLife() <= 0)
-//        {
-//            return true;
-//        }
-//        return false;
+        if (lifeRepositories.getUserLife() <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 */
-
 
 }
