@@ -70,10 +70,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
         initUserPoints();
+        lifeRevive();
         userPoints.setText(String.valueOf(user_points));
         userLife.setText(String.valueOf(user_life));
         ((MainActivity)getActivity()).pointsRepositories.sendPoints();
-        lifeRevive();
         super.onResume();
     }
 
@@ -101,6 +101,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         unbinder = ButterKnife.bind(this,view);
         userLife.setText(null);
         userPoints.setText(null);
+        lifeRevive();
         userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
