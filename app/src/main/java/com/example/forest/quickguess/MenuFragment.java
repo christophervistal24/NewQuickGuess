@@ -4,10 +4,12 @@ package com.example.forest.quickguess;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,13 @@ import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
+import com.example.forest.quickguess.Utilities.IOnBackPressed;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +53,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private int user_points;
     YoYo.YoYoString animation;
 
+    private static final long FIVE_MINUTES = 5 * 60 * 1000;
+    CountDownTimer countDownTimer;
+    private boolean isCounterRunning = false;
+
 
     public MenuFragment() {
         // Required empty public constructor
@@ -58,14 +68,27 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
-        userLife.setText(null);
-        userPoints.setText(null);
         welcomeLayout.setVisibility(View.GONE);
         initUserPoints();
-        userLife.setText(String.valueOf(user_life));
+        lifeRevive();
         userPoints.setText(String.valueOf(user_points));
+        userLife.setText(String.valueOf(user_life));
         ((MainActivity)getActivity()).pointsRepositories.sendPoints();
         super.onResume();
+    }
+
+    private void lifeRevive() {
+        if (((MainActivity)getActivity()).lifeRepositories.getUserLife() <= 0)
+        {
+            long gameOverTime = GameOverUtil.userGameOverTime(getContext());
+            long fiveAgo = System.currentTimeMillis() - gameOverTime;
+            if (fiveAgo >= FIVE_MINUTES) {
+                UserRepositories.defaultLifetoUser(((MainActivity)getActivity()).lifeRepositories);
+            } else {
+                long remainingTime = FIVE_MINUTES - fiveAgo;
+                startTimerForLife(remainingTime);
+            }
+        }
     }
 
 
@@ -78,6 +101,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         unbinder = ButterKnife.bind(this,view);
         userLife.setText(null);
         userPoints.setText(null);
+        lifeRevive();
         userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
@@ -90,6 +114,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUserPoints();
+        lifeRevive();
         animation = YoYo.with(Techniques.Shake)
                 .duration(2000)
                 .repeat(-1)
@@ -98,20 +123,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserPoints() {
-        /*PointsRepositories pointsRepositories = ((MainActivity)getActivity())
-                                                .pointsRepositories;*/
-      /*  int partial_points = SharedPreferenceHelper.
-                                getSharedPreferenceInt(getContext(),"user_points",0) + UserRepositories.getUserPoints(pointsRepositories);
-        int fetchPointsByAnswer = DB.getInstance(getContext()).userStatusDao().countAllForPoints();
-        if (partial_points > fetchPointsByAnswer)
-        {
-            user_points = fetchPointsByAnswer * 100;
-        } else if (partial_points == fetchPointsByAnswer){
-            user_points = partial_points;
-        }*/
-
-      user_points = DB.getInstance(getContext()).userStatusDao().countAllForPoints() * 100;
-
+        user_points = DB.getInstance(getContext()).userStatusDao().countAllForPoints() * 100;
     }
 
 
@@ -167,4 +179,36 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void startTimerForLife(long counter)
+    {
+        if (!isCounterRunning) {
+            countDownTimer = new CountDownTimer(counter,1000) {
+                @Override
+                public void onTick(long mill) {
+                    userLife.setText(String.format(Locale.getDefault(),"%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(mill),
+                            TimeUnit.MILLISECONDS.toSeconds(mill) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mill))
+                            )
+                    );
+                }
+
+                @Override
+                public void onFinish() {
+                    countDownTimer.cancel();
+                    isCounterRunning = false;
+                }
+            }.start();
+        }
+        isCounterRunning = true;
+    }
+
+
+    @Override
+    public void onStop() {
+            if(countDownTimer != null){
+                countDownTimer.cancel();
+            }
+        super.onStop();
+    }
 }

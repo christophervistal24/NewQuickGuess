@@ -50,6 +50,13 @@
     <string name="player_name">Player name</string>
     <string name="player_points">Player points</string>
     <string name="search_here">Type player name here</string>
+    <string name="play_again">Play Again</string>
+    <string name="score">Score :</string>
+    <string name="need_to_answer">Need to answer :</string>
+    <string name="easy_level">Easy</string>
+    <string name="moderate_level">moderate</string>
+    <string name="difficult_level">difficult</string>
 
-
+    <item type="id" name="class_id" />
+    <item type="id" name="category" />
 </resources>

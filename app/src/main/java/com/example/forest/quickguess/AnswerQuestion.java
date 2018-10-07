@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -26,7 +27,6 @@ import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.DB.Questions.Questions;
-import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.DB.UserStatus.UserStatus;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.QuestionInterface.QuestionInterface;
@@ -34,6 +34,7 @@ import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.EncryptUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.GameBundleUitl;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
@@ -61,7 +62,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @BindView(R.id.answerQuestionLayout) RelativeLayout answerQuestionLayout;
 
 
+
     private static final long counter = 21000;
+
+
     public CountDownTimer countDownTimer;
     protected int userPoints = 0;
     public LifeRepositories lifeRepositories;
@@ -77,6 +81,8 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     protected  SlideAdapter adapter;
     Vibrator vibrator;
     int user_points;
+    int level_id;
+    private boolean isAnswerQuestionInstance = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +93,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         classInstantiate();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         getQuestion();
+        isAnswerQuestionInstance = true;
         life.setText(String.valueOf(lifeRepositories.getUserLife()));
         initUserPoints();
-    }
+      }
 
     private void initUserPoints() {
         int fetchPointsByAnswer = DB.getInstance(getApplicationContext()).userStatusDao().countAllForPoints();
@@ -118,17 +125,19 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     {
 
         try {
-            startTimer(counter);
+            if  (isAnswerQuestionInstance)
+            {
+                startTimer();
+            }
             SharedPreferenceHelper.PREF_FILE = "user_played";
             String selected_category = SharedPreferenceHelper
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
             int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(selected_category);
-            int level_id = questionRepositories.questionClassier(category_id);
-            BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
-            BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
+  //          changeBackgroundViaLevel(category_id);
             //get one questions
             q = questionRepositories.selectQuestion(category_id);
+
             List<String> choices = Arrays.asList(q.getChoice_a(), q.getChoice_b(), q.getChoice_c(), q.getChoice_d());
             List<String> randomizeChoices = questionRepositories.randomizeChoices(choices);
             //set and decrypt
@@ -148,6 +157,18 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
 
     }
+
+//    private void changeBackgroundViaLevel(int category_id) {
+//        level_id = questionRepositories.questionClassier(category_id);
+//        if  (level_id >= 3)
+//        {
+//            timer.setTextColor(Color.parseColor("#ffffff"));
+//            question.setTextColor(Color.parseColor("#ffffff"));
+//        }
+//        BackgroundUtil.changeAnswerQuestionBG(answerQuestionLayout,level_id);
+//        BackgroundUtil.changeButtonsBackground(new Button[]{choice_a, choice_b, choice_c, choice_d},level_id);
+//
+//    }
 
     @OnClick({R.id.choice_a, R.id.choice_b,R.id.choice_c,R.id.choice_d})
     public void click(View v) {
@@ -180,11 +201,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
    }
 
 
-    private  void startTimer(final long counter) {
+    private  void startTimer() {
         if (!isCounterRunning) {
             isCounterRunning  = true;
             clockTick.start();
-            countDownTimer = new CountDownTimer(counter, 1000) {
+            countDownTimer = new CountDownTimer(AnswerQuestion.counter, 1000) {
                 @Override
                 public void onTick(long timeRemaining) {
                     int remainingTime = (int) (TimeUnit.MILLISECONDS.toSeconds(timeRemaining) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeRemaining)));
@@ -196,7 +217,11 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
                                 .duration(500)
                                 .repeat(5)
                                 .playOn(timer);
-                    }  else {
+                    } else if  (level_id >= 3) {
+
+                        timer.setTextColor(Color.parseColor("#ffffff"));
+                    }
+                    else {
                         timer.setTextColor(Color.parseColor("#707070"));
                     }
 
@@ -226,11 +251,26 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
+    private void isGameOver()
+    {
+        if  (lifeRepositories.getUserLife() <= 0)
+        {
+            GameOverUtil.saveTime(getApplicationContext(),System.currentTimeMillis());
+            finish();
+        } else {
+            int decreaseCurrentLife = (lifeRepositories.getUserLife());
+            lifeRepositories.setLifeToUser(--decreaseCurrentLife);
+            life.setText(String.valueOf(lifeRepositories.getUserLife()));
+        }
+    }
+
     @Override
     public void onBackPressed() {
+        tellFragments();
+        tellFragmentQuestionResult();
         countDownTimer.cancel();
         clockTick.release();
-        tellFragments();
+        isGameOver();
         super.onBackPressed();
     }
 
@@ -281,6 +321,14 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
         pointsRepositories.sendPoints();
         initUserPoints();
+        UserStatus userStatus = new UserStatus();
+        userStatus.setQuestion_id(q.getId());
+        //  - is eqaul to wrong
+        userStatus.setQuestion_result(0);
+        userStatus.setCategory_id(q.getCategory_id());
+        userStatus.setClass_id(q.getClass_id());
+        //add user answered question
+        DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
         vibrator.vibrate(500);
         result();
     }
@@ -298,7 +346,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onResume() {
-        try {
+      try {
             initUserPoints();
             points.setText(String.valueOf(user_points));
             clockTick.isPlaying();
@@ -308,6 +356,7 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
             clockTick.start();
         }
         getQuestion();
+        isAnswerQuestionInstance = true;
         super.onResume();
     }
 
@@ -350,7 +399,10 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     @Override
     protected void onDestroy() {
-        countDownTimer.cancel();
+        if  (isCounterRunning)
+        {
+            countDownTimer.cancel();
+        }
         DB.getInstance(getApplicationContext()).destroyInstance();
         super.onDestroy();
     }
@@ -373,6 +425,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         }
     }
 
+    private void tellFragmentQuestionResult() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for(Fragment f : fragments){
+            if(f != null && f instanceof QuestionResult)
+                ((QuestionResult)f).onBackPressed();
+        }
+    }
+
+
     protected void displayGameOverFragment()
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -382,6 +443,21 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    @OnClick(R.id.skipQuestion)
+    public void skipQuestion()
+    {
+        isGameOver();
+        getQuestion();
+    }
+
+    @OnClick(R.id.exit)
+    public void exitCategory()
+    {
+        finish();
+    }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.example.forest.quickguess;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
+import com.example.forest.quickguess.DB.User.User;
+import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.Helpers.FontHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.IOnBackPressed;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
@@ -157,7 +164,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         if (lifeRepositories != null) {
             if  (lifeRepositories.getUserLife() <= 0)
             {
-                GameoverRepositories.gameOver(lifeRepositories);
+                GameOverUtil.saveTime(getContext(),System.currentTimeMillis());
                 answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
                 answerQuestionActivity.displayGameOverFragment();
             } else {
@@ -166,7 +173,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
                 fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 FragmentUtil.sDisableFragmentAnimations = false;
                 continueLayout();
-                isUserCanSaveFriends();
            }
         }
     }
@@ -186,7 +192,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
            answerQuestionActivity.friendsRepositories.checkAnsweredQuestion(category_id, items);
        } catch  (NullPointerException ignored) {}
     }
-
 
 
     @Override

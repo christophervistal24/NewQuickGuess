@@ -2,7 +2,11 @@ package com.example.forest.quickguess.DB.User;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import com.example.forest.quickguess.DB.Points.Points;
 
 @Dao
 public interface UserDao
@@ -15,5 +19,6 @@ public interface UserDao
 
     @Query("SELECT username FROM users LIMIT 1")
     String getUsername();
+
 
 }

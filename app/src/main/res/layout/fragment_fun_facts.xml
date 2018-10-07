@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textStyle="bold"
-            android:textColor="#707070"
+            android:textColor="#fff"
             android:textAlignment="center"
             android:textSize="40sp" />
 
@@ -47,6 +47,8 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:padding="10dp"
+            android:textColor="#707070"
+            android:background="#fff"
             android:textSize="20sp" />
 
     </LinearLayout>

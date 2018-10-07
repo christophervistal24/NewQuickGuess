@@ -1,6 +1,7 @@
 package com.example.forest.quickguess;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,13 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.UserStatus.UserStatusRepositories;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
+import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +38,8 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
     @BindView(R.id.txtAnswered) TextView playAnswered;
     @BindView(R.id.txtneeedToAnswer) TextView needToAnswer;
     @BindView(R.id.txtScore) TextView txtScore;
+    @BindView(R.id.gameOverLayout) RelativeLayout gameOverLayout;
+    @BindView(R.id.btnPlayAgain) Button btnPlayAgain;
 
     private Unbinder unbinder;
     private String category;
@@ -48,11 +58,17 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         unbinder = ButterKnife.bind(this,view);
         SharedPreferenceHelper.PREF_FILE="user_played";
         category = SharedPreferenceHelper.getSharedPreferenceString(getContext(),"category",null);
+        int category_id = DB.getInstance(getContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
+//        int level_id = ((AnswerQuestion)getActivity()).questionRepositories.questionClassier(category_id);
+        playAnswered.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        txtScore.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        btnPlayAgain.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+//        BackgroundUtil.changeAnswerQuestionBG(gameOverLayout,level_id);
         fm = getFragmentManager();
         funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
 
-        playAnswered.setText("Answered Question"+String.valueOf(getAnswered()));
-        needToAnswer.setText("Question need to answer to save one friend : "+String.valueOf( getNeedToAnswer()));
+        playAnswered.setText("Answered : "+String.valueOf(getAnswered()));
+//        needToAnswer.setText("Question need to answer to save one friend : "+String.valueOf( getNeedToAnswer()));
         txtScore.setText("Score : "+String.valueOf(getAnswered()*100));
         return view;
     }
@@ -102,7 +118,8 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         FragmentUtil.sDisableFragmentAnimations = true;
         fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentUtil.sDisableFragmentAnimations = false;
-        funFactsFragment.continueLayout();
+//        funFactsFragment.continueLayout();
+        ((AnswerQuestion)Objects.requireNonNull(getActivity())).finish();
       }
 
 

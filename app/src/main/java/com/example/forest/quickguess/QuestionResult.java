@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,6 @@ import butterknife.Unbinder;
  */
 public class QuestionResult extends Fragment implements IOnBackPressed {
 
-    TextView life;
-    TextView question;
     @BindView(R.id.resultIcon) ImageView resultIcon;
     private Unbinder unbinder;
 
@@ -54,7 +53,7 @@ public class QuestionResult extends Fragment implements IOnBackPressed {
     {
         FragmentManager fm = getFragmentManager();
         int count = fm.getBackStackEntryCount();
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < count; i++) {
             fm.popBackStack();
         }
         ((AnswerQuestion)getActivity()).gotoFunFacts();
@@ -73,5 +72,6 @@ public class QuestionResult extends Fragment implements IOnBackPressed {
         for (int i = 0; i < count; ++i) {
             fm.popBackStack();
         }
+       Log.d("Instance",getContext().toString());
     }
 }

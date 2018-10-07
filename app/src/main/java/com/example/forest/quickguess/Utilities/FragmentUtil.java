@@ -44,7 +44,7 @@ public class FragmentUtil extends Fragment{
           FragmentManager fragmentManager = answerQuestion.getSupportFragmentManager();
           FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
           FunFacts funFacts = new FunFacts();
-          fragmentTransaction.add(R.id.fragment_fun_facts, funFacts);
+          fragmentTransaction.replace(R.id.fragment_fun_facts, funFacts);
           fragmentTransaction.addToBackStack(null);
           fragmentTransaction.commit();
       }

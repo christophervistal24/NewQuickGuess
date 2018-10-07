@@ -69,7 +69,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.welcome_slide3,
                 R.layout.welcome_slide4,
                 R.layout.welcome_slide_5,
-                R.layout.welcome_slide_6
+                R.layout.welcome_slide_6,
+                R.layout.welcome_slide_7,
+                R.layout.welcome_slide_8,
+                R.layout.welcome_slide_9
         };
 
         // adding bottom dots
@@ -170,7 +173,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 btnSkip.setVisibility(View.VISIBLE);
             }
 
-            switch (position)
+           /* switch (position)
             {
                 case 1:
                     ImageView wolfy2 = findViewById(R.id.wolfy2);
@@ -209,7 +212,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
                     });
                     break;
-            }
+            }*/
         }
 
         @Override
@@ -217,7 +220,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         }
     };
-
+/*
     private void displayMessage2()
     {
         final AutoTypeTextView message2 = findViewById(R.id.message2);
@@ -240,7 +243,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 message4.setTextAutoTyping(" each category contain 100 questions the good news here is for every 30 questions that you answered correctly you can save one of your friend's life.");
             }
         }, 300);
-    }
+    }*/
         /**
          * Making notification bar transparent
          */
@@ -267,15 +270,15 @@ public class WelcomeActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
-            ImageView wolfy = view.findViewById(R.id.wolfy);
-            AutoTypeTextView message =  view.findViewById(R.id.message);
-            if (position == 0)
+          /*  ImageView wolfy = view.findViewById(R.id.wolfy);
+            AutoTypeTextView message =  view.findViewById(R.id.message);*/
+           /* if (position == 0)
             {
                 LaunchUtil.animateWolfy(wolfy,50,800);
                 message.setVisibility(View.VISIBLE);
                 message.setTypingSpeed(2);
                 message.setTextAutoTyping("Hello! my name is Wolfy can you help me?");
-            }
+            }*/
             container.addView(view);
             TypeFaceUtil.initDimboFont(activity);
             return view;

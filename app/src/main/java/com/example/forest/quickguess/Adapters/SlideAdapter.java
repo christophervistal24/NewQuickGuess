@@ -1,30 +1,41 @@
 package com.example.forest.quickguess.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguess.AnswerQuestion;
 import com.example.forest.quickguess.DB.DB;
+import com.example.forest.quickguess.DB.Life.LifeRepositories;
+import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguess.MainActivity;
 import com.example.forest.quickguess.R;
 public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
     private Context context;
     private YoYo.YoYoString descriptionAnimation;
     private YoYo.YoYoString leftArrowAnimation;
     private YoYo.YoYoString rightArrowAnimation;
+    private LifeRepositories lifeRepositories;
     // list of titles
     private String[] lst_title = {
          "PEOPLE","PLANTS","ANIMALS","GEOGRAPHY", "SPORTS","MUSIC","TECHNOLOGY","ENTERTAINMENT"
@@ -42,11 +53,18 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
             "cat_enter_2"
     };
 
+    private String[] difficulty_level_id = {
+        "1",
+        "2",
+        "3"
+    };
+
 
 
 
     public SlideAdapter(Context context) {
         this.context = context;
+        lifeRepositories = new LifeRepositories(context);
     }
 
     @Override
@@ -54,27 +72,35 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.slide,container,false);
         setArrows(position , view);
-        RelativeLayout layoutslide = view.findViewById(R.id.slidelinearlayout);
         ImageView pageBackground = view.findViewById(R.id.pageBackground);
-        TextView description = view.findViewById(R.id.txtdescription);
         TextView no = view.findViewById(R.id.txtNoOfAnswered);
-        layoutslide.setTag(lst_title[position]);
-        layoutslide.setOnClickListener(this);
+        Button btnEasy = view.findViewById(R.id.easyLevel);
+        Button btnModerate = view.findViewById(R.id.moderateLevel);
+        Button btnDifficult = view.findViewById(R.id.difficultLevel);
+        eventHandler(lst_title[position], btnEasy, btnModerate, btnDifficult);
+
         pageBackground.setImageResource(context.getResources().getIdentifier(list_background[position],"drawable",context.getPackageName()));
-        description.setTypeface(Typeface.createFromAsset(view.getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         no.setTypeface(Typeface.createFromAsset(view.getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
         int category_id = DB.getInstance(context).categoriesQuestionDao().getCategoryIdByName(lst_title[position].toLowerCase());
         int answered_question = DB.getInstance(context).userStatusDao().countAnsweredQuestion(category_id);
-        description.setText(R.string.tap_to_start);
         no.setText( String.format("%s %s ",String.valueOf(answered_question) , "%"));
-        descriptionAnimation =  YoYo.with(Techniques.DropOut)
-                .duration(800)
-                .delay(500)
-                .repeat(-1)
-                .playOn(description);
         container.addView(view);
         return view;
     }
+
+    //add some tags and events
+    private void eventHandler(String tag, Button btnEasy, Button btnModerate, Button btnDifficult) {
+        btnEasy.setTag(R.id.class_id,difficulty_level_id[0]);
+        btnEasy.setTag(R.id.category, tag);
+        btnModerate.setTag(R.id.class_id,difficulty_level_id[1]);
+        btnModerate.setTag(R.id.category, tag);
+        btnDifficult.setTag(R.id.class_id,difficulty_level_id[2]);
+        btnDifficult.setTag(R.id.category, tag);
+        btnEasy.setOnClickListener(this);
+        btnModerate.setOnClickListener(this);
+        btnDifficult.setOnClickListener(this);
+    }
+
 
     private void setArrows(int position , View v) {
     ImageView left = v.findViewById(R.id.leftArrow);
@@ -143,10 +169,19 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-          String category = (String) view.getTag();
+        String class_id = String.valueOf(view.getTag(R.id.class_id));
+        String category = (String)view.getTag(R.id.category);
+        QuestionRepositories.class_id = Integer.parseInt(class_id);
           SharedPreferenceHelper.PREF_FILE="user_played";
           SharedPreferenceHelper.setSharedPreferenceString(context,"category",category);
-          new RedirectHelper(view.getContext(), AnswerQuestion.class);
+          if (lifeRepositories.getUserLife() <= 0)
+          {
+              AlertDialog.Builder builder = new AlertDialog.Builder(context);
+              builder.setMessage("GAME OVER");
+              builder.show();
+          } else {
+              new RedirectHelper(view.getContext(), AnswerQuestion.class);
+          }
     }
 
 
