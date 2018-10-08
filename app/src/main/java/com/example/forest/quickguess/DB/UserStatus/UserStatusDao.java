@@ -24,4 +24,7 @@ public interface UserStatusDao {
     @Query("SELECT * FROM user_status")
     List<UserStatus> getAllStatusOfUser();
 
+    @Query("DELETE FROM user_status WHERE class_id = :class_id AND category_id  = :category_id")
+    void deleteByClassIdAndCategoryId(int class_id,int category_id);
+
 }

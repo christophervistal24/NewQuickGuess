@@ -253,24 +253,24 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
 
     private void isGameOver()
     {
-        if  (lifeRepositories.getUserLife() <= 0)
+        int decreaseCurrentLife = (lifeRepositories.getUserLife());
+        lifeRepositories.setLifeToUser(--decreaseCurrentLife);
+        if (lifeRepositories.getUserLife() <= 0)
         {
             GameOverUtil.saveTime(getApplicationContext(),System.currentTimeMillis());
             finish();
-        } else {
-            int decreaseCurrentLife = (lifeRepositories.getUserLife());
-            lifeRepositories.setLifeToUser(--decreaseCurrentLife);
-            life.setText(String.valueOf(lifeRepositories.getUserLife()));
         }
+        life.setText(String.valueOf(lifeRepositories.getUserLife()));
+
     }
 
     @Override
     public void onBackPressed() {
+        isGameOver();
         tellFragments();
         tellFragmentQuestionResult();
         countDownTimer.cancel();
         clockTick.release();
-        isGameOver();
         super.onBackPressed();
     }
 
@@ -447,7 +447,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @OnClick(R.id.skipQuestion)
     public void skipQuestion()
     {
-        isGameOver();
         getQuestion();
     }
 

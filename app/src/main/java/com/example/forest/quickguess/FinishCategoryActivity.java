@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguess.DB.DB;
+import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
@@ -25,6 +27,7 @@ public class FinishCategoryActivity extends AppCompatActivity {
     @BindView(R.id.trophyLayout) LinearLayout trophyL;
     String category;
     YoYo.YoYoString yoYoString;
+    int category_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class FinishCategoryActivity extends AppCompatActivity {
             category = SharedPreferenceHelper
                     .getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
+            category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category);
             message.setText(String.format("Congratulations you finish the %s category now you can see all fun facts", category.toUpperCase()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,5 +78,12 @@ public class FinishCategoryActivity extends AppCompatActivity {
     public void onClick()
     {
         new RedirectHelper(getApplicationContext(),DisplayAllFunFacts.class);
+    }
+
+    @OnClick(R.id.resetThisLevel)
+    public void resetCategory()
+    {
+        //delete all
+        DB.getInstance(getApplicationContext()).userStatusDao().deleteByClassIdAndCategoryId(QuestionRepositories.class_id,category_id);
     }
 }
