@@ -19,8 +19,8 @@ public interface CategoriesQuestionDao {
     @Query("SELECT id FROM question_category WHERE category = :category")
     int getCategoryIdByName(String category);
 
-  /*  @Query("SELECT * FROM question_category")
-    List<QuestionCategory> getAllCategories();*/
+    @Query("SELECT * FROM question_category")
+    List<QuestionCategory> getAllCategories();
 
 
     @Query("SELECT id FROM question_category")

@@ -47,11 +47,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Unbinder unbinder;
     @BindView(R.id.userLife) TextView userLife;
     @BindView(R.id.userPoints) TextView userPoints;
-    @BindView(R.id.btnCategories) ImageButton btnCategories;
+
 
     private int user_life;
     private int user_points;
-    YoYo.YoYoString animation;
 
     private static final long FIVE_MINUTES = 5 * 60 * 1000;
     CountDownTimer countDownTimer;
@@ -62,27 +61,28 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-
-
-
     @Override
     public void onResume() {
         RelativeLayout welcomeLayout = (Objects.requireNonNull(getActivity())).findViewById(R.id.welcomeLayout);
         welcomeLayout.setVisibility(View.GONE);
         initUserPoints();
         lifeRevive();
-        userPoints.setText(String.valueOf(user_points));
-        userLife.setText(String.valueOf(user_life));
+        initUserLifeAndPoints();
         ((MainActivity)getActivity()).pointsRepositories.sendPoints();
         super.onResume();
     }
 
-    private void lifeRevive() {
+    private void initUserLifeAndPoints() {
+        userPoints.setText(String.valueOf(user_points));
+        userLife.setText(String.valueOf(user_life));
+    }
+
+    private void lifeRevive() { //check time in for life revive
         if (((MainActivity)getActivity()).lifeRepositories.getUserLife() <= 0)
         {
             long gameOverTime = GameOverUtil.userGameOverTime(getContext());
             long fiveAgo = System.currentTimeMillis() - gameOverTime;
-            if (fiveAgo >= FIVE_MINUTES) {
+            if (fiveAgo >= FIVE_MINUTES) { //if countdown
                 UserRepositories.defaultLifetoUser(((MainActivity)getActivity()).lifeRepositories);
             } else {
                 long remainingTime = FIVE_MINUTES - fiveAgo;
@@ -97,36 +97,35 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         SharedPreferenceHelper.PREF_FILE = "points";
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        WindowHelper.hideNavigationBar(getActivity());
         unbinder = ButterKnife.bind(this,view);
-        userLife.setText(null);
-        userPoints.setText(null);
+        rebaseLifeAndPoints();
         lifeRevive();
-        userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        initFont();
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
         initUserPoints();
-        userLife.setText(String.valueOf(user_life));
-        userPoints.setText(String.valueOf(user_points));
+        initUserLifeAndPoints();
        return view;
+    }
+
+    private void rebaseLifeAndPoints() {
+        userLife.setText(null);
+        userPoints.setText(null);
+    }
+
+    private void initFont() {
+        userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initUserPoints();
         lifeRevive();
-        animation = YoYo.with(Techniques.Shake)
-                .duration(2000)
-                .repeat(-1)
-                .playOn(btnCategories);
-        super.onViewCreated(view, savedInstanceState);
     }
 
     private void initUserPoints() {
         user_points = DB.getInstance(getContext()).userStatusDao().countAllForPoints() * 100;
     }
-
-
 
     @Override
     @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks})
@@ -164,9 +163,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onDestroyView() {
-        animation.stop();
-        animation = null;
-        DB.getInstance(getActivity().getApplicationContext()).destroyInstance();
+         DB.getInstance(getActivity().getApplicationContext()).destroyInstance();
         unbinder.unbind();
         super.onDestroyView();
     }
@@ -179,7 +176,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void startTimerForLife(long counter)
+
+    private void startTimerForLife(long counter) //timer for life revive
     {
         if (!isCounterRunning) {
             countDownTimer = new CountDownTimer(counter,1000) {

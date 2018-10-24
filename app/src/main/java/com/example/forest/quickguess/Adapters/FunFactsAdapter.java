@@ -39,8 +39,7 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
         SharedPreferenceHelper.PREF_FILE="user_played";
         String category = SharedPreferenceHelper.getSharedPreferenceString(context,"category",null);
         final Questions questionsItem = questionsItems.get(position);
-        holder.txtTitle.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        holder.txtQuestion.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        initFont(holder);
         holder.txtTitle.setText(questionsItem.getTitle());
         holder.txtQuestion.setText(questionsItem.getQuestion_fun_facts());
         Picasso.with(context)
@@ -53,6 +52,11 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
                 Toast.makeText(context, questionsItem.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void initFont(ViewHolder holder) {
+        holder.txtTitle.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
+        holder.txtQuestion.setTypeface(Typeface.createFromAsset(context.getAssets(),  "fonts/Dimbo_Regular.ttf"));
     }
 
     @Override
