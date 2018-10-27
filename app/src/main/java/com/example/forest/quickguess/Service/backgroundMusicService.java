@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.example.forest.quickguess.R;
 
-public class MyService extends Service {
+public class backgroundMusicService extends Service {
     private MediaPlayer player;
     @Nullable
     @Override

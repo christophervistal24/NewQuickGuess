@@ -2,6 +2,7 @@ package com.example.forest.quickguess.DB.Points;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.forest.quickguess.APIsInterface.APIPoints;
@@ -57,6 +58,12 @@ public class PointsRepositories {
                 }
             });
         }
+    }
+
+    public void initUserPoints(TextView points)
+    {
+        int current_points = ((DB.getInstance(context).userStatusDao().countAllForPoints()) * 100);
+        points.setText(String.valueOf(current_points));
     }
 
 

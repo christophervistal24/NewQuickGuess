@@ -4,65 +4,68 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
     android:id="@+id/categoriesLayout">
 
 
-
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:padding="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="#fff"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="2dp"
             tools:ignore="UselessParent">
 
 
-
-            <TextView android:id="@+id/categoryName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:fontFamily="@font/font_roboto_medium"
                 android:text="Category"
+                android:textAlignment="center"
                 android:textColor="#828282"
-                android:textSize="25sp"
-                />
+                android:textSize="15sp" />
 
             <TextView
-                android:layout_alignParentEnd="true"
                 android:id="@+id/categoryDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="25sp"
-                />
+                android:textSize="25sp" />
 
-            <Button
-                android:id="@+id/btnEasy"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy"
-                />
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btnEasy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Easy"
+                    />
 
-            <Button
-                android:id="@+id/btnModerate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medium"
-                />
-
-            <Button
-                android:id="@+id/btnDifficult"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Difficult"
-                />
-
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/btnModerate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium"
+                    />+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/btnDifficult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficult"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

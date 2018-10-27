@@ -2,6 +2,7 @@ package com.example.forest.quickguess.DB.Categories;
 
 import android.content.Context;
 import com.example.forest.quickguess.DB.DB;
+import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 
 public final class QuestionCategoryRepositories {
     public Context context;
@@ -18,4 +19,12 @@ public final class QuestionCategoryRepositories {
         DB.getInstance(context).categoriesQuestionDao().insertAll(questionCategory);
     }
 
+    public static int getUserSelectedCategory(Context context)
+    {
+        SharedPreferenceHelper.PREF_FILE = "user_played";
+        String selected_category = SharedPreferenceHelper
+                .getSharedPreferenceString(context,"category",null)
+                .toLowerCase();
+        return DB.getInstance(context).categoriesQuestionDao().getCategoryIdByName(selected_category);
+    }
 }

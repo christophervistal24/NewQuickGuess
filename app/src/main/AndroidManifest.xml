@@ -57,9 +57,9 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider240267453345824"
             android:exported="true" />
-        <service android:name=".Service.MyService" />
+        <service android:name=".Service.backgroundMusicService" />
         <activity android:name=".FriendsActivity" />
-        <activity android:name=".RanksActivity"></activity>
+        <activity android:name=".RanksActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

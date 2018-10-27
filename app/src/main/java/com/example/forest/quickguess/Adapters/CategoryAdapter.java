@@ -58,7 +58,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         final Categories categoriesItem = categoryItems.get(position);
         String capitalizeCategory = categoriesItem.getCategory_name().substring(0,1).toUpperCase() + categoriesItem.getCategory_name().substring(1);
         holder.txtCategory.setText(capitalizeCategory);
-        holder.txtDescription.setText(categoriesItem.getCategory_description());
         eventHandler(lst_title[position],holder.btnEasy,holder.btnModerate,holder.btnDifficult);
     }
 

@@ -13,7 +13,6 @@ public class FirstLaunchHelper {
 
     // Shared preferences file name
     private static final String PREF_NAME = "welcome";
-
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
     public FirstLaunchHelper(Context context) {

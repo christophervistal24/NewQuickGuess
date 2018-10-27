@@ -2,25 +2,33 @@ package com.example.forest.quickguess;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
+import com.example.forest.quickguess.DB.User.User;
 import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.Helpers.RedirectHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
@@ -47,7 +55,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Unbinder unbinder;
     @BindView(R.id.userLife) TextView userLife;
     @BindView(R.id.userPoints) TextView userPoints;
-
+    @BindView(R.id.userName) TextView userName;
+    @BindView(R.id.bottomNavigation) BottomNavigationView bottom_navigation;
+    @BindView(R.id.categories)
+    LinearLayout categories;
 
     private int user_life;
     private int user_points;
@@ -73,8 +84,18 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUserLifeAndPoints() {
-        userPoints.setText(String.valueOf(user_points));
-        userLife.setText(String.valueOf(user_life));
+
+        String username = DB.getInstance(getContext()).userDao().getUsername();
+        if  (username != null)
+        {
+            String capitalizeName = username.substring(0,1).toUpperCase() + username.substring(1);
+            userName.setText(capitalizeName);
+        } else {
+            userName.setText("Guest");
+        }
+        userPoints.setText("Points : ".concat(String.valueOf((user_points))));
+        userLife.setText("Life : ".concat(String.valueOf(user_life)));
+//        changeColorForText(userLife.getText().toString());
     }
 
     private void lifeRevive() { //check time in for life revive
@@ -100,10 +121,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         unbinder = ButterKnife.bind(this,view);
         rebaseLifeAndPoints();
         lifeRevive();
-        initFont();
         user_life = UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories);
         initUserPoints();
         initUserLifeAndPoints();
+        bottom_navigation.setOnNavigationItemSelectedListener(navListener);
+        bottom_navigation.getMenu().getItem(0).setCheckable(false);
        return view;
     }
 
@@ -112,10 +134,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         userPoints.setText(null);
     }
 
-    private void initFont() {
-        userLife.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        userPoints.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -128,37 +147,19 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    @OnClick({R.id.btnCategories,R.id.btnAbout,R.id.btnRanks})
+    @OnClick(R.id.btnCategories)
     public void onClick(View view) {
         String classname = null;
         switch (view.getId())
         {
             case R.id.btnCategories:
                 classname = "CategoriesActivity";
-                disposeFragments();
-                break;
-
-            case R.id.btnAbout:
-                classname = "AboutActivity";
-                SoundUtil.songLoad(getContext(),R.raw.click)
-                    .start();
-                disposeFragments();
-                break;
-
-            case R.id.btnRanks:
-                classname = "RanksActivity";
                 SoundUtil.songLoad(getContext(),R.raw.click)
                         .start();
                 disposeFragments();
                 break;
-        }
-        try {
-            Class <?> Cref = Class .forName("com.example.forest.quickguess."+classname);
-            new RedirectHelper(getActivity(),Cref);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+       }
+        redirection(classname);
     }
 
     @Override
@@ -183,16 +184,19 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             countDownTimer = new CountDownTimer(counter,1000) {
                 @Override
                 public void onTick(long mill) {
-                    userLife.setText(String.format(Locale.getDefault(),"%02d:%02d",
+                    userLife.setText(String.format("%s%s", getString(R.string.time_left), String.format(Locale.getDefault(), "%02d:%02d",
                             TimeUnit.MILLISECONDS.toMinutes(mill),
                             TimeUnit.MILLISECONDS.toSeconds(mill) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mill))
-                            )
+                            ))
                     );
                 }
 
                 @Override
                 public void onFinish() {
+                    //add user life value 5
+                    UserRepositories.defaultLifetoUser(((MainActivity)getActivity()).lifeRepositories);
+                    userLife.setText("Life : ".concat(String.valueOf(UserRepositories.getLifeOfUser(((MainActivity)getActivity()).lifeRepositories))));
                     countDownTimer.cancel();
                     isCounterRunning = false;
                 }
@@ -201,6 +205,47 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         isCounterRunning = true;
     }
 
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    String classname = null;
+                    switch (item.getItemId())
+                    {
+                        case R.id.nav_ranks :
+                            classname = "RanksActivity";
+                            SoundUtil.songLoad(getContext(),R.raw.click)
+                                    .start();
+                            disposeFragments();
+                            break;
+
+                        case R.id.nav_info:
+                            classname = "AboutActivity";
+                            SoundUtil.songLoad(getContext(),R.raw.click)
+                                    .start();
+                            disposeFragments();
+                            break;
+
+                        case R.id.nav_settings:
+                            SoundUtil.songLoad(getContext(),R.raw.click)
+                                    .start();
+                            Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                    redirection(classname);
+                    return true;
+                }
+            };
+
+    private void redirection(String classname) {
+        try {
+            Class <?> Cref = Class .forName("com.example.forest.quickguess."+classname);
+            new RedirectHelper(getActivity(),Cref);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onStop() {

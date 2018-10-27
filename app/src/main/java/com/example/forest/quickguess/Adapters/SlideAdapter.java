@@ -20,8 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.example.forest.quickguess.AnswerQuestion;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
@@ -32,9 +30,7 @@ import com.example.forest.quickguess.MainActivity;
 import com.example.forest.quickguess.R;
 public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
     private Context context;
-    private YoYo.YoYoString descriptionAnimation;
-    private YoYo.YoYoString leftArrowAnimation;
-    private YoYo.YoYoString rightArrowAnimation;
+
     private LifeRepositories lifeRepositories;
     // list of titles
     private String[] lst_title = {
@@ -103,48 +99,12 @@ public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
 
 
     private void setArrows(int position , View v) {
-    ImageView left = v.findViewById(R.id.leftArrow);
-        ImageView right = v.findViewById(R.id.rightArrow);
-        if (position >= 1 && position <= 6)
-        {
-            left.setImageResource(R.drawable.left);
-           leftArrowAnimation =  YoYo.with(Techniques.Pulse)
-                    .duration(800)
-                    .delay(500)
-                    .repeat(-1)
-                    .pivotX(-200)
-                    .playOn(left);
-            rightArrowAnimation = YoYo.with(Techniques.Pulse)
-                    .duration(800)
-                    .delay(500)
-                    .pivotX(200)
-                    .repeat(-1)
-                    .playOn(right);
-        } else if (position == 0) {
-            rightArrowAnimation = YoYo.with(Techniques.Pulse)
-                    .duration(800)
-                    .delay(500)
-                    .pivotX(200)
-                    .repeat(-1)
-                    .playOn(right);
-        } else if (position == 7)
-        {
-            right.setVisibility(View.GONE);
-            left.setImageResource(R.drawable.left);
-            leftArrowAnimation =  YoYo.with(Techniques.Pulse)
-                    .duration(800)
-                    .delay(500)
-                    .pivotX(200)
-                    .repeat(-1)
-                    .playOn(left);
-        }
+
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        descriptionAnimation = null;
-        leftArrowAnimation = null;
-        rightArrowAnimation = null;
+
         container.removeView((RelativeLayout)object);
     }
 

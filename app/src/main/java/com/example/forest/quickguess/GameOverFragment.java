@@ -12,14 +12,11 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.UserStatus.UserStatusRepositories;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
-import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
-import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
 
 import java.util.Objects;
@@ -60,10 +57,8 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         category = SharedPreferenceHelper.getSharedPreferenceString(getContext(),"category",null);
         int category_id = DB.getInstance(getContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
 //        int level_id = ((AnswerQuestion)getActivity()).questionRepositories.questionClassier(category_id);
-        playAnswered.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        txtScore.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        btnPlayAgain.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-//        BackgroundUtil.changeAnswerQuestionBG(gameOverLayout,level_id);
+
+
         fm = getFragmentManager();
         funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
 

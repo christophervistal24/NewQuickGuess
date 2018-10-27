@@ -17,25 +17,6 @@
     >
 
      <ImageView
-         android:id="@+id/gwyn"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:src="@drawable/sample1"
-         android:scaleType="centerCrop"
-         android:layout_marginStart="-250dp"
-         android:contentDescription="@null" />
-
-     <ImageView
-         android:id="@+id/rod"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:src="@drawable/rod"
-         android:layout_gravity="right"
-         android:layout_marginEnd="-250dp"
-         android:contentDescription="@null"
-         tools:ignore="RtlHardcoded" />
-
-     <ImageView
          android:id="@+id/chris"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"

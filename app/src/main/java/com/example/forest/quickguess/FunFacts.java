@@ -2,15 +2,12 @@ package com.example.forest.quickguess;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.forest.quickguess.DB.DB;
-import com.example.forest.quickguess.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
-import com.example.forest.quickguess.DB.User.User;
-import com.example.forest.quickguess.DB.User.UserRepositories;
-import com.example.forest.quickguess.Helpers.FontHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.GameOverUtil;
@@ -56,7 +47,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
 
 
     TextView question;
-    ImageView imageBackground;
+//    ImageView imageBackground;
     LinearLayout timerLayout;
 
     private Context context;
@@ -87,15 +78,18 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
         context = getContext();
-
         question = getActivity().findViewById(R.id.question);
         timerLayout = getActivity().findViewById(R.id.timerLayout);
-        imageBackground = getActivity().findViewById(R.id.background);
+        //imageBackground = getActivity().findViewById(R.id.background);
+        initClickable();
+        return view;
+    }
+
+    private void initClickable() {
         ((AnswerQuestion)getActivity()).choice_a.setClickable(true);
         ((AnswerQuestion)getActivity()).choice_b.setClickable(true);
         ((AnswerQuestion)getActivity()).choice_c.setClickable(true);
         ((AnswerQuestion)getActivity()).choice_d.setClickable(true);
-        return view;
     }
 
 
@@ -114,25 +108,34 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
 
 
 
-    //TODO REFACTOR
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-        Typeface fontHelper = new FontHelper().dimboFont(context);
-        title.setTypeface(fontHelper);
-        content.setTypeface(fontHelper);
-        btnNext.setTypeface(fontHelper);
-        facebookShare.setTypeface(fontHelper);
+    private String[] getQuestionInformation()
+    {
         SharedPreferenceHelper.PREF_FILE="question";
-        title.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"title",null));
-        content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
+        String title = SharedPreferenceHelper.getSharedPreferenceString(context,"title",null);
+        String content = SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null);
         String image = SharedPreferenceHelper.getSharedPreferenceString(context,"question_image",null);
-        SharedPreferenceHelper.PREF_FILE="user_played";
-        String category = SharedPreferenceHelper.getSharedPreferenceString(context,"category",null);
+        return new String[]{title,content,image};
+    }
+
+    private void loadQuestionImage(String image) {
+        SharedPreferenceHelper
+                .PREF_FILE="user_played";
+        String category = SharedPreferenceHelper
+                .getSharedPreferenceString(context,"category",null);
         Picasso.with(getContext())
                 .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
-                .placeholder(R.drawable.placeholder)
                 .into(imageFunfacts);
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        //get the info about question
+        String[] qInfo = getQuestionInformation();
+        title.setText(qInfo[0]); // question title
+        content.setText(qInfo[1]); // question content
+        String image = qInfo[2]; // question image
+        loadQuestionImage(image); //get the image of question
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -186,12 +189,6 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         answerQuestionActivity.clockTick.start();
     }
 
-    protected void isUserCanSaveFriends() {
-       try {
-           int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
-           answerQuestionActivity.friendsRepositories.checkAnsweredQuestion(category_id, items);
-       } catch  (NullPointerException ignored) {}
-    }
 
 
     @Override

@@ -1,17 +1,12 @@
 package com.example.forest.quickguess.DB.User;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
-import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.DB.Points.Points;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
-import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
-import com.example.forest.quickguess.Utilities.PointsUtil;
-
 
 
 public class UserRepositories {

@@ -1,13 +1,12 @@
 package com.example.forest.quickguess;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 
 import com.example.forest.quickguess.APIsInterface.APIRanks;
@@ -20,13 +19,13 @@ import com.example.forest.quickguess.RecyclerView.Ranks;
 import com.example.forest.quickguess.Services.WebService.RanksRequest;
 import com.example.forest.quickguess.Services.WebService.RanksResponse;
 import com.example.forest.quickguess.Services.WebService.RanksService;
-import com.example.forest.quickguess.Utilities.TypeFaceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +44,7 @@ public class RanksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranks);
-        TypeFaceUtil.initDimboFont(this);
+
         ButterKnife.bind(this);
         ranksRecyclerView = findViewById(R.id.ranksRecyclerView);
         ranksRecyclerView.setHasFixedSize(true);
@@ -120,12 +119,13 @@ public class RanksActivity extends AppCompatActivity {
         RanksRequest ranksRequest = new RanksRequest();
         Call<List<RanksResponse>> ranksResponseCall = services.getAllRanks(ranksRequest);
         // Set up progress before call
-        final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(RanksActivity.this);
-        progressDialog.setMessage("Please wait . . .");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        final AlertDialog dialog = new SpotsDialog.Builder().setContext(this)
+                .setTheme(R.style.dialogTheme)
+                .build();
+        dialog.show();
+
         // show it
-        progressDialog.show();
+        dialog.show();
         ranksResponseCall.enqueue(new Callback<List<RanksResponse>>() {
             @Override
             public void onResponse(Call<List<RanksResponse>> call, Response<List<RanksResponse>> response) {
@@ -138,12 +138,12 @@ public class RanksActivity extends AppCompatActivity {
                     }
                 adapter = new RanksAdapter(userRanks,getApplicationContext());
                 ranksRecyclerView.setAdapter(adapter);
-                progressDialog.dismiss();
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<RanksResponse>> call, Throwable t) {
-                progressDialog.dismiss();
+                dialog.dismiss();
             }
         });
 
