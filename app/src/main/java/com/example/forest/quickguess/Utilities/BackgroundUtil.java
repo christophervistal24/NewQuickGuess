@@ -46,22 +46,13 @@ public class BackgroundUtil {
     {
        if (level_id == 1)
        {
-           buttons[0].setBackgroundResource(R.drawable.btn_easy);
-           buttons[1].setBackgroundResource(R.drawable.btn_easy);
-           buttons[2].setBackgroundResource(R.drawable.btn_easy);
-           buttons[3].setBackgroundResource(R.drawable.btn_easy);
+
        } else if (level_id == 2)
        {
-           buttons[0].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[1].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[2].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[3].setBackgroundResource(R.drawable.btn_moderate);
+
        } else if (level_id == 3)
        {
-           buttons[0].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[1].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[2].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[3].setBackgroundResource(R.drawable.btn_difficult);
+
        }
     }
 
@@ -69,12 +60,12 @@ public class BackgroundUtil {
     {
         if (level_id == 1)
         {
-            answerQuestionLayout.setBackgroundResource(R.drawable.easy_bg);
+
         } else  if (level_id == 2){
-            answerQuestionLayout.setBackgroundResource(R.drawable.moderate_bg);
+
         } else if (level_id == 3)
         {
-            answerQuestionLayout.setBackgroundResource(R.drawable.difficult_bg);
+
         }
     }
 }

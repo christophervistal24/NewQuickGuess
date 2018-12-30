@@ -6,14 +6,15 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9FF"
+    android:background="@drawable/background"
+    android:fillViewport="true"
     >
+    <!--android:background="#FAF9FF"-->
 <RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#FAF9FF"
     android:id="@+id/answerQuestionLayout"
     tools:context=".AnswerQuestion">
 
@@ -91,7 +92,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="18dp"
                 android:background="#fff"
-                android:fontFamily="@font/font_roboto_regular"
+                android:textColor="#5a5a5a"
+                android:fontFamily="@font/montserrat_black"
                  />
 
             <TextView
@@ -101,7 +103,7 @@
                 android:text="@string/defaultTimerValue"
                 android:textColor="#5a5a5a"
                 android:textSize="55sp"
-                android:fontFamily="@font/font_roboto_regular"
+                android:fontFamily="@font/montserrat_extrabold"
                 android:layout_centerHorizontal="true"
                 />
 
@@ -114,7 +116,8 @@
                 android:layout_marginEnd="18dp"
                 android:layout_alignParentBottom="true"
                 android:background="#fff"
-                android:fontFamily="@font/font_roboto_regular"
+                android:fontFamily="@font/montserrat_black"
+                android:textColor="#5a5a5a"
                 tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
@@ -148,8 +151,7 @@
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
+                android:layout_height="match_parent"
                 android:background="@drawable/paper"
                 android:fontFamily="@font/handwrite_bold"
                 android:gravity="center"
@@ -176,9 +178,9 @@
                     android:id="@+id/choice_a"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:textColor="#7C72FF"
-                    android:background="#f6f6f6"
-                    android:fontFamily="@font/font_roboto"
+                    android:textColor="#003399"
+                    android:background="@drawable/rounded_corner_3"
+                    android:fontFamily="@font/montserrat_black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:text="@string/choice_a"

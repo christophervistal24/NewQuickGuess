@@ -53,7 +53,7 @@ public class UserRepositories {
         return pointsRepositories.getUserPoints();
     }
 
-
+/*
     //check if user has points
     public static void isUserHasPoints(Context context , int userPoints , PointsRepositories pointsRepositories)
     {
@@ -74,7 +74,7 @@ public class UserRepositories {
         }
         //sending to rest api the points
         pointsRepositories.sendPoints();
-    }
+    }*/
 
 
 

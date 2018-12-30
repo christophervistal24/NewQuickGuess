@@ -7,15 +7,19 @@
     android:layout_height="match_parent"
     android:clickable="true"
     tools:context=".MenuFragment"
-    android:background="#FAF9FF"
+    android:background="@drawable/background"
     android:focusable="true">
 
-
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/body"
-        tools:ignore="ContentDescription" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/game_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/logo"/>
+
+
 
     <!--REMOVE THE VISIBILITY GONE -->
     <RelativeLayout
@@ -26,14 +30,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/card_margin_horizontal2"
-            android:layout_marginTop="@dimen/card_margin_horizontal2"
-            android:layout_marginRight="@dimen/card_margin_horizontal2"
-            android:background="@drawable/header"
-            tools:ignore="ContentDescription" />
+
 
 
         <LinearLayout
@@ -42,13 +39,7 @@
             android:layout_centerInParent="true"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
 
-                android:src="@drawable/avatar" />
 
             <LinearLayout
                 android:layout_marginStart="20dp"
@@ -93,46 +84,74 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-        <!--TEMPORARY MARGIN TOP -->
-        <Button
-            android:id="@+id/btnCategories"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_corner_2"
-            android:fontFamily="@font/font_roboto"
-            android:padding="20dp"
-            android:text="@string/play_string"
-            android:textColor="#7C72FF"
-
-            />
-
-    </LinearLayout>
-
-
-    <!-- Bottom Navigation Layout-->
-    <LinearLayout
-        android:id="@+id/layout_bottom_navigation"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@null"
-        android:orientation="vertical">
+        >
 
-        <android.support.design.widget.BottomNavigationView
-
-            android:id="@+id/bottomNavigation"
+        <Button
+            android:layout_marginTop="70dp"
+            android:id="@+id/btnCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-45dp"
-            android:layout_marginRight="-45dp"
-            android:layout_marginBottom="-35dp"
-            android:background="@drawable/footer_bg"
-            android:theme="@style/NavigationView"
-            app:menu="@menu/bottom_navigation" />
+            android:layout_gravity="center"
+            android:text="@string/categories"
+            android:background="@null"
+            android:shadowColor="#003399"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="35sp"
+        />
 
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Settings"
+            android:background="@null"
+            android:shadowColor="#003399"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="35sp"
+            />
+
+        <Button
+            android:id="@+id/btnRanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Ranks"
+            android:background="@null"
+            android:shadowColor="#003399"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="35sp"
+            />
+
+        <Button
+            android:id="@+id/btnAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="About"
+            android:background="@null"
+            android:shadowColor="#003399"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="35sp"
+            />
     </LinearLayout>
+
+
 </RelativeLayout>

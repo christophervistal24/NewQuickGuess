@@ -43,7 +43,8 @@ public class PointsRepositories {
             APIPoints services = refrofit.create(APIPoints.class);
             PointsRequest pointsRequest = new PointsRequest();
             int fetchPointsByAnswer = DB.getInstance(context).userStatusDao().countAllForPoints();
-            pointsRequest.setPoints(fetchPointsByAnswer * 100);
+            int extraPoints = DB.getInstance(context).pointsDao().getUserPoints();
+            pointsRequest.setPoints( (fetchPointsByAnswer * 100) + extraPoints);
             pointsRequest.setUsername(UserRepositories.username(context));
             //send an request
             Call<PointsResponse> pointsResponseCall = services.updatePoints(pointsRequest);
@@ -62,7 +63,8 @@ public class PointsRepositories {
 
     public void initUserPoints(TextView points)
     {
-        int current_points = ((DB.getInstance(context).userStatusDao().countAllForPoints()) * 100);
+        int extraPoints = DB.getInstance(context).pointsDao().getUserPoints();
+        int current_points = (DB.getInstance(context).userStatusDao().countAllForPoints() * 100) + extraPoints ;
         points.setText(String.valueOf(current_points));
     }
 

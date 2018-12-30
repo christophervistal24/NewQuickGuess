@@ -21,6 +21,12 @@ public class GameOverUtil {
         return  SharedPreferenceHelper.getSharedPreferenceLong(context,"time",0);
     }
 
+    public static void deleteGameOverTime(Context context)
+    {
+        SharedPreferenceHelper.PREF_FILE="game_over_time";
+        SharedPreferenceHelper.removeSharedPreferenceLong(context,"time");
+    }
+
     public static void isGameOverOrNot(Activity activity, LifeRepositories lifeRepositories, TextView life)
     {
         int decreaseCurrentLife = (lifeRepositories.getUserLife());

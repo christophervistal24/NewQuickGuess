@@ -10,6 +10,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface APIRegister {
-    @POST("api/user")
+    @POST("api/register")
     Call<UserRegisterResponse> register(@Body UserRegisterRequest userRegisterRequest);
 }

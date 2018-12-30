@@ -9,6 +9,7 @@
     tools:context=".RanksActivity">
 
     <EditText
+        android:singleLine="true"
         android:id="@+id/searchPlayer"
         android:hint="@string/search_here"
         android:layout_width="match_parent"

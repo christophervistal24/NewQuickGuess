@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameOverFragment"
-
+    android:background="@drawable/background"
     android:id="@+id/gameOverLayout"
     >
+
+
 
     <LinearLayout
         android:padding="20dp"
@@ -16,15 +18,34 @@
         android:orientation="vertical"
         android:layout_centerInParent="true"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Game over"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowColor="#003399"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            />
 
         <TextView
-            android:textColor="#fff"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#FFFFFF"
             android:id="@+id/txtAnswered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="30sp"
+            android:textSize="35sp"
             android:layout_gravity="center"
+            android:shadowColor="#003399"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
             android:text="Answered : "/>
 
 
@@ -37,14 +58,17 @@
             android:text="@string/need_to_answer"/>
 
         <TextView
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textColor="#fff"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
             android:id="@+id/txtScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="35sp"
             android:layout_gravity="center"
-            android:textStyle="bold"
+            android:shadowColor="#003399"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
             android:text="@string/score"/>
 
     </LinearLayout>
@@ -55,13 +79,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnPlayAgain"
         android:layout_gravity="center"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/rounded_corner_2"
         android:text="@string/play_again"
-        android:textColor="#707070"
+        android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/sniglet_extrabold"
         android:textSize="25sp"
         android:padding="10dp"
-        android:textStyle="bold"
+        android:shadowColor="#003399"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         />
 
 </RelativeLayout>

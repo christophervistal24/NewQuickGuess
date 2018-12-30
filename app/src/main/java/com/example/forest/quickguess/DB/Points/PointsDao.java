@@ -11,7 +11,6 @@ import android.arch.persistence.room.Update;
 @Dao
 public interface PointsDao {
 
-
     @Insert(onConflict = OnConflictStrategy.FAIL)
     void insert(Points points);
 
@@ -21,6 +20,10 @@ public interface PointsDao {
     @Query("SELECT points FROM user_points LIMIT 1")
     int getUserPoints();
 
+
     @Delete
     void delete(Points points);
+
+//    void addUserPoints(int points);
+
 }

@@ -10,15 +10,22 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.example.forest.quickguess.APIsInterface.APIRanks;
+import com.example.forest.quickguess.APIsInterface.APISendStatus;
 import com.example.forest.quickguess.Adapters.RanksAdapter;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Ranks.RanksRepositories;
+import com.example.forest.quickguess.DB.UserStatus.UserStatus;
 import com.example.forest.quickguess.Helpers.Connectivity;
+import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.RecyclerView.Ranks;
 import com.example.forest.quickguess.Services.WebService.RanksRequest;
 import com.example.forest.quickguess.Services.WebService.RanksResponse;
 import com.example.forest.quickguess.Services.WebService.RanksService;
+import com.example.forest.quickguess.Services.WebService.UserStatusRequest;
+import com.example.forest.quickguess.Services.WebService.UserStatusResponse;
+import com.example.forest.quickguess.Services.WebService.UserStatusService;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +61,11 @@ public class RanksActivity extends AppCompatActivity {
         if (Connectivity.isConnectedFast(getApplicationContext())) //request from the api
         {
             displayAllUserRanks();
-        } else {
-            getRanksInDB();
         }
 
+      /*else {
+            getRanksInDB();
+        }*/
         searchUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -91,7 +99,6 @@ public class RanksActivity extends AppCompatActivity {
     }
 
     private void searchUserInRanks(String data) {
-
         userRanks = new ArrayList<>();
         List<com.example.forest.quickguess.DB.Ranks.Ranks> ranksList = DB.getInstance(getApplicationContext())
                 .ranksDao().getAll();
@@ -111,13 +118,11 @@ public class RanksActivity extends AppCompatActivity {
 
 
     private void displayAllUserRanks() {
-        (new PointsRepositories(getApplicationContext())).sendPoints();
+        sendUserStatus(); // send current status
         userRanks = new ArrayList<>();
-
         Retrofit refrofit = RanksService.RetrofitInstance(getApplicationContext());
         APIRanks services = refrofit.create(APIRanks.class);
-        RanksRequest ranksRequest = new RanksRequest();
-        Call<List<RanksResponse>> ranksResponseCall = services.getAllRanks(ranksRequest);
+        Call<List<RanksResponse>> ranksResponseCall = services.getAllRanks();
         // Set up progress before call
         final AlertDialog dialog = new SpotsDialog.Builder().setContext(this)
                 .setTheme(R.style.dialogTheme)
@@ -146,9 +151,30 @@ public class RanksActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
     }
 
+    private void sendUserStatus() {
+        List<UserStatus> a = DB.getInstance(getApplicationContext()).userStatusDao().getAllStatusOfUser();
+        String username = DB.getInstance(getApplicationContext()).userDao().getUsername();
+        SharedPreferenceHelper.PREF_FILE = "user_token";
+        String token = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(),"token",null);
+        Gson gson = new Gson();
+        Retrofit refrofit = UserStatusService.RetrofitInstance(getApplicationContext());
+        APISendStatus services = refrofit.create(APISendStatus.class);
+        UserStatusRequest userStatusRequest = new UserStatusRequest(username,gson.toJson(a),token);
+        Call<UserStatusResponse> call = services.sendUserStatus(userStatusRequest);
+        call.enqueue(new Callback<UserStatusResponse>() {
+            @Override
+            public void onResponse(Call<UserStatusResponse> call, Response<UserStatusResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UserStatusResponse> call, Throwable t) {
+
+            }
+        });
+    }
 /*    private void saveUsersToPref(List<Ranks> userRanks)
     {
         SharedPreferenceHelper.PREF_FILE ="all_users";

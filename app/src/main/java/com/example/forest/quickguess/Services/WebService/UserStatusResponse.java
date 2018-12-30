@@ -1,13 +1,28 @@
 package com.example.forest.quickguess.Services.WebService;
 
-public class UserStatusResponse {
-  private String data;
 
-    public String getData() {
-        return data;
+import com.google.gson.annotations.SerializedName;
+
+public class UserStatusResponse {
+    @SerializedName("code")
+    private int code;
+
+    @SerializedName("message")
+    private String message;
+
+    public int getCode() {
+        return code;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -5,20 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoriesActivity"
-    android:background="#FAF9FF"
+
     android:orientation="vertical">
 
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@drawable/body"-->
-        <!--tools:ignore="ContentDescription" />-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
         android:scrollbars="vertical"
+        android:background="@drawable/bg_blur"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
+
 
 </LinearLayout>

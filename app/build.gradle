@@ -50,5 +50,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'me.grantland:autofittextview:0.2.+'
     implementation 'com.marcouberti.autofitbutton:android-auto-fit-button:0.1.1@aar'
+//    implementation 'com.github.Shashank02051997:FancyGifDialog-Android:1.1'
 
 }

@@ -12,7 +12,7 @@ public interface UserStatusDao {
     @Insert
     void addUserStatus(UserStatus userStatus);
 
-    @Query("SELECT COUNT(category_id) FROM user_status WHERE category_id = :category_id")
+    @Query("SELECT COUNT(category_id) FROM user_status WHERE category_id = :category_id AND question_result = 1")
     int countAnsweredQuestion(int category_id);
 
     @Query("SELECT COUNT(id) FROM user_status WHERE category_id =:category_id  AND class_id=:class_id")
@@ -26,5 +26,11 @@ public interface UserStatusDao {
 
     @Query("DELETE FROM user_status WHERE class_id = :class_id AND category_id  = :category_id")
     void deleteByClassIdAndCategoryId(int class_id,int category_id);
+
+    @Query("DELETE FROM user_status")
+    void deleteAllFromUserStatus();
+
+    @Query("SELECT COUNT(id) FROM user_status WHERE category_id =:category_id  AND class_id=:class_id AND question_result = 1")
+    int countAllCorrectByClassIdAndCategoryId(int category_id, int class_id);
 
 }

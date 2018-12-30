@@ -10,9 +10,17 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_bg"
         android:scaleType="centerCrop"
+        android:background="@drawable/background"
         tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:layout_width="333dp"
+        android:layout_height="175dp"
+        android:src="@drawable/game_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/logo"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,12 +32,17 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="35sp"
-            android:textColor="#707070"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/font_roboto"
-            android:text="Q U I C K G U E S S"/>
+            android:text="@string/loading"
+            android:background="@null"
+            android:shadowColor="#003399"
+            android:fontFamily="@font/sniglet_extrabold"
+            android:textColor="#ffffff"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="50sp"
+            android:layout_marginTop="70dp"
+            />
 
 
     </LinearLayout>

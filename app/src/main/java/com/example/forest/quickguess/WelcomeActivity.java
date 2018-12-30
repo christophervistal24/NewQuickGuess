@@ -19,7 +19,9 @@ import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.Helpers.FirstLaunchHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
 
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.Properties;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.forest.quickguess.APIsInterface.APISendStatus;
 import com.example.forest.quickguess.DB.Categories.QuestionCategoryRepositories;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Friends.FriendsRepositories;
@@ -24,8 +25,12 @@ import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.DB.Questions.Questions;
 import com.example.forest.quickguess.DB.UserStatus.UserStatus;
+import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Models.FunFactsContent;
 import com.example.forest.quickguess.QuestionInterface.QuestionInterface;
+import com.example.forest.quickguess.Services.WebService.UserStatusRequest;
+import com.example.forest.quickguess.Services.WebService.UserStatusResponse;
+import com.example.forest.quickguess.Services.WebService.UserStatusService;
 import com.example.forest.quickguess.Utilities.AnswerUtil;
 import com.example.forest.quickguess.Utilities.EncryptUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
@@ -33,17 +38,20 @@ import com.example.forest.quickguess.Utilities.GameBundleUitl;
 import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 import com.example.forest.quickguess.Utilities.TimerUtil;
+import com.google.gson.Gson;
 import com.marcouberti.autofitbutton.AutoFitButton;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.grantland.widget.AutofitHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AnswerQuestion extends AppCompatActivity  implements QuestionInterface{
 
@@ -100,7 +108,6 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         lifeRepositories     = new LifeRepositories(getApplicationContext());
         pointsRepositories   = new PointsRepositories(getApplicationContext());
         questionRepositories = new QuestionRepositories(getApplicationContext());
-        friendsRepositories  = new FriendsRepositories(getApplicationContext());
         fragmentUtil          = new FragmentUtil();
         bundle                 = new Bundle();
         clockTick = soundTick(R.raw.clock_tick);
@@ -230,23 +237,31 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
         new FunFactsContent(getApplicationContext(),correct_answer,q.getFun_facts(),q.getFun_facts_image());
         hideTimer();
         hideQuestionLayout();
-        if (AnswerUtil.checkAnswer(answer, bundle, correct_answer)) {correct();}
+        if (AnswerUtil.checkAnswer(answer, bundle, correct_answer)) {
+            correct();
+        }
         else { wrong(); }
     }
 
 
     @Override
     public void correct() {
+        SharedPreferenceHelper.PREF_FILE = "user";
         SoundUtil.songLoad(getApplicationContext(),R.raw.check).start();
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
+        userStatus.setUser_id(SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_id",0));
         // 1 - is eqaul to correct
         userStatus.setQuestion_result(1);
         userStatus.setCategory_id(q.getCategory_id());
         userStatus.setClass_id(q.getClass_id());
         //add user answered question
         DB.getInstance(getApplicationContext()).userStatusDao().addUserStatus(userStatus);
-        pointsRepositories.sendPoints();
+        SharedPreferenceHelper.PREF_FILE="user_token";
+        if (SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(),"token",null) != null)
+        {
+            sendStatus();
+        }
         pointsRepositories.initUserPoints(points);
         result();
     }
@@ -255,13 +270,15 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     @Override
     public void wrong() {
         SoundUtil.songLoad(getApplicationContext(),R.raw.wrong).start();
+        SharedPreferenceHelper.PREF_FILE = "user";
         int decreaseCurrentLife = (lifeRepositories.getUserLife()) - 1;
         lifeRepositories.setLifeToUser(decreaseCurrentLife);
-        pointsRepositories.sendPoints();
+//        pointsRepositories.sendPoints();
         pointsRepositories.initUserPoints(points);
         UserStatus userStatus = new UserStatus();
         userStatus.setQuestion_id(q.getId());
         // 0 - is eqaul to wrong
+        userStatus.setUser_id(SharedPreferenceHelper.getSharedPreferenceInt(getApplicationContext(),"user_id",0));
         userStatus.setQuestion_result(0);
         userStatus.setCategory_id(q.getCategory_id());
         userStatus.setClass_id(q.getClass_id());
@@ -392,6 +409,30 @@ public class AnswerQuestion extends AppCompatActivity  implements QuestionInterf
     }
 
 
+    private void sendStatus() //used if the user do not switch a account but want to save his / her status
+    {
+        List<UserStatus> a = DB.getInstance(getApplicationContext()).userStatusDao().getAllStatusOfUser();
+        String username = DB.getInstance(getApplicationContext()).userDao().getUsername();
+        SharedPreferenceHelper.PREF_FILE = "user_token";
+        String token = SharedPreferenceHelper.getSharedPreferenceString(getApplicationContext(),"token",null);
+        Gson gson = new Gson();
+//        Log.d("sample",gson.toJson(a));
+        Retrofit refrofit = UserStatusService.RetrofitInstance(getApplicationContext());
+        APISendStatus services = refrofit.create(APISendStatus.class);
+        UserStatusRequest userStatusRequest = new UserStatusRequest(username,gson.toJson(a), token);
+        Call<UserStatusResponse> call = services.sendUserStatus(userStatusRequest);
+        call.enqueue(new Callback<UserStatusResponse>() {
+            @Override
+            public void onResponse(Call<UserStatusResponse> call, Response<UserStatusResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UserStatusResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 }

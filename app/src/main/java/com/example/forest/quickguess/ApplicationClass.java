@@ -37,7 +37,6 @@ public class ApplicationClass extends Application{
     QuestionCategoryRepositories questionCategoryRepositories;
     QuestionRepositories questionRepositories;
     PointsRepositories pointsRepositories;
-    FriendsRepositories friendsRepositories;
     Points points;
 
 
@@ -53,7 +52,6 @@ public class ApplicationClass extends Application{
         LeakCanary.install(this);*/
         questionCategoryRepositories = new QuestionCategoryRepositories(this);
         questionRepositories = new QuestionRepositories(this);
-        friendsRepositories = new FriendsRepositories(this);
 //        sendUserStatus()
         insertCategories();
         insertQuestions();
@@ -65,9 +63,9 @@ public class ApplicationClass extends Application{
     {
         if (Connectivity.isConnectedWifi(getApplicationContext()))
         {
-            pointsRepositories = new PointsRepositories(getApplicationContext());
-            points = new Points();
-            pointsRepositories.sendPoints();
+//            pointsRepositories = new PointsRepositories(getApplicationContext());
+//            points = new Points();
+//            pointsRepositories.sendPoints();
         }
     }
 

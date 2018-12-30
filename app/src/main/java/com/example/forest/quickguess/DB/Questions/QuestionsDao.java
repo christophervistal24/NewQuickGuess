@@ -35,4 +35,5 @@ public interface QuestionsDao {
             "classication_id = :class_id")
     int countAllByClassification(int category_id,int class_id);
 
+
 }

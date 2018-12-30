@@ -1,22 +1,44 @@
 package com.example.forest.quickguess.Services.WebService;
 
-import com.example.forest.quickguess.DB.UserStatus.UserStatus;
-
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class UserStatusRequest {
+    @SerializedName("data")
     private String data;
 
+    @SerializedName("username")
+    private String username;
 
-    public UserStatusRequest(String data) {
+    @SerializedName("token")
+    private String token;
+
+
+    public UserStatusRequest(String username , String data , String token) {
         this.data = data;
+        this.username = username;
+        this.token = token;
+    }
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getData() {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
@@ -120,11 +122,21 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     private void loadQuestionImage(String image) {
         SharedPreferenceHelper
                 .PREF_FILE="user_played";
+        //get the category that user played
         String category = SharedPreferenceHelper
                 .getSharedPreferenceString(context,"category",null);
-        Picasso.with(getContext())
+        //get the image name
+        int imgResId = getResources().getIdentifier(image,"drawable",context.getPackageName());
+        if  (imgResId != 0) //check if the image is in the drawable files
+        {
+            Picasso.with(getContext()).load(imgResId).into(imageFunfacts);
+        } else {
+            // make an request to API server
+                Picasso.with(getContext())
                 .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
                 .into(imageFunfacts);
+        }
+
     }
 
 
@@ -167,6 +179,7 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         if (lifeRepositories != null) {
             if  (lifeRepositories.getUserLife() <= 0)
             {
+                disposeFragments();
                 GameOverUtil.saveTime(getContext(),System.currentTimeMillis());
                 answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
                 answerQuestionActivity.displayGameOverFragment();
@@ -177,6 +190,12 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
                 FragmentUtil.sDisableFragmentAnimations = false;
                 continueLayout();
            }
+        }
+    }
+
+    private void disposeFragments() {
+        for (Fragment fragment:getFragmentManager().getFragments()) {
+            getFragmentManager().beginTransaction().remove(fragment).commit();
         }
     }
 

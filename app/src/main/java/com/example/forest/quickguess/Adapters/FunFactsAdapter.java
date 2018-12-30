@@ -44,7 +44,6 @@ public class FunFactsAdapter extends RecyclerView.Adapter<FunFactsAdapter.ViewHo
         holder.txtQuestion.setText(questionsItem.getQuestion_fun_facts());
         Picasso.with(context)
                 .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+questionsItem.getImage())
-                .placeholder(R.drawable.placeholder)
                 .into(holder.funfactsImage);
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
