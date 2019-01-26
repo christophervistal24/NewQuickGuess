@@ -4,9 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="30dp"
     android:id="@+id/itemLayout">
-
-
 
 
             <LinearLayout
@@ -15,7 +14,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="#fff"
+                android:background="@drawable/rounded_corner2"
                 tools:ignore="UselessParent">
 
                 <TextView android:id="@+id/top"
@@ -29,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/player_name"
-                    android:layout_marginStart="35dp"
+                    android:layout_marginStart="25dp"
                     android:textColor="#828282"
                     android:textSize="25sp"
                     android:textStyle="bold"

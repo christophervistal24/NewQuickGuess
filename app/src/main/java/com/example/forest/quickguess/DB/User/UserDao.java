@@ -12,7 +12,7 @@ import com.example.forest.quickguess.DB.Points.Points;
 public interface UserDao
 {
     @Insert
-     void addUser(User user);
+    void addUser(User user);
 
     @Query("SELECT COUNT(username) FROM users")
     int isUserExists();
@@ -20,5 +20,6 @@ public interface UserDao
     @Query("SELECT username FROM users LIMIT 1")
     String getUsername();
 
-
+    @Query("UPDATE users SET username=:username")
+    void updateUser(String username);
 }

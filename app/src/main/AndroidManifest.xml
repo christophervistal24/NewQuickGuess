@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.forest.quickguess">
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -25,8 +25,7 @@
 
         <activity
             android:name=".WelcomeActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,8 +34,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-           />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CategoriesActivity"
             android:screenOrientation="portrait" />
@@ -57,9 +55,12 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider240267453345824"
             android:exported="true" />
-        <service android:name=".Service.MyService" />
+
+        <service android:name=".Service.backgroundMusicService" />
+
         <activity android:name=".FriendsActivity" />
-        <activity android:name=".RanksActivity"></activity>
+        <activity android:name=".RanksActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

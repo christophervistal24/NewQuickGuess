@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_sky"
+
     tools:context=".DisplayAllFunFacts">
 
     <EditText
@@ -12,11 +14,16 @@
         android:hint="Search here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:background="@null"
+        android:fontFamily="@font/dimbo_regular"
+        android:textAlignment="center"
+        android:textSize="23dp"
+        android:padding="8dp"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:scrollbars="vertical"
+        android:padding="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>

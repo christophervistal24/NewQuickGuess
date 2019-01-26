@@ -1,66 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/congrats_bg"
+    android:background="#ffffff"
     tools:context=".FinishCategoryActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C O N G R A T U L A T I O N S"
+        android:gravity="center_horizontal"
+        android:textSize="33sp"
+        android:textColor="#ffffff"
+        android:background="#FFC62C"
+        android:fontFamily="@font/dimbo_regular"/>
 
+    <ImageView
+        android:id="@+id/trophy"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/new_trophy"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:contentDescription="@null" />
 
-    <!--<View android:id="@+id/emiter_top_left"-->
-        <!--android:layout_gravity="top|left"-->
-        <!--android:layout_marginTop="-20dp"-->
-        <!--android:layout_width="1dp"-->
-        <!--android:layout_height="1dp" />-->
-
-    <!--<View android:id="@+id/emiter_top_right"-->
-        <!--android:layout_gravity="top|right"-->
-        <!--android:layout_marginTop="-20dp"-->
-        <!--android:layout_width="1dp"-->
-        <!--android:layout_height="1dp" />-->
-
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/trophyLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             >
 
-            <ImageView
-                android:id="@+id/trophy"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/trophy"
-                android:contentDescription="@null" />
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/message"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:textColor="#fff"
-                android:text="Hello World"
-                android:textAlignment="center"
-                android:layout_marginBottom="5dp"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/dimbo_regular"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:shadowColor="#c6991f"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/dimbo_regular"
+                    android:text="Hello World"
+                    android:padding="20dp"
+                    android:textAlignment="center"
+                    android:textColor="#FFC62C"
+
+                    android:textSize="35sp" />
+            </LinearLayout>
+
+
 
             <Button
                 android:id="@+id/viewAllFunFacts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:textSize="20sp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
+                android:background="#fbfbfb"
+                android:fontFamily="@font/dimbo_regular"
                 android:padding="9dp"
-                android:text="@string/viewAllText"/>
+                android:text="@string/viewAllText"
+                android:textColor="#5a5a5a"
+                android:textSize="25sp" />
 
-        </LinearLayout>
+            <Button
+                android:layout_alignParentBottom="true"
+                android:id="@+id/resetThisLevel"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:padding="9dp"
+                android:textColor="#5a5a5a"
+                android:background="#fbfbfb"
+                android:fontFamily="@font/dimbo_regular"
+                android:text="@string/reset"/>
+        </RelativeLayout>
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-
-</LinearLayout>
+</FrameLayout>

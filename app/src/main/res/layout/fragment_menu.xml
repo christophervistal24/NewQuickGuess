@@ -30,6 +30,7 @@
             android:layout_alignParentStart="true"
             />
 
+
       <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -38,10 +39,13 @@
             android:layout_marginStart="60dp"
             android:layout_alignParentStart="true"
             android:text="5"
+            android:fontFamily="@font/dimbo_regular"
             android:textColor="#707070"
             android:gravity="center"
             android:textStyle="bold"
             />
+
+
 
 
         <ImageView
@@ -50,6 +54,7 @@
             android:background="@drawable/points"
             android:layout_alignParentEnd="true"
             />
+
 
        <TextView
            android:id="@+id/userPoints"
@@ -62,9 +67,11 @@
            android:gravity="center"
            android:layout_marginEnd="45dp"
            android:text="0"
+           android:fontFamily="@font/dimbo_regular"
             />
 
     </RelativeLayout>
+
 
     <ImageView
         android:layout_below="@+id/LifeAndPoints"
@@ -77,12 +84,35 @@
 
 
     <LinearLayout
+        android:id="@+id/userLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USERNAME"
+            android:fontFamily="@font/dimbo_regular"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:shadowColor="#c6991f"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/categories"
         android:layout_centerInParent="true"
-        android:layout_below="@id/title"
+        android:layout_below="@id/userLayout"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+
 
         <ImageButton
             android:id="@+id/btnAbout"
@@ -91,6 +121,16 @@
             android:layout_gravity="center"
             android:background="@drawable/info"
             android:scaleType="centerInside" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/channel1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="Notify"
+            android:scaleType="centerInside" />
+
 
         <ImageButton
             android:id="@+id/btnCategories"
@@ -103,7 +143,7 @@
 
 
         <ImageButton
-            android:id="@+id/btnOptions"
+            android:id="@+id/btnSettings"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center"

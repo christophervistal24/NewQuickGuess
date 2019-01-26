@@ -27,6 +27,10 @@ public interface QuestionsDao {
     @Query("SELECT * FROM questions WHERE category_id = :category_id")
     List<Questions> getQuestionByCategoryId(int category_id);
 
+    //get all the questions by category_id
+    @Query("SELECT * FROM questions WHERE category_id = :category_id AND classication_id=:class_id")
+    List<Questions> getQuestionByCategoryIdAndClassID(int category_id,int class_id);
+
     //get the number of questions by id
     @Query("SELECT COUNT(*) FROM questions WHERE category_id = :category_id")
     int countQuestionByCategory(int category_id);

@@ -37,18 +37,24 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textStyle="bold"
-            android:textColor="#fff"
+            android:textColor="#01400e"
             android:textAlignment="center"
+            android:fontFamily="@font/dimbo_regular"
+            android:shadowColor="#c6991f"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:textSize="40sp" />
 
         <TextView
             android:id="@+id/content"
+            android:fontFamily="@font/dimbo_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:padding="10dp"
-            android:textColor="#707070"
-            android:background="#fff"
+            android:textColor="#060bb4"
+            android:background="@drawable/rounded_corner2"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -66,12 +72,13 @@
                 android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#707070"
+                android:fontFamily="@font/dimbo_regular"
+                android:textColor="#660101"
                 android:text="@string/_continue"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/rounded_corner" />
+                android:background="@null" />
 
             <Button
                 android:id="@+id/facebookShare"
@@ -79,10 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/share"
-                android:textColor="#707070"
+                android:textColor="#5e0202"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/rounded_corner" />
+                android:fontFamily="@font/dimbo_regular"
+                android:background="@null" />
         </LinearLayout>
 
 

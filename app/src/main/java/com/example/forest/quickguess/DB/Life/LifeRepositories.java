@@ -25,6 +25,11 @@ public class LifeRepositories {
 
     public int getUserLife()
     {
-        return DB.getInstance(context).lifeDao().getUserLife();
+        int userLife = DB.getInstance(context).lifeDao().getUserLife();
+        if (userLife < 0) {
+            return 0;
+        } else {
+            return DB.getInstance(context).lifeDao().getUserLife();
+        }
     }
 }

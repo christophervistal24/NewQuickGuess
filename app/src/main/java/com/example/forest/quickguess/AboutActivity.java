@@ -20,10 +20,6 @@ public class AboutActivity extends AppCompatActivity {
 
     @BindView(R.id.contactUs) Button contactus;
     @BindView(R.id.gwyn) ImageView Gwyn;
-    @BindView(R.id.rod) ImageView Rod;
-    @BindView(R.id.chris) ImageView Chris;
-    @BindView(R.id.neth) ImageView Neth;
-    @BindView(R.id.mitch) ImageView Mitch;
     @BindView(R.id.scrollView) ScrollView scroll;
 
     @Override
@@ -39,34 +35,6 @@ public class AboutActivity extends AppCompatActivity {
 
     private void initAnimation() {
 
-        /*YoYo.with(Techniques.Swing)
-               .duration(1500)
-                .repeat(1)
-               .playOn(Gwyn);
-
-        YoYo.with(Techniques.FlipInX)
-                .duration(2000)
-                .delay(3000)
-                .repeat(1)
-                .playOn(Rod);
-
-        YoYo.with(Techniques.FlipInX)
-                .duration(2000)
-                .delay(3000)
-                .repeat(1)
-                .playOn(Chris);
-
-        YoYo.with(Techniques.FlipInX)
-                .duration(2000)
-                .delay(3000)
-                .repeat(1)
-                .playOn(Neth);
-
-        YoYo.with(Techniques.FlipInX)
-                .duration(2000)
-                .delay(3000)
-                .repeat(1)
-                .playOn(Mitch);*/
     }
 
     @OnClick(R.id.contactUs)

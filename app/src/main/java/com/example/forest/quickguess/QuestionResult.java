@@ -37,15 +37,16 @@ public class QuestionResult extends Fragment implements IOnBackPressed {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
-            unbinder = ButterKnife.bind(this,view);
-            String result = this.getArguments().getString("result");
-            ((AnswerQuestion)getActivity()).choice_a.setClickable(false);
-            ((AnswerQuestion)getActivity()).choice_b.setClickable(false);
-            ((AnswerQuestion)getActivity()).choice_c.setClickable(false);
-            ((AnswerQuestion)getActivity()).choice_d.setClickable(false);
-            resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
+        View view =  inflater.inflate(R.layout.fragment_question_result, container, false);
+        unbinder = ButterKnife.bind(this,view);
+        this.setQuestionResultBG();
         return view;
+    }
+
+    //if the user answer correct bg is check
+    private void setQuestionResultBG() {
+        String result = this.getArguments().getString("result");
+        resultIcon.setImageResource(getResources().getIdentifier(result,"drawable", Objects.requireNonNull(getActivity()).getPackageName()));
     }
 
     @OnClick(R.id.questionResult)
@@ -72,6 +73,6 @@ public class QuestionResult extends Fragment implements IOnBackPressed {
         for (int i = 0; i < count; ++i) {
             fm.popBackStack();
         }
-       Log.d("Instance",getContext().toString());
+        Log.d("Instance",getContext().toString());
     }
 }

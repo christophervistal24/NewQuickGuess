@@ -12,14 +12,13 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.UserStatus.UserStatusRepositories;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
-import com.example.forest.quickguess.Utilities.BackgroundUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
-import com.example.forest.quickguess.Utilities.TypeFaceUtil;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
+import com.example.forest.quickguess.Utilities.UserUtil;
 
 
 import java.util.Objects;
@@ -36,8 +35,10 @@ import butterknife.Unbinder;
 public class GameOverFragment extends Fragment  implements  View.OnClickListener{
 
     @BindView(R.id.txtAnswered) TextView playAnswered;
+    @BindView(R.id.txtAnswered2) TextView playAnswered2;
     @BindView(R.id.txtneeedToAnswer) TextView needToAnswer;
     @BindView(R.id.txtScore) TextView txtScore;
+    @BindView(R.id.txtScore2) TextView txtScore2;
     @BindView(R.id.gameOverLayout) RelativeLayout gameOverLayout;
     @BindView(R.id.btnPlayAgain) Button btnPlayAgain;
 
@@ -56,48 +57,31 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_over, container, false);
         unbinder = ButterKnife.bind(this,view);
-        SharedPreferenceHelper.PREF_FILE="user_played";
-        category = SharedPreferenceHelper.getSharedPreferenceString(getContext(),"category",null);
-        int category_id = DB.getInstance(getContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
-//        int level_id = ((AnswerQuestion)getActivity()).questionRepositories.questionClassier(category_id);
-        playAnswered.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        txtScore.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-        btnPlayAgain.setTypeface(Typeface.createFromAsset(getContext().getAssets(),  "fonts/Dimbo_Regular.ttf"));
-//        BackgroundUtil.changeAnswerQuestionBG(gameOverLayout,level_id);
-        fm = getFragmentManager();
-        funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
 
-        playAnswered.setText("Answered : "+String.valueOf(getAnswered()));
-//        needToAnswer.setText("Question need to answer to save one friend : "+String.valueOf( getNeedToAnswer()));
-        txtScore.setText("Score : "+String.valueOf(getAnswered()*100));
+        //get the selected category of the user
+        this.category = UserUtil.getSelectedCategoryOfUser(getContext());
+
+        this.fm = getFragmentManager();
+
+        //get fragment fun facts
+        this.funFactsFragment = (FunFacts) fm.findFragmentById(R.id.fragment_fun_facts);
+
+        //display score and answered question of the user
+        this.setScoreAndAnswerOfUser();
+
         return view;
+    }
+
+    private void setScoreAndAnswerOfUser() {
+        playAnswered.setText(String.format("Answered : %s", String.valueOf(getAnswered())));
+        playAnswered2.setText(String.format("Answered : %s", String.valueOf(getAnswered())));
+        txtScore.setText(String.format("Score : %s", String.valueOf(getAnswered() * 100)));
+        txtScore2.setText(String.format("Score : %s", String.valueOf(getAnswered() * 100)));
     }
 
     private int getAnswered()
     {
         return UserStatusRepositories.answeredByCategory(getContext(),category.toLowerCase());
-    }
-
-    private int getNeedToAnswer()
-    {
-        int category_id = DB.getInstance(getContext()).categoriesQuestionDao().getCategoryIdByName(category.toLowerCase());
-        int remainingNeedToSaveFriends = DB.getInstance(getContext()).friendsDao().countSaveFriendsByCategoryId(category_id);
-        int need = 0;
-        switch(remainingNeedToSaveFriends)
-        {
-            case 1 :
-                need =  (funFactsFragment.items[2] - getAnswered());
-                break;
-
-            case 2 :
-                need =  (funFactsFragment.items[1] - getAnswered());
-                break;
-
-            case 3 :
-                need = (funFactsFragment.items[0] - getAnswered());
-                break;
-        }
-        return need;
     }
 
 
@@ -118,14 +102,14 @@ public class GameOverFragment extends Fragment  implements  View.OnClickListener
         FragmentUtil.sDisableFragmentAnimations = true;
         fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentUtil.sDisableFragmentAnimations = false;
-//        funFactsFragment.continueLayout();
-        ((AnswerQuestion)Objects.requireNonNull(getActivity())).finish();
-      }
+        ((AnswerQuestion)getActivity()).finish();
+    }
 
 
     @Override
     public void onDestroy() {
         unbinder.unbind();
+        DB.getInstance(getContext()).destroyInstance();
         super.onDestroy();
     }
 

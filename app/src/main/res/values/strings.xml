@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">Quick Guess</string>
     <string name="your_username">Player name</string>
-    <string name="baseUrl">https://playquickguess.herokuapp.com/</string>
-    <!--<string name="baseUrl">http://192.168.1.7:80/</string>-->
+    <!--<string name="baseUrl">https://playquickguess.herokuapp.com/</string>-->
+    <string name="baseUrl">http://192.168.1.12:8000/</string>
     <string name="facebook_app_id">240267453345824</string>
     <string name="facebook_login_protocol_scheme">fb240267453345824</string>
     <string name="read_more">Read more…</string>
+    <string name="user_guest">Guest</string>
+    <string name="life">Life</string>
+    <string name="time_left">Time left : </string>
+    <string name="reset">RESET</string>
 
     <!--String resource for slides -->
     <string name="title_activity_welcome">Home Screen</string>
@@ -39,7 +43,7 @@
     <string name="instruction_1">Instruction 1</string>
 
     <string name="points">points</string>
-    <string name="viewAllText">View all Fun facts</string>
+    <string name="viewAllText">Fun facts</string>
     <string name="tap_to_start">TAP TO START</string>
     <string name="contact_us">Contact us</string>
     <string name="dummy_question">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Sit tempore cum id saepe?</string>
@@ -54,9 +58,21 @@
     <string name="score">Score :</string>
     <string name="need_to_answer">Need to answer :</string>
     <string name="easy_level">Easy</string>
-    <string name="moderate_level">moderate</string>
-    <string name="difficult_level">difficult</string>
+    <string name="moderate_level">Moderate</string>
+    <string name="difficult_level">Difficult</string>
+    <string name="input_pin">Password</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="game_over">Game over</string>
+    <string name="sound_fx">SOUND FX :</string>
+    <string name="switch_account">Switch Account</string>
+    <string name="bg_music">BG MUSIC :</string>
+    <string name="about">The purpose of this game is to give knowledge and also to expand their critical thinking that will help them answer efficiently.</string>
+    <string name="version">The game is designed only to run on Android OS with Oreo 8.1, Nougat 7.0, Marshmallow 6.0, Lollipop 5.1, Kit Kat 4.4, Gingerbread 2.2 and Ice cream platforms. It also supports the previous version of the said platforms but some features may not be compatible.</string>
+    <string name="choice_d">Choice D</string>
+    <string name="choice_c">Choice C</string>
+    <string name="choice_b">Choice B</string>
+    <string name="choice_a">Choice A</string>
 
-    <item type="id" name="class_id" />
-    <item type="id" name="category" />
+    <item name="class_id" type="id" />
+    <item name="category" type="id" />
 </resources>

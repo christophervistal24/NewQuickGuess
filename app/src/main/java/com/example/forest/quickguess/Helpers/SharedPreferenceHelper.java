@@ -93,4 +93,14 @@ public class SharedPreferenceHelper {
         SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
         return settings.getLong(key, defValue);
     }
+
+    public static void removeSharedPreferenceLong(Context context, String key)
+    {
+        SharedPreferences settings = context.getSharedPreferences(PREF_FILE, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove("time").apply();
+    }
+
+
+
 }

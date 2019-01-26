@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.forest.quickguess.SettingsActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_sky"
+        android:scaleType="fitXY"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="30dp"
+        android:orientation="vertical">
+
+
+
+        <Button
+            android:layout_marginBottom="20dp"
+            android:id="@+id/switchAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#707070"
+            android:padding="10dp"
+            android:textSize="25sp"
+            android:background="@drawable/rounded_corner2"
+            android:fontFamily="@font/dimbo_regular"
+            android:text="@string/switch_account"/>
+
+
+        <Switch
+            android:background="@drawable/rounded_corner2"
+            android:padding="10dp"
+            android:id="@+id/bgMusicOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#707070"
+            android:fontFamily="@font/dimbo_regular"
+            android:textSize="25sp"
+            android:text="@string/bg_music"
+            />
+
+        <Switch
+            android:visibility="gone"
+            android:background="@drawable/rounded_corner"
+            android:padding="10dp"
+            android:id="@+id/soundFxOff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#707070"
+            android:fontFamily="@font/dimbo_regular"
+            android:textSize="25sp"
+            android:text="@string/sound_fx"
+            />
+
+        <Button
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#707070"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corner2"
+            android:fontFamily="@font/dimbo_regular"
+            android:text="SOUND FX : ON"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -2,23 +2,43 @@ package com.example.forest.quickguess.Utilities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.forest.quickguess.DB.Categories.QuestionCategoryRepositories;
+import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.R;
+import com.marcouberti.autofitbutton.AutoFitButton;
 
 import java.util.ArrayList;
 
 public class BackgroundUtil {
 
-    public static int setBackground(Context context, Intent i)
+    private static final String[] list_of_answer_question_bg = {
+            "easy_bg",
+            "moderate_bg",
+            "difficult_bg"
+    };
+
+    private static final String[] list_of_btn_background = {
+            "btn_easy",
+            "btn_moderate",
+            "btn_difficult"
+    };
+
+    private static int difficulty_level;
+
+    private static int getBackground(Context context, String bg_name)
     {
-        return context.getResources().getIdentifier(i.getStringExtra("category_name"),"drawable",context.getPackageName());
+        return context.getResources().getIdentifier(bg_name,"drawable",context.getPackageName());
     }
 
     public static void radioBackgrounds(Context context, RadioGroup RGroup , String correct_answer)
@@ -48,39 +68,22 @@ public class BackgroundUtil {
         }
     }
 
-    public static void changeButtonsBackground(Button[] buttons, int level_id)
+    public static void changeButtonsBackground(AutoFitButton[] buttons , Context context)
     {
-       if (level_id == 1)
-       {
-           buttons[0].setBackgroundResource(R.drawable.btn_easy);
-           buttons[1].setBackgroundResource(R.drawable.btn_easy);
-           buttons[2].setBackgroundResource(R.drawable.btn_easy);
-           buttons[3].setBackgroundResource(R.drawable.btn_easy);
-       } else if (level_id == 2)
-       {
-           buttons[0].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[1].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[2].setBackgroundResource(R.drawable.btn_moderate);
-           buttons[3].setBackgroundResource(R.drawable.btn_moderate);
-       } else if (level_id == 3)
-       {
-           buttons[0].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[1].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[2].setBackgroundResource(R.drawable.btn_difficult);
-           buttons[3].setBackgroundResource(R.drawable.btn_difficult);
-       }
+        int backgroundForBtn = BackgroundUtil.getBackground(context,list_of_btn_background[difficulty_level-1]);
+        for(AutoFitButton btn : buttons)
+            btn.setBackgroundResource(backgroundForBtn);
     }
 
-    public static void changeAnswerQuestionBG(RelativeLayout answerQuestionLayout, int level_id)
+    public static void changeAnswerQuestionBG(ScrollView answerQuestionLayout , Context context)
     {
-        if (level_id == 1)
-        {
-            answerQuestionLayout.setBackgroundResource(R.drawable.easy_bg);
-        } else  if (level_id == 2){
-            answerQuestionLayout.setBackgroundResource(R.drawable.moderate_bg);
-        } else if (level_id == 3)
-        {
-            answerQuestionLayout.setBackgroundResource(R.drawable.difficult_bg);
-        }
+        difficulty_level = QuestionRepositories.class_id;
+        answerQuestionLayout.setBackgroundResource(BackgroundUtil.getBackground(context,list_of_answer_question_bg[difficulty_level-1]));
+    }
+
+    public static void changeColorOfTextView(TextView txtView)
+    {
+        String colorForTextView = (difficulty_level == 3) ? "#ffffff" : "#707070";
+        txtView.setTextColor(Color.parseColor(colorForTextView));
     }
 }

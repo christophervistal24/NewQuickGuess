@@ -10,63 +10,188 @@
 
 
 
- <LinearLayout
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Researchers"
+            android:textColor="#fff"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/dimbo_regular"
+            android:textAlignment="center"
+            />
 
-     <ImageView
-         android:id="@+id/gwyn"
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         >
+         <ImageView
+             android:id="@+id/gwyn"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/boy"
+             android:scaleType="centerCrop"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@null" />
+
+
+
+
+     </RelativeLayout>
+
+     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:src="@drawable/sample1"
-         android:scaleType="centerCrop"
-         android:layout_marginStart="-250dp"
-         android:contentDescription="@null" />
+         android:fontFamily="@font/dimbo_regular"
+         android:textColor="#fff"
+         android:textSize="25sp"
+         android:layout_gravity="center"
+         android:text="Gwyn Paul Dapiton"/>
 
-     <ImageView
-         android:id="@+id/rod"
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         >
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/boy"
+             android:scaleType="centerCrop"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@null" />
+     </RelativeLayout>
+
+     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:src="@drawable/rod"
-         android:layout_gravity="right"
-         android:layout_marginEnd="-250dp"
-         android:contentDescription="@null"
-         tools:ignore="RtlHardcoded" />
+         android:fontFamily="@font/dimbo_regular"
+         android:textColor="#fff"
+         android:textSize="25sp"
+         android:layout_gravity="center"
+         android:text="Christopher Vistal"/>
 
-     <ImageView
-         android:id="@+id/chris"
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         >
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/girl"
+             android:scaleType="centerCrop"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@null" />
+     </RelativeLayout>
+
+     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:src="@drawable/chris"
-         android:layout_marginStart="-250dp"
-         android:contentDescription="@null" />
+         android:fontFamily="@font/dimbo_regular"
+         android:textColor="#fff"
+         android:textSize="25sp"
+         android:textAlignment="center"
+         android:layout_gravity="center_horizontal"
+         android:text="Marneth Sandigan"/>
 
-     <ImageView
-         android:id="@+id/neth"
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         >
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/girl"
+             android:scaleType="centerCrop"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@null" />
+     </RelativeLayout>
+
+     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:src="@drawable/neth"
-         android:layout_gravity="right"
-         android:layout_marginEnd="-250dp"
-         android:contentDescription="@null"
-         tools:ignore="RtlHardcoded" />
+         android:fontFamily="@font/dimbo_regular"
+         android:textColor="#fff"
+         android:textSize="25sp"
+         android:textAlignment="center"
+         android:layout_gravity="center_horizontal"
+         android:text="Rodelyn Sanoria"/>
 
-     <ImageView
-         android:id="@+id/mitch"
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         >
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/girl"
+             android:scaleType="centerCrop"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@null" />
+     </RelativeLayout>
+
+     <TextView
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:src="@drawable/mitch"
-         android:layout_marginStart="-250dp"
-         android:contentDescription="@null" />
+         android:fontFamily="@font/dimbo_regular"
+         android:text="Michelle Cordero"
+         android:layout_gravity="center_horizontal"
+         android:textAlignment="center"
+         android:textColor="#fff"
+         android:textSize="25sp" />
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+        />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dimbo_regular"
+            android:textColor="#fff"
+            android:textAlignment="center"
+            android:textSize="23sp"
+            android:padding="10dp"
+            android:text="@string/about"/>
+
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:fontFamily="@font/dimbo_regular"
+         android:textColor="#fff"
+         android:textAlignment="center"
+         android:textSize="23sp"
+         android:padding="10dp"
+         android:text="@string/version"/>
+
+
+
 
 
      <Button
+              android:layout_marginTop="20dp"
+              android:layout_marginBottom="20dp"
               android:id="@+id/contactUs"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:background="@drawable/rounded_corner2"
+              android:fontFamily="@font/dimbo_regular"
               android:text="@string/contact_us"
+              android:textColor="#707070"
               android:layout_gravity="center"/>
 
       </LinearLayout>

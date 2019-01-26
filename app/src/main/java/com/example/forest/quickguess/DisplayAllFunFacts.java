@@ -14,6 +14,7 @@ import com.example.forest.quickguess.DB.Questions.Questions;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
 import com.example.forest.quickguess.Utilities.EncryptUtil;
+import com.example.forest.quickguess.Utilities.InternetConnectionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,9 @@ public class DisplayAllFunFacts extends AppCompatActivity {
     private RecyclerView questionRecyclerView;
     private RecyclerView.Adapter adapter;
     private List<com.example.forest.quickguess.RecyclerView.Questions> questionsItems;
-    String category;
+    String category , class_id;
     @BindView(R.id.searchFacts) EditText searchFacts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class DisplayAllFunFacts extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                    filter(editable.toString());
+                filter(editable.toString());
             }
         });
     }
@@ -62,7 +64,7 @@ public class DisplayAllFunFacts extends AppCompatActivity {
         int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category);
         //getall questions by category id
         List<Questions> questionsList = DB.getInstance(getApplicationContext())
-                .questionsDao().getQuestionByCategoryId(category_id);
+                .questionsDao().getQuestionByCategoryIdAndClassID(category_id, Integer.parseInt(class_id));
         for(Questions q : questionsList)
         {
 
@@ -88,6 +90,7 @@ public class DisplayAllFunFacts extends AppCompatActivity {
             category = SharedPreferenceHelper.
                     getSharedPreferenceString(getApplicationContext(),"category",null)
                     .toLowerCase();
+            class_id = SharedPreferenceHelper.getSharedPreferenceString(get(),"class_id",null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,20 +114,20 @@ public class DisplayAllFunFacts extends AppCompatActivity {
         questionsItems = new ArrayList<>();
         int category_id = DB.getInstance(getApplicationContext()).categoriesQuestionDao().getCategoryIdByName(category);
         //getall questions by category id
-          List<Questions> questionsList = DB.getInstance(getApplicationContext())
-                  .questionsDao().getQuestionByCategoryId(category_id);
-          for(Questions q : questionsList)
-          {
-              try {
-                  com.example.forest.quickguess.RecyclerView.Questions questions =
-                          new com.example.forest.quickguess.RecyclerView.Questions(EncryptUtil.decryptMethod(q.getCorrect_answer()),EncryptUtil.decryptMethod(q.getFun_facts()),EncryptUtil.decryptMethod(q.getFun_facts_image()));
-                  questionsItems.add(questions);
-              } catch (Exception e)
-              {
-                  e.printStackTrace();
-              }
+        List<Questions> questionsList = DB.getInstance(getApplicationContext())
+                .questionsDao().getQuestionByCategoryIdAndClassID(category_id, Integer.parseInt(class_id));
+        for(Questions q : questionsList)
+        {
+            try {
+                com.example.forest.quickguess.RecyclerView.Questions questions =
+                        new com.example.forest.quickguess.RecyclerView.Questions(EncryptUtil.decryptMethod(q.getCorrect_answer()),EncryptUtil.decryptMethod(q.getFun_facts()),EncryptUtil.decryptMethod(q.getFun_facts_image()));
+                questionsItems.add(questions);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
 
-          }
+        }
         adapter = new FunFactsAdapter(questionsItems,getApplicationContext());
         questionRecyclerView.setAdapter(adapter);
     }

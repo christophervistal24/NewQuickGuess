@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "user_points")
 public class Points {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int points = 0;
 

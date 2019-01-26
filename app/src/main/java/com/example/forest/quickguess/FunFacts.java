@@ -2,8 +2,6 @@ package com.example.forest.quickguess;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,20 +15,17 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.forest.quickguess.DB.DB;
-import com.example.forest.quickguess.DB.GameOver.GameoverRepositories;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
-import com.example.forest.quickguess.DB.User.User;
-import com.example.forest.quickguess.DB.User.UserRepositories;
-import com.example.forest.quickguess.Helpers.FontHelper;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguess.Models.FunFactsContent;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
 import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.IOnBackPressed;
+import com.example.forest.quickguess.Utilities.UserUtil;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -52,12 +47,14 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @BindView(R.id.btnNext) Button btnNext;
     @BindView(R.id.facebookShare) Button facebookShare;
     @BindView(R.id.imageFunfacts) ImageView imageFunfacts;
-    AnswerQuestion answerQuestionActivity;
+
+    AnswerQuestion AnswerQuestionActivity;
 
 
     TextView question;
-    ImageView imageBackground;
-    LinearLayout timerLayout;
+
+
+    RelativeLayout timerLayout;
 
     private Context context;
     private Unbinder unbinder;
@@ -84,19 +81,19 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_fun_facts, container, false);
         unbinder = ButterKnife.bind(this,view);
+
+        //variables for facebook share
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
+
         context = getContext();
 
         question = getActivity().findViewById(R.id.question);
         timerLayout = getActivity().findViewById(R.id.timerLayout);
-        imageBackground = getActivity().findViewById(R.id.background);
-        ((AnswerQuestion)getActivity()).choice_a.setClickable(true);
-        ((AnswerQuestion)getActivity()).choice_b.setClickable(true);
-        ((AnswerQuestion)getActivity()).choice_c.setClickable(true);
-        ((AnswerQuestion)getActivity()).choice_d.setClickable(true);
+
         return view;
     }
+
 
 
     @OnClick(R.id.facebookShare)
@@ -113,26 +110,36 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     }
 
 
+    private void loadQuestionImage(String image) {
+        //get the category that user play
+        String category = UserUtil.getSelectedCategoryOfUser(context);
 
-    //TODO REFACTOR
+        //get the image name
+        int imgResId = getResources().getIdentifier(image,"drawable",context.getPackageName());
+
+        //check if the image is in the drawable files
+        if  (imgResId != 0) {
+            Picasso.with(getContext()).load(imgResId).into(imageFunfacts);
+        } else {  // otherwise make an request to API server
+            Picasso.with(getContext())
+                    .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
+                    .into(imageFunfacts);
+        }
+
+    }
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        // question title
+        title.setText(FunFactsContent.getTitle());
 
-        Typeface fontHelper = new FontHelper().dimboFont(context);
-        title.setTypeface(fontHelper);
-        content.setTypeface(fontHelper);
-        btnNext.setTypeface(fontHelper);
-        facebookShare.setTypeface(fontHelper);
-        SharedPreferenceHelper.PREF_FILE="question";
-        title.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"title",null));
-        content.setText(SharedPreferenceHelper.getSharedPreferenceString(context,"question_content",null));
-        String image = SharedPreferenceHelper.getSharedPreferenceString(context,"question_image",null);
-        SharedPreferenceHelper.PREF_FILE="user_played";
-        String category = SharedPreferenceHelper.getSharedPreferenceString(context,"category",null);
-        Picasso.with(getContext())
-                .load("https://res.cloudinary.com/dpcxcsdiw/image/upload/w_200,h_200,q_auto,fl_lossy/"+category.toLowerCase()+"/"+image)
-                .placeholder(R.drawable.placeholder)
-                .into(imageFunfacts);
+        // question content
+        content.setText(FunFactsContent.getContent());
+
+        //get the image of question and load to image view
+        loadQuestionImage(FunFactsContent.getImage());
+
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -147,51 +154,53 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (FragmentUtil.sDisableFragmentAnimations) {
-            Animation a = new Animation() {};
-            a.setDuration(0);
-            return a;
+            Animation animation = new Animation() {};
+            animation.setDuration(0);
+            return animation;
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     public void isGameOverOrNot()
     {
-        answerQuestionActivity = (AnswerQuestion)getActivity();
-        LifeRepositories lifeRepositories = null;
-        if (answerQuestionActivity != null) {
-            lifeRepositories = answerQuestionActivity.lifeRepositories;
-        }
-        if (lifeRepositories != null) {
-            if  (lifeRepositories.getUserLife() <= 0)
-            {
+        AnswerQuestionActivity = (AnswerQuestion)getActivity();
+        if (AnswerQuestionActivity.lifeRepositories != null && AnswerQuestionActivity.lifeRepositories.getUserLife() < 0) {
+
+                //remove this fragment
+                this.disposeFragments();
+                //save game over time of user
                 GameOverUtil.saveTime(getContext(),System.currentTimeMillis());
-                answerQuestionActivity.life.setText(String.valueOf(lifeRepositories.getUserLife()));
-                answerQuestionActivity.displayGameOverFragment();
+
+                AnswerQuestionActivity.life.setText(
+                                         String.valueOf(AnswerQuestionActivity.lifeRepositories.getUserLife())
+                                 );
+
+                //display the game over fragment
+                AnswerQuestionActivity.displayGameOverFragment();
             } else {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentUtil.sDisableFragmentAnimations = true;
                 fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 FragmentUtil.sDisableFragmentAnimations = false;
                 continueLayout();
-           }
+            }
+    }
+
+    private void disposeFragments() {
+        for (Fragment fragment:getFragmentManager().getFragments()) {
+            getFragmentManager().beginTransaction().remove(fragment).commit();
         }
     }
 
     protected void continueLayout() {
-        answerQuestionActivity.getQuestion();
-        answerQuestionActivity.displayQuestionLayout();
-        answerQuestionActivity.displayTimer();
-        answerQuestionActivity.userPoints = 0;
-        answerQuestionActivity.clockTick =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
-        answerQuestionActivity.clockTick.start();
+        AnswerQuestionActivity.getQuestion();
+        AnswerQuestionActivity.displayQuestionLayout();
+        AnswerQuestionActivity.displayTimer();
+        AnswerQuestionActivity.userPoints = 0;
+        AnswerQuestionActivity.clockTick =  ((AnswerQuestion)getActivity()).soundTick(R.raw.clock_tick);
+        AnswerQuestionActivity.clockTick.start();
     }
 
-    protected void isUserCanSaveFriends() {
-       try {
-           int category_id = ((AnswerQuestion)getActivity()).q.getCategory_id();
-           answerQuestionActivity.friendsRepositories.checkAnsweredQuestion(category_id, items);
-       } catch  (NullPointerException ignored) {}
-    }
 
 
     @Override
@@ -201,13 +210,12 @@ public class FunFacts extends Fragment implements View.OnClickListener , IOnBack
         super.onDestroyView();
     }
 
-    //TODO REFACTOR
+
     @Override
     public void onBackPressed() {
         timerLayout.removeAllViews();
         FragmentManager fm = getFragmentManager();
-        int count = fm.getBackStackEntryCount();
-        for (int i = 0; i < count; ++i) {
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
     }

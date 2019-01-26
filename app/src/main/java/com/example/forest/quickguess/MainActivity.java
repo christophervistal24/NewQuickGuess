@@ -1,24 +1,19 @@
 package com.example.forest.quickguess;
-
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
+
 import com.example.forest.quickguess.APIsInterface.APIRegister;
 import com.example.forest.quickguess.DB.DB;
 import com.example.forest.quickguess.DB.Life.LifeRepositories;
@@ -28,27 +23,23 @@ import com.example.forest.quickguess.DB.User.UserRepositories;
 import com.example.forest.quickguess.Helpers.Connectivity;
 import com.example.forest.quickguess.Helpers.InputHelpers;
 import com.example.forest.quickguess.Helpers.LayoutHelper;
+import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
-import com.example.forest.quickguess.Service.MyService;
+import com.example.forest.quickguess.Service.backgroundMusicService;
 import com.example.forest.quickguess.Services.WebService.UserRegisterRequest;
 import com.example.forest.quickguess.Services.WebService.UserRegisterResponse;
 import com.example.forest.quickguess.Services.WebService.UserRegisterService;
+import com.example.forest.quickguess.Utilities.BGMusicUtil;
 import com.example.forest.quickguess.Utilities.FragmentUtil;
-import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
-import com.example.forest.quickguess.Utilities.TypeFaceUtil;
+import com.example.forest.quickguess.Watcher.HomeWatcher;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,192 +49,251 @@ public class MainActivity extends AppCompatActivity {
 
 
     @BindView(R.id.username) EditText username;
-    @BindView(R.id.emailaddress) EditText emailaddress;
+    @BindView(R.id.userPin) EditText userPin;
     @BindView(R.id.welcomeLayout) RelativeLayout welcomeLayout;
     @BindView(R.id.mainLayout)  RelativeLayout mainLayout;
-    @BindView(R.id.title) ImageView title;
+
+
+    private static final int MAX_LENGTH = 8;
+    private static final int MIN_LENGTH = 4;
 
     public LifeRepositories lifeRepositories;
     FragmentUtil fragmentUtil;
     public PointsRepositories pointsRepositories;
-    private boolean isStop = false;
-    YoYo.YoYoString yoYoString = null;
+    private ProgressDialog progressDialog;
 
 
+    HomeWatcher mHomeWatcher;
+    private boolean mIsBound = false;
+    private backgroundMusicService mServ;
+    private ServiceConnection Scon =new ServiceConnection(){
+
+        public void onServiceConnected(ComponentName name, IBinder
+                binder) {
+            mServ = ((backgroundMusicService.ServiceBinder)binder).getService();
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            mServ = null;
+        }
+    };
+
+    void doBindService(){
+        bindService(new Intent(this,backgroundMusicService.class),
+                Scon,Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
+
+    void doUnbindService()
+    {
+        if(mIsBound)
+        {
+            unbindService(Scon);
+            mIsBound = false;
+        }
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        PowerManager pm = (PowerManager)
+                getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (pm != null) {
+            isScreenOn = pm.isScreenOn();
+        }
+
+        if (!isScreenOn) {
+            if (mServ != null) {
+                mServ.pauseMusic();
+            }
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TypeFaceUtil.initDimboFont(this);
         setContentView(R.layout.activity_main);
-        disposeAllBackstack();
-        startService(new Intent(this,MyService.class));
-        init();
-        checkUser();
-        getUsername();
-     //        printKeyHash();
+        //remove all backstacks
+        this.disposeAllBackstack();
+        //check the user preference for background music of the app
+        this.checkStateOfBGMusic();
+        this.initializeRequireClass();
+        this.checkUser();
+
+
     }
 
-          private void init() {
-            // Normal app init code...
-            TypeFaceUtil.initDimboFont(this);
-            WindowHelper.hideNavigationBar(this);
-            ButterKnife.bind(this);
-            lifeRepositories = new LifeRepositories(this);
-            fragmentUtil = new FragmentUtil();
-            pointsRepositories = new PointsRepositories(getApplicationContext());
-            YoYo.with(Techniques.DropOut)
-                    .duration(2000)
-                    .delay(1000)
-                    .repeat(-1)
-                    .playOn(title);
+    private void checkStateOfBGMusic() {
 
-        }
-
-    /*private void printKeyHash() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo("com.example.forest.quickguessv2",
-                    PackageManager.GET_SIGNATURES);
-            for(Signature signature : info.signatures)
-            {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(),Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
-
-
-        public void getUsername() {
-            AccountManager manager = AccountManager.get(this);
-            Account[] accounts = manager.getAccountsByType("com.google");
-            List<String> possibleEmails = new LinkedList<String>();
-
-            for (Account account : accounts) {
-                // TODO: Check possibleEmail against an email regex or treat
-                // account.name as an email address only for certain account.type values.
-                possibleEmails.add(account.name);
-            }
-
-            if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-                String email = possibleEmails.get(0);
-                String[] parts = email.split("@");
-
-                if (parts.length > 1) {
-             /*   username.setText(parts[0]);
-                emailaddress.setText(email);*/
-                }
-            }
-        }
-
-
-
-        @Override
-        public void onBackPressed() {
-            Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fragment_one);
-            if  (fragmentManager != null)
-            {
-                fragmentUtil.disposeBackStack();
-            } else  {
-                System.exit(0);
-                stopService(new Intent(this,MyService.class));
-            }
-            super.onBackPressed();
-        }
-
-
-    @Override
-        protected void onResume() {
-            checkUser();
-            if  (isStop)
-            {
-                startService(new Intent(this,MyService.class));
-            }
-            disposeAllBackstack();
-            WindowHelper.hideNavigationBar(this);
-            super.onResume();
-        }
-
-
-        @OnClick(R.id.createUser)
-        public void create() {
-            final String player = username.getText().toString();
-
-            if  ( (player.isEmpty()  || InputHelpers.isProperUsername(player) ))
-            {
-                yoYoString = YoYo.with(Techniques.Shake)
-                        .duration(700)
-                        .playOn(username);
-                SoundUtil.songLoad(getApplicationContext(),R.raw.error)
-                        .start();
-                username.setError("Please provide a proper name");
-            } else {
-                signUp(player);
-            }
-
-        }
-
-        private void signUp(final String player)
+        //check if the bg music in user preferences is on
+        //start to play the background music
+        //otherwise unbind and pause.
+        if (BGMusicUtil.isUserWantToPlayBGMusic(this))
         {
-            // Set up progress before call
-            final ProgressDialog progressDialog;
-            progressDialog = new ProgressDialog(this);
-            Typeface.createFromAsset(getAssets(),"fonts/Dimbo_Regular.ttf");
-            progressDialog.setMessage("Please wait . . .");
-            TypeFaceUtil.initDimboFont(this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            // show it
-            progressDialog.show();
-            Retrofit refrofit = UserRegisterService.RetrofitInstance(getApplicationContext());
-            APIRegister services = refrofit.create(APIRegister.class);
-            UserRegisterRequest userRegisterRequest = new UserRegisterRequest(player);
-            Call<UserRegisterResponse> UserRegisterResponseCall = services.register(userRegisterRequest);
-            UserRegisterResponseCall.enqueue(new Callback<UserRegisterResponse>() {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, backgroundMusicService.class);
+            startService(music);
+
+            mHomeWatcher = new HomeWatcher(this);
+            mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
                 @Override
-                public void onResponse(Call<UserRegisterResponse> call, Response<UserRegisterResponse> response) {
-                    if  (response.isSuccessful() && response.body().getMessage().contains("Success"))
-                    {
-                        SoundUtil.songLoad(getApplicationContext(),R.raw.click)
-                                .start();
-                        UserRepositories.createUser(getApplicationContext(),new User(player));
-                        UserRepositories.defaultLifetoUser(lifeRepositories);
-                        checkUser();
-                    } else {
-                        username.setError(response.body().getMessage());
+                public void onHomePressed() {
+                    if (mServ != null) {
+                        mServ.pauseMusic();
                     }
-                    progressDialog.dismiss();
                 }
-
                 @Override
-                public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-
+                public void onHomeLongPressed() {
+                    if (mServ != null) {
+                        mServ.pauseMusic();
+                    }
                 }
             });
+            mHomeWatcher.startWatch();
+        } else {
+            doUnbindService();
+            if (backgroundMusicService.mPlayer != null) {
+                if (backgroundMusicService.mPlayer.isPlaying()) {
+                    backgroundMusicService.mPlayer.pause();
+                }
+            }
         }
+    }
+
+
+    /*
+    * Class initializations */
+    private void initializeRequireClass() {
+        WindowHelper.hideNavigationBar(this);
+        ButterKnife.bind(this);
+        this.lifeRepositories = new LifeRepositories(this);
+        this.fragmentUtil = new FragmentUtil();
+        this.pointsRepositories = new PointsRepositories(getApplicationContext());
+    }
+
+
+
+
+
+    //if the user is in home page and tries to exit the app display the rate dialog
+    @Override
+    public void onBackPressed() {
+        AppRate.with(getApplicationContext())
+                .setInstallDays(2)
+                .setLaunchTimes(1)
+                .setRemindInterval(2)
+                .setOnClickButtonListener(new OnClickButtonListener() {
+                    @Override
+                    public void onClickButton(int which) {
+                        if  (which != -1)
+                        {
+                           Fragment fragmentManager = getSupportFragmentManager().findFragmentById(R.id.fragment_one);
+                            if  (fragmentManager != null)
+                            {
+                                fragmentUtil.disposeBackStack();
+                            }
+                            System.exit(0);
+                        }
+                    }
+                })
+                .monitor();
+        AppRate.showRateDialogIfMeetsConditions(this);
+        AppRate.with(getApplicationContext()).showRateDialog(this);
+    }
 
 
     @Override
-        protected void onStop() {
-        stopService(new Intent(this,MyService.class));
-        isStop = true;
-        super.onStop();
+    protected void onResume() {
+        checkUser();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+        this.disposeAllBackstack();
+        WindowHelper.hideNavigationBar(this);
+        super.onResume();
     }
+
+
+    @OnClick(R.id.createUser)
+    public void create() {
+        final String playerUsername = username.getText().toString();
+        final String playerPin = userPin.getText().toString();
+
+        if  ( playerUsername.isEmpty()  || InputHelpers.isProperUsername(playerUsername) )
+        {
+            SoundUtil.songLoad(getApplicationContext(),R.raw.error)
+                    .start();
+            username.setError("Please provide a proper name");
+
+        } else if ( playerPin.length() > MAX_LENGTH  || playerPin.length() < MIN_LENGTH ) {
+            SoundUtil.songLoad(getApplicationContext(),R.raw.error)
+                    .start();
+            userPin.setError("Pin must be minimum of 4 characters");
+        }  else {
+            signUp(playerUsername,playerPin);
+        }
+
+    }
+
+    private void signUp(final String userName , final String userPin)
+    {
+
+        //Declare progressDialog before so you can use .hide() later!
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("LOADING . . .");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
+        Retrofit refrofit = UserRegisterService.RetrofitInstance(getApplicationContext());
+        APIRegister services = refrofit.create(APIRegister.class);
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest(userName,userPin);
+        Call<UserRegisterResponse> UserRegisterResponseCall = services.register(userRegisterRequest);
+        UserRegisterResponseCall.enqueue(new Callback<UserRegisterResponse>() {
+            @Override
+            public void onResponse(Call<UserRegisterResponse> call, Response<UserRegisterResponse> response) {
+                if  (response.code() != 422)
+                {
+                    //store to database
+                    UserRepositories.createUser(getApplicationContext(),new User(userName));
+
+                    //check if the user already play
+                    SharedPreferenceHelper.PREF_FILE = "game_over_time";
+                    if (SharedPreferenceHelper.getSharedPreferenceLong(getApplicationContext(), "time", 0) == 0) {
+                        if (UserRepositories.getLifeOfUser(lifeRepositories) <= 0 ) // if the user has no remaning life
+                        {
+                            UserRepositories.defaultLifetoUser(lifeRepositories);
+                        }
+                    }
+                    //set the user id of the user
+                    SharedPreferenceHelper.PREF_FILE="user";
+                    SharedPreferenceHelper.setSharedPreferenceInt(getApplicationContext(),"user_id",response.body().getId());
+                    checkUser();
+                    //set the JWT token for user
+                    SharedPreferenceHelper.PREF_FILE = "user_token";
+                    SharedPreferenceHelper.setSharedPreferenceString(getApplicationContext(),"token",response.body().getToken());
+                } else {
+                    username.setError("Username already exists");
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<UserRegisterResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
 
     private void checkUser()
     {
-        /*if (UserRepositories.isUserAlreadyRegister(this)) {
-            LayoutHelper.hideLayout(welcomeLayout);
-            fragmentUtil.startMenuFragment(this);
-        } else {
-            LayoutHelper.showLayout(welcomeLayout);
-        }*/
         if (Connectivity.isConnectedWifi(getApplicationContext()) && !UserRepositories.isUserAlreadyRegister(this)) {
             LayoutHelper.showLayout(welcomeLayout);
         } else {
@@ -261,17 +311,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onPause() {
-
-        super.onPause();
-    }
-
-
-    @Override
     protected void onDestroy() {
-        yoYoString = null;
+        doUnbindService();
+        Intent music = new Intent();
+        music.setClass(this,backgroundMusicService.class);
+        stopService(music);
         DB.getInstance(getApplicationContext()).destroyInstance();
-        stopService(new Intent(this,MyService.class));
         super.onDestroy();
     }
+
+
 }

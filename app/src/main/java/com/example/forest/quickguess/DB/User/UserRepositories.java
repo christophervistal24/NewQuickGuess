@@ -10,6 +10,7 @@ import com.example.forest.quickguess.DB.Life.LifeRepositories;
 import com.example.forest.quickguess.DB.Points.Points;
 import com.example.forest.quickguess.DB.Points.PointsRepositories;
 import com.example.forest.quickguess.Helpers.SharedPreferenceHelper;
+import com.example.forest.quickguess.Utilities.GameOverUtil;
 import com.example.forest.quickguess.Utilities.PointsUtil;
 
 
@@ -43,7 +44,7 @@ public class UserRepositories {
     //default life to user
     public static void defaultLifetoUser(LifeRepositories lifeRepo)
     {
-        lifeRepo.setLifeToUser(5);
+        lifeRepo.setLifeToUser(10);
     }
 
     //get the current life of the user
@@ -57,6 +58,8 @@ public class UserRepositories {
     {
         return pointsRepositories.getUserPoints();
     }
+
+
 
 
     //check if user has points

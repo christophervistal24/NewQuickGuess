@@ -7,12 +7,20 @@ import android.arch.persistence.room.PrimaryKey;
 public class UserStatus {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private int user_id;
     private int question_id;
     private int question_result;
     private int category_id;
     private int class_id;
 
-
+    public UserStatus creator(int question_id, int user_id, int question_result, int category_id, int class_id) {
+        this.user_id = user_id;
+        this.question_id = question_id;
+        this.question_result = question_result;
+        this.category_id = category_id;
+        this.class_id = class_id;
+        return this;
+    }
 
     public int getId() {
         return id;
@@ -48,5 +56,13 @@ public class UserStatus {
 
     public void setClass_id(int class_id) {
         this.class_id = class_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#f6f6f6"
+    android:padding="20dp"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/currentlyUsing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current use : "
+            android:textSize="25sp"
+            android:layout_marginBottom="20dp"
+            />
+        <EditText
+            android:textColor="#707070"
+            android:singleLine="true"
+            android:id="@+id/userName"
+            android:hint="@string/your_username"
+            android:background="@drawable/rounded_corner2"
+            android:padding="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:textColor="#707070"
+            android:singleLine="true"
+            android:id="@+id/userPin"
+            android:hint="@string/input_pin"
+            android:background="@drawable/rounded_corner2"
+            android:padding="20dp"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</RelativeLayout>

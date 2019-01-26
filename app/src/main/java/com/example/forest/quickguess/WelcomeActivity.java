@@ -1,11 +1,17 @@
 package com.example.forest.quickguess;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,14 +25,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dragankrstic.autotypetextview.AutoTypeTextView;
+import com.example.forest.quickguess.DB.Categories.QuestionCategoryRepositories;
+import com.example.forest.quickguess.DB.DB;
+import com.example.forest.quickguess.DB.Questions.QuestionRepositories;
 import com.example.forest.quickguess.Helpers.FirstLaunchHelper;
 import com.example.forest.quickguess.Helpers.WindowHelper;
+import com.example.forest.quickguess.Service.backgroundMusicService;
 import com.example.forest.quickguess.Utilities.LaunchUtil;
 import com.example.forest.quickguess.Utilities.SoundUtil;
 import com.example.forest.quickguess.Utilities.TypeFaceUtil;
+import com.example.forest.quickguess.Watcher.HomeWatcher;
 import com.huanhailiuxin.coolviewpager.CoolViewPager;
+
+import java.lang.ref.WeakReference;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -37,30 +54,129 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button  btnSkip , btnNext;
     private FirstLaunchHelper firstLaunchHelper;
     Handler handler;
+    QuestionCategoryRepositories questionCategoryRepositories;
+    QuestionRepositories questionRepositories;
+    HomeWatcher mHomeWatcher;
+    private boolean mIsBound = false;
+    private backgroundMusicService mServ;
+    private ServiceConnection Scon =new ServiceConnection(){
 
+        public void onServiceConnected(ComponentName name, IBinder
+                binder) {
+            mServ = ((backgroundMusicService.ServiceBinder)binder).getService();
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            mServ = null;
+        }
+    };
+
+    void doBindService(){
+        bindService(new Intent(this,backgroundMusicService.class),
+                Scon,Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
+
+    void doUnbindService()
+    {
+        if(mIsBound)
+        {
+            unbindService(Scon);
+            mIsBound = false;
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        doUnbindService();
+        Intent music = new Intent();
+        music.setClass(this,backgroundMusicService.class);
+        stopService(music);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mServ != null) {
+            mServ.resumeMusic();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        PowerManager pm = (PowerManager)
+                getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (pm != null) {
+            isScreenOn = pm.isScreenOn();
+        }
+
+        if (!isScreenOn) {
+            if (mServ != null) {
+                mServ.pauseMusic();
+            }
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firstLaunchHelper = new FirstLaunchHelper(this);
+        WindowHelper.hideNavigationBar(this);
+        setContentView(R.layout.activity_welcome);
+        doBindService();
+        Intent music = new Intent();
+        music.setClass(this, backgroundMusicService.class);
+        startService(music);
+
+        this.questionCategoryRepositories = new QuestionCategoryRepositories(this);
+        this.questionRepositories = new QuestionRepositories(getApplicationContext());
+        this.firstLaunchHelper = new FirstLaunchHelper(this);
+
         if(!firstLaunchHelper.isFirstTimeLaunch())
         {
-            launchHomeScreen();
+            this.launchHomeScreen();
             finish();
         }
+
+        //for background music home watcher if the user click the home button this methods will
+        //trigger
+        this.mHomeWatcher = new HomeWatcher(this);
+        this.mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
+            @Override
+            public void onHomePressed() {
+                if (mServ != null) {
+                    mServ.pauseMusic();
+                }
+            }
+            @Override
+            public void onHomeLongPressed() {
+                if (mServ != null) {
+                    mServ.pauseMusic();
+                }
+            }
+        });
+        //start to observe
+        this.mHomeWatcher.startWatch();
 
         if  (Build.VERSION.SDK_INT >= 21)
         {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
+
         setContentView(R.layout.activity_welcome);
         TypeFaceUtil.initDimboFont(this);
-        viewPager = findViewById(R.id.view_pager);
-        dotsLayout = findViewById(R.id.layoutDots);
-        btnSkip = findViewById(R.id.btn_skip);
-        btnNext = findViewById(R.id.btn_next);
-        handler = new Handler();
+        this.viewPager = findViewById(R.id.view_pager);
+        this.dotsLayout = findViewById(R.id.layoutDots);
+        this.btnSkip = findViewById(R.id.btn_skip);
+        this.btnNext = findViewById(R.id.btn_next);
+        this.handler = new Handler();
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
@@ -79,7 +195,7 @@ public class WelcomeActivity extends AppCompatActivity {
         addBottomDots(0);
 
         // making notification bar transparent
-        changeStatusBarColor();
+        this.changeStatusBarColor();
 
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager.setScrollMode(CoolViewPager.ScrollMode.VERTICAL);
@@ -92,34 +208,27 @@ public class WelcomeActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchHomeScreen();
-            }
+       //set on click listener for btnSkip
+        this.btnSkip.setOnClickListener((View v) -> {
+            new insertQuestionAsync(WelcomeActivity.this).execute();
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // checking for last page
-                // if last page home screen will be launched
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
+        this.btnNext.setOnClickListener((View v) -> {
+            // checking for last page
+            // if last page home screen will be launched
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                // move to next screen
+                viewPager.setCurrentItem(current);
+            } else {
+                new insertQuestionAsync(WelcomeActivity.this).execute();
             }
+
         });
+
     }
 
     private void addBottomDots(int currentPage) {
-/*        if (currentPage >= 6 || currentPage <= 0)
-        {
-            currentPage = 0;
-        }*/
         TextView[] dots = new TextView[layouts.length];
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
@@ -173,46 +282,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 btnSkip.setVisibility(View.VISIBLE);
             }
 
-           /* switch (position)
-            {
-                case 1:
-                    ImageView wolfy2 = findViewById(R.id.wolfy2);
-                    final AutoTypeTextView message2 = findViewById(R.id.message2);
-                    LaunchUtil.animateWolfy(wolfy2,50,800);
-                    message2.setVisibility(View.VISIBLE);
-                    message2.setTypingSpeed(2);
-                        String messageString = "Last night I celebrate my Birthday at my house, lots of my friends had been there, one of my friends give me a bottle of wine. read more...";
-                        message2.setTextAutoTyping(messageString);
-
-                    message2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            displayMessage2();
-                        }
-                    });
-                    break;
-
-                case 2:
-                    AutoTypeTextView message3 = findViewById(R.id.message3);
-                    message3.setTypingSpeed(2);
-                    message3.setTextAutoTyping("Life of your friends is on my hands if you want to save them, come and play with me Bwahahaha.");
-                    break;
-
-                case 3:
-                    ImageView snake = findViewById(R.id.snake);
-                    LaunchUtil.animateSnake(snake);
-                    AutoTypeTextView message4 = findViewById(R.id.message4);
-                    message4.setTypingSpeed(2);
-                    message4.setTextAutoTyping("This is how my game works! I have many questions that categorized by people, plants, animals, geography, " +
-                            "sports, music, technology, and entertainment. Read more...");
-                    message4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            displayMessage4();
-                        }
-                    });
-                    break;
-            }*/
         }
 
         @Override
@@ -220,39 +289,43 @@ public class WelcomeActivity extends AppCompatActivity {
 
         }
     };
-/*
-    private void displayMessage2()
-    {
-        final AutoTypeTextView message2 = findViewById(R.id.message2);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                message2.setTypingSpeed(40);
-                message2.setTextAutoTyping("We decided to drink it, then suddenly I felt dizzy, when I" +
-                        " woked up all of my friends was gone, and there's a letter beside me");
-            }
-        }, 300);
-    }
 
-    private void displayMessage4() {
-        final AutoTypeTextView message4 = findViewById(R.id.message4);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                message4.setTypingSpeed(2);
-                message4.setTextAutoTyping(" each category contain 100 questions the good news here is for every 30 questions that you answered correctly you can save one of your friend's life.");
-            }
-        }, 300);
-    }*/
-        /**
-         * Making notification bar transparent
-         */
+    /**
+    * Making notification bar transparent
+    */
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    private  class insertQuestionAsync extends AsyncTask<Void , Integer , Void> { //asyc task insert all questions
+        private WeakReference<WelcomeActivity> activityReference;
+        ProgressDialog progressDialog;
+        // only retain a weak reference to the activity
+        insertQuestionAsync(WelcomeActivity context) {
+            activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(WelcomeActivity.this, "Setting up all for you", "Please wait . . . ", true, false);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            questionRepositories.insertAllQuestions();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) { // redirect if finish
+            firstLaunchHelper.setFirstTimeLaunch(false);
+            launchHomeScreen();
+        }
+
     }
 
 
@@ -270,15 +343,6 @@ public class WelcomeActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
-          /*  ImageView wolfy = view.findViewById(R.id.wolfy);
-            AutoTypeTextView message =  view.findViewById(R.id.message);*/
-           /* if (position == 0)
-            {
-                LaunchUtil.animateWolfy(wolfy,50,800);
-                message.setVisibility(View.VISIBLE);
-                message.setTypingSpeed(2);
-                message.setTextAutoTyping("Hello! my name is Wolfy can you help me?");
-            }*/
             container.addView(view);
             TypeFaceUtil.initDimboFont(activity);
             return view;

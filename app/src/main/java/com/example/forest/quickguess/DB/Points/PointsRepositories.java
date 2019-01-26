@@ -2,6 +2,7 @@ package com.example.forest.quickguess.DB.Points;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.forest.quickguess.APIsInterface.APIPoints;
@@ -25,7 +26,7 @@ public class PointsRepositories {
 
     public PointsRepositories(Context context)
     {
-      this.context = context;
+        this.context = context;
     }
 
     public int getUserPoints()
@@ -42,7 +43,8 @@ public class PointsRepositories {
             APIPoints services = refrofit.create(APIPoints.class);
             PointsRequest pointsRequest = new PointsRequest();
             int fetchPointsByAnswer = DB.getInstance(context).userStatusDao().countAllForPoints();
-            pointsRequest.setPoints(fetchPointsByAnswer * 100);
+            int extraPoints = DB.getInstance(context).pointsDao().getUserPoints();
+            pointsRequest.setPoints( (fetchPointsByAnswer * 100) + extraPoints);
             pointsRequest.setUsername(UserRepositories.username(context));
             //send an request
             Call<PointsResponse> pointsResponseCall = services.updatePoints(pointsRequest);
@@ -57,6 +59,13 @@ public class PointsRepositories {
                 }
             });
         }
+    }
+
+    public void initUserPoints(TextView points)
+    {
+        int extraPoints = DB.getInstance(context).pointsDao().getUserPoints();
+        int current_points = (DB.getInstance(context).userStatusDao().countAllForPoints() * 100) + extraPoints ;
+        points.setText(String.valueOf(current_points));
     }
 
 
